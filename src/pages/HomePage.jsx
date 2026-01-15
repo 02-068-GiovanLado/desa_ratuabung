@@ -98,7 +98,7 @@ const HomePage = () => {
                 <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#2C7961] rounded-2xl transition-colors"></div>
               </Link>
 
-              <div className="group relative w-full h-[227px] bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer">
+              <Link to="/infografis#idm" className="group relative w-full h-[227px] bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer block">
                 <div className="relative flex flex-col items-center justify-center h-full p-6">
                   <div className="mb-6">
                     <svg className="w-16 h-16 text-[#2C7961]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -110,9 +110,9 @@ const HomePage = () => {
                   </h3>
                 </div>
                 <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#2C7961] rounded-2xl transition-colors"></div>
-              </div>
+              </Link>
 
-              <div className="group relative w-full h-[227px] bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer">
+              <Link to="/infografis#ppid" className="group relative w-full h-[227px] bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer block">
                 <div className="relative flex flex-col items-center justify-center h-full p-6">
                   <div className="mb-6">
                     <svg className="w-16 h-16 text-[#2C7961]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -124,7 +124,7 @@ const HomePage = () => {
                   </h3>
                 </div>
                 <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#2C7961] rounded-2xl transition-colors"></div>
-              </div>
+              </Link>
             </div>
           </div>
         </div>

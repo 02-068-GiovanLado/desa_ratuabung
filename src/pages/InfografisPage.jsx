@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Chart } from 'chart.js/auto';
 
 const InfografisPage = () => {
+  const location = useLocation();
   const chartInstances = useRef({});
   const [activeTab, setActiveTab] = useState('Penduduk');
 
@@ -21,6 +23,18 @@ const InfografisPage = () => {
     { name: 'IDM', icon: '👑' },
     { name: 'SDGs', icon: '🎯' },
   ];
+
+  // Handle hash navigation from home page
+  useEffect(() => {
+    const hash = location.hash.replace('#', '');
+    if (hash === 'idm') {
+      setActiveTab('IDM');
+    } else if (hash === 'ppid') {
+      setActiveTab('IDM'); // PPID doesn't exist yet, redirect to IDM
+    } else if (hash === 'sdgs') {
+      setActiveTab('SDGs');
+    }
+  }, [location]);
 
   useEffect(() => {
     // Counter animation
@@ -696,7 +710,7 @@ const InfografisPage = () => {
 
       {/* IDM & SDGs Placeholder */}
       {(activeTab === 'IDM' || activeTab === 'SDGs') && (
-        <section className="bg-white py-12 px-8 md:px-12 lg:px-16">
+        <section id={activeTab === 'IDM' ? 'idm' : 'sdgs'} className="bg-white py-12 px-8 md:px-12 lg:px-16">
           <div className="container mx-auto max-w-7xl text-center">
             <h3 className="text-4xl font-bold text-primary mb-4">
               {activeTab === 'IDM' ? 'Indeks Desa Membangun' : 'Sustainable Development Goals'}
