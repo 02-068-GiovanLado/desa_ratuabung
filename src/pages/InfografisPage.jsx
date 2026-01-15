@@ -157,9 +157,25 @@ const InfografisPage = () => {
     { nama: 'Petani', total: 892 },
     { nama: 'Buruh Tani', total: 567 },
     { nama: 'Pedagang', total: 234 },
-    { nama: 'Wiraswasta', total: 189 },
-    { nama: 'PNS', total: 123 },
+    { nama: 'Wirausaha', total: 189 },
     { nama: 'Ibu Rumah Tangga', total: 678 },
+    { nama: 'Karyawan Swasta', total: 156 },
+  ];
+
+  const allPekerjaan = [
+    { jenis: 'Petani', jumlah: 892 },
+    { jenis: 'Buruh Tani', jumlah: 567 },
+    { jenis: 'Pedagang', jumlah: 234 },
+    { jenis: 'Pegawai Negeri Sipil (PNS)', jumlah: 98 },
+    { jenis: 'Guru', jumlah: 87 },
+    { jenis: 'Tenaga Kesehatan', jumlah: 45 },
+    { jenis: 'Karyawan Swasta', jumlah: 156 },
+    { jenis: 'Wirausaha', jumlah: 189 },
+    { jenis: 'Sopir/Driver', jumlah: 76 },
+    { jenis: 'Nelayan', jumlah: 34 },
+    { jenis: 'Ibu Rumah Tangga', jumlah: 678 },
+    { jenis: 'Pelajar/Mahasiswa', jumlah: 245 },
+    { jenis: 'Tidak Bekerja', jumlah: 123 },
   ];
 
   const perkawinanData = [
@@ -241,90 +257,161 @@ const InfografisPage = () => {
       {activeTab === 'APBDes' && (
         <section className="bg-white py-12 px-8 md:px-12 lg:px-16">
           <div className="container mx-auto max-w-7xl">
-            <div className="grid lg:grid-cols-12 gap-8 items-start">
-              {/* Left Column - Title & Info */}
-              <div className="lg:col-span-5">
-                <h3 className="text-4xl font-bold text-primary mb-4">
+            {/* Header with Title and Filter */}
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+              {/* Left - Title */}
+              <div>
+                <h3 className="text-3xl md:text-4xl font-bold text-primary mb-2">
                   APB Desa Bandar Rejo
                 </h3>
-                <p className="text-gray-700 text-base leading-relaxed">
+                <p className="text-gray-700 text-sm md:text-base leading-relaxed">
                   Desa Bandar Rejo, Kecamatan Batanghari, Kabupaten Lampung Timur, Provinsi Lampung
                 </p>
               </div>
 
-              {/* Right Column - Data Card */}
-              <div className="lg:col-span-7">
-                {/* Filter Tahun di atas card */}
-                <div className="mb-4 flex justify-end">
-                  <select className="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm">
-                    <option value="">Pilih Filter Tahun</option>
-                    <option value="2026">2026</option>
-                    <option value="2025">2025</option>
-                    <option value="2024">2024</option>
-                  </select>
+              {/* Right - Filter Tahun */}
+              <div className="flex-shrink-0">
+                <select className="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm min-w-[200px]">
+                  <option value="">Pilih Filter Tahun</option>
+                  <option value="2026">2026</option>
+                  <option value="2025">2025</option>
+                  <option value="2024">2024</option>
+                </select>
+              </div>
+            </div>
+
+            {/* APBDes Content */}
+            <div className="space-y-6">
+              {/* Pendapatan & Belanja */}
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                  <p className="text-sm text-gray-600 mb-2">● Pendapatan</p>
+                  <p className="text-3xl font-bold text-gray-800">Rp0,00</p>
                 </div>
+                <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                  <p className="text-sm text-gray-600 mb-2">● Belanja</p>
+                  <p className="text-3xl font-bold text-gray-800">Rp0,00</p>
+                </div>
+              </div>
 
-                {/* Main APBDes Card */}
-                <div className="bg-white rounded-lg shadow-md border border-gray-200">
-                  {/* Pendapatan & Belanja */}
-                  <div className="grid grid-cols-2 gap-6 p-8">
-                    {/* Pendapatan */}
-                    <div>
-                      <div className="flex items-start gap-2 mb-2">
-                        <div className="w-3 h-3 rounded-full bg-gray-400 mt-1.5"></div>
-                        <h4 className="text-base font-semibold text-gray-700">Pendapatan</h4>
-                      </div>
-                      <p className="text-3xl font-bold text-gray-900 ml-5">Rp0,00</p>
-                    </div>
-
-                    {/* Belanja */}
-                    <div>
-                      <div className="flex items-start gap-2 mb-2">
-                        <div className="w-3 h-3 rounded-full bg-gray-400 mt-1.5"></div>
-                        <h4 className="text-base font-semibold text-gray-700">Belanja</h4>
-                      </div>
-                      <p className="text-3xl font-bold text-gray-900 ml-5">Rp0,00</p>
-                    </div>
+              {/* Pembiayaan */}
+              <div className="bg-white rounded-lg border border-gray-200 p-6">
+                <h4 className="text-lg font-semibold text-gray-800 mb-6">Pembiayaan</h4>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="bg-gray-50 rounded-lg p-6">
+                    <p className="text-sm text-gray-600 mb-2">● Penerimaan</p>
+                    <p className="text-3xl font-bold text-gray-800">Rp0,00</p>
                   </div>
-
-                  {/* Divider */}
-                  <div className="border-t border-gray-200"></div>
-
-                  {/* Pembiayaan Section */}
-                  <div className="p-8">
-                    <h4 className="text-lg font-semibold text-gray-800 mb-6">Pembiayaan</h4>
-                    
-                    <div className="grid grid-cols-2 gap-6">
-                      {/* Penerimaan */}
-                      <div>
-                        <div className="flex items-start gap-2 mb-2">
-                          <div className="w-3 h-3 rounded-full bg-gray-400 mt-1.5"></div>
-                          <h5 className="text-base font-semibold text-gray-700">Penerimaan</h5>
-                        </div>
-                        <p className="text-3xl font-bold text-gray-900 ml-5">Rp0,00</p>
-                      </div>
-
-                      {/* Pengeluaran */}
-                      <div>
-                        <div className="flex items-start gap-2 mb-2">
-                          <div className="w-3 h-3 rounded-full bg-gray-400 mt-1.5"></div>
-                          <h5 className="text-base font-semibold text-gray-700">Pengeluaran</h5>
-                        </div>
-                        <p className="text-3xl font-bold text-gray-900 ml-5">Rp0,00</p>
-                      </div>
-                    </div>
+                  <div className="bg-gray-50 rounded-lg p-6">
+                    <p className="text-sm text-gray-600 mb-2">● Pengeluaran</p>
+                    <p className="text-3xl font-bold text-gray-800">Rp0,00</p>
                   </div>
+                </div>
+              </div>
 
-                  {/* Divider */}
-                  <div className="border-t border-gray-200"></div>
+              {/* Surplus/Defisit */}
+              <div className="bg-white rounded-lg border border-gray-200 p-6">
+                <div className="flex justify-between items-center">
+                  <h4 className="text-lg font-semibold text-gray-800">Surplus/Defisit</h4>
+                  <p className="text-3xl font-bold text-gray-900">Rp0,00</p>
+                </div>
+              </div>
 
-                  {/* Surplus/Defisit */}
-                  <div className="p-8">
-                    <div className="flex justify-between items-center">
-                      <h4 className="text-lg font-semibold text-gray-800">Surplus/Defisit</h4>
-                      <p className="text-3xl font-bold text-gray-900">Rp0,00</p>
-                    </div>
+              {/* Grafik Pendapatan dan Belanja */}
+              <div className="bg-white rounded-lg border border-gray-200 p-6">
+                <h4 className="text-lg font-semibold text-primary mb-6">
+                  Pendapatan dan Belanja Desa dari Tahun ke Tahun
+                </h4>
+                
+                <div className="flex items-center justify-center py-12 text-gray-400">
+                  <div className="text-center">
+                    <svg className="w-16 h-16 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    <p className="text-sm">Belum ada data pendapatan dan belanja</p>
                   </div>
+                </div>
+              </div>
+
+              {/* Pendapatan Desa */}
+              <div className="bg-white rounded-lg border border-gray-200 p-6">
+                <h4 className="text-lg font-semibold text-primary mb-6">
+                  Pendapatan Desa
+                </h4>
+                
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-gray-200">
+                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Uraian</th>
+                        <th className="text-right py-3 px-4 font-semibold text-gray-700">Anggaran (Rp)</th>
+                        <th className="text-right py-3 px-4 font-semibold text-gray-700">Realisasi (Rp)</th>
+                        <th className="text-right py-3 px-4 font-semibold text-gray-700">Lebih/(Kurang)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b border-gray-100">
+                        <td colSpan="4" className="py-8 text-center text-gray-400">
+                          Belum ada data pendapatan desa
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Belanja Desa */}
+              <div className="bg-white rounded-lg border border-gray-200 p-6">
+                <h4 className="text-lg font-semibold text-primary mb-6">
+                  Belanja Desa
+                </h4>
+                
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-gray-200">
+                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Uraian</th>
+                        <th className="text-right py-3 px-4 font-semibold text-gray-700">Anggaran (Rp)</th>
+                        <th className="text-right py-3 px-4 font-semibold text-gray-700">Realisasi (Rp)</th>
+                        <th className="text-right py-3 px-4 font-semibold text-gray-700">Lebih/(Kurang)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b border-gray-100">
+                        <td colSpan="4" className="py-8 text-center text-gray-400">
+                          Belum ada data belanja desa
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Pembiayaan Desa */}
+              <div className="bg-white rounded-lg border border-gray-200 p-6">
+                <h4 className="text-lg font-semibold text-primary mb-6">
+                  Pembiayaan Desa
+                </h4>
+                
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-gray-200">
+                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Uraian</th>
+                        <th className="text-right py-3 px-4 font-semibold text-gray-700">Anggaran (Rp)</th>
+                        <th className="text-right py-3 px-4 font-semibold text-gray-700">Realisasi (Rp)</th>
+                        <th className="text-right py-3 px-4 font-semibold text-gray-700">Lebih/(Kurang)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b border-gray-100">
+                        <td colSpan="4" className="py-8 text-center text-gray-400">
+                          Belum ada data pembiayaan desa
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
@@ -465,14 +552,46 @@ const InfografisPage = () => {
       {/* Occupation Section */}
       <section className="bg-white py-8 px-8 md:px-12 lg:px-16">
         <div className="container mx-auto max-w-7xl">
-          <h4 className="text-3xl font-bold text-primary mb-6">Berdasarkan Pekerjaan (Top 6)</h4>
-          <div className="grid md:grid-cols-3 gap-6">
-            {topPekerjaan.map((job, i) => (
-              <div key={i} className="bg-gray-50 rounded-lg shadow-sm p-8 text-center border border-gray-200">
-                <p className="text-lg text-gray-700 font-semibold mb-2">{job.nama}</p>
-                <p className="text-4xl font-bold text-gray-700">{job.total}</p>
+          <h4 className="text-3xl font-bold text-primary mb-6">Berdasarkan Pekerjaan</h4>
+          
+          <div className="grid lg:grid-cols-12 gap-8">
+            {/* Left: Table with Scroll */}
+            <div className="lg:col-span-5">
+              <div className="bg-white rounded-lg overflow-hidden border border-gray-200">
+                <table className="w-full">
+                  <thead className="sticky top-0 z-10">
+                    <tr className="bg-primary text-white">
+                      <th className="px-4 py-3 text-left text-sm font-semibold">Jenis Pekerjaan</th>
+                      <th className="px-4 py-3 text-center text-sm font-semibold">Jumlah</th>
+                    </tr>
+                  </thead>
+                </table>
+                <div className="max-h-[420px] overflow-y-auto">
+                  <table className="w-full">
+                    <tbody>
+                      {allPekerjaan.map((job, i) => (
+                        <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                          <td className="px-4 py-3 text-sm text-gray-700">{job.jenis}</td>
+                          <td className="px-4 py-3 text-sm text-gray-700 text-center">{job.jumlah}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            ))}
+            </div>
+
+            {/* Right: Cards Grid (2 columns, 3 rows) */}
+            <div className="lg:col-span-7">
+              <div className="grid grid-cols-2 gap-4">
+                {topPekerjaan.slice(0, 6).map((job, i) => (
+                  <div key={i} className="bg-gray-50 rounded-lg shadow-sm p-6 text-center border border-gray-200">
+                    <p className="text-sm text-gray-600 font-medium mb-2">{job.nama}</p>
+                    <p className="text-5xl font-bold text-gray-800">{job.total}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>

@@ -41,78 +41,92 @@ const HomePage = () => {
       <section className="bg-white">
         <div className="py-12 px-4">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="space-y-4">
-                <h2 className="text-3xl md:text-4xl font-bold text-[#2C7961] leading-tight">
-                  JELAJAHI DESA
-                </h2>
-                <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-                  Melalui website ini Anda dapat menjelajahi segala hal yang terkait dengan desa.
-                  Aspek pemerintahan, penduduk, demografi, potensi desa, dan juga berita tentang desa.
-                </p>
+            <div className="space-y-4 mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#2C7961] leading-tight">
+                JELAJAHI DESA
+              </h2>
+              <p className="text-gray-700 text-sm md:text-base leading-relaxed">
+                Melalui website ini Anda dapat menjelajahi segala hal yang terkait dengan desa.
+                Aspek pemerintahan, penduduk, demografi, potensi desa, dan juga berita tentang desa.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <Link 
+                to="/profil-desa"
+                className="group relative w-full h-[227px] bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
+              >
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-5 group-hover:opacity-10 transition-opacity"
+                  style={{ backgroundImage: "url('/images/Component11.png')" }}
+                ></div>
+                <div className="relative flex flex-col items-center justify-center h-full p-6">
+                  <div className="mb-6">
+                    <img 
+                      src="/images/Component11.png" 
+                      alt="Profil Desa"
+                      className="w-16 h-16 object-contain"
+                    />
+                  </div>
+                  <h3 className="text-sm font-bold text-[#2C7961] tracking-wider uppercase">
+                    PROFIL DESA
+                  </h3>
+                </div>
+                <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#2C7961] rounded-2xl transition-colors"></div>
+              </Link>
+
+              <Link 
+                to="/infografis"
+                className="group relative w-full h-[227px] bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
+              >
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-5 group-hover:opacity-10 transition-opacity"
+                  style={{ backgroundImage: "url('/images/Other.png')" }}
+                ></div>
+                <div className="relative flex flex-col items-center justify-center h-full p-6">
+                  <div className="mb-6">
+                    <img 
+                      src="/images/Other.png" 
+                      alt="Infografis"
+                      className="w-16 h-16 object-contain"
+                    />
+                  </div>
+                  <h3 className="text-sm font-bold text-[#2C7961] tracking-wider uppercase">
+                    INFOGRAFIS
+                  </h3>
+                </div>
+                <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#2C7961] rounded-2xl transition-colors"></div>
+              </Link>
+
+              <div className="group relative w-full h-[227px] bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer">
+                <div className="relative flex flex-col items-center justify-center h-full p-6">
+                  <div className="mb-6">
+                    <svg className="w-16 h-16 text-[#2C7961]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-sm font-bold text-[#2C7961] tracking-wider uppercase">
+                    IDM
+                  </h3>
+                </div>
+                <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#2C7961] rounded-2xl transition-colors"></div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <Link 
-                  to="/profil-desa"
-                  className="group relative w-full h-[227px] bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
-                >
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center opacity-5 group-hover:opacity-10 transition-opacity"
-                    style={{ backgroundImage: "url('/images/Component11.png')" }}
-                  ></div>
-                  <div className="relative flex flex-col items-center justify-center h-full p-6">
-                    <div className="mb-6">
-                      <img 
-                        src="/images/Component11.png" 
-                        alt="Profil Desa"
-                        className="w-16 h-16 object-contain"
-                      />
-                    </div>
-                    <h3 className="text-sm font-bold text-[#2C7961] tracking-wider uppercase">
-                      PROFIL DESA
-                    </h3>
+              <div className="group relative w-full h-[227px] bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer">
+                <div className="relative flex flex-col items-center justify-center h-full p-6">
+                  <div className="mb-6">
+                    <svg className="w-16 h-16 text-[#2C7961]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
                   </div>
-                  <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#2C7961] rounded-2xl transition-colors"></div>
-                </Link>
-
-                <Link 
-                  to="/infografis"
-                  className="group relative w-full h-[227px] bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
-                >
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center opacity-5 group-hover:opacity-10 transition-opacity"
-                    style={{ backgroundImage: "url('/images/Other.png')" }}
-                  ></div>
-                  <div className="relative flex flex-col items-center justify-center h-full p-6">
-                    <div className="mb-6">
-                      <img 
-                        src="/images/Other.png" 
-                        alt="Infografis"
-                        className="w-16 h-16 object-contain"
-                      />
-                    </div>
-                    <h3 className="text-sm font-bold text-[#2C7961] tracking-wider uppercase">
-                      INFOGRAFIS
-                    </h3>
-                  </div>
-                  <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#2C7961] rounded-2xl transition-colors"></div>
-                </Link>
+                  <h3 className="text-sm font-bold text-[#2C7961] tracking-wider uppercase">
+                    PPID
+                  </h3>
+                </div>
+                <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#2C7961] rounded-2xl transition-colors"></div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ================= CTA BERITA ================= */}
-      <section className="w-full bg-white py-12">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <Link 
-            to="/berita"
-            className="inline-block bg-[#2C7961] hover:bg-[#256952] text-white font-medium px-6 py-3 rounded-md transition"
-          >
-            Lihat Berita Terbaru
-          </Link>
         </div>
       </section>
 
@@ -150,6 +164,31 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* ================= PETA DESA ================= */}
+      <section className="bg-white py-10">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-[#2C7961] mb-2">PETA DESA</h2>
+          <p className="text-sm md:text-base text-black/80 mb-6">
+            Menampilkan Peta Desa Dengan <span className="italic">Interest Point</span> Desa Bandarejo
+          </p>
+
+          <div className="bg-white rounded-lg overflow-hidden shadow-lg border border-gray-200">
+            <div className="relative w-full h-[500px] md:h-[600px]">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31730.5!2d105.3!3d-5.4!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNcKwMjQnMDAuMCJTIDEwNcKwMTgnMDAuMCJF!5e0!3m2!1sen!2sid!4v1234567890!5m2!1sen!2sid"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Peta Desa Bandarejo"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ===== SOTK ===== */}
       <section className="bg-white py-10">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
@@ -158,69 +197,65 @@ const HomePage = () => {
             Struktur Organisasi dan Tata Kerja Desa Bandarejo
           </p>
 
-          <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {pejabat.map((p, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-                <div className="h-56 bg-gradient-to-b from-gray-200 to-gray-100 flex items-end justify-center">
-                  <img
-                    src={p.foto}
-                    alt={p.nama}
-                    className="w-100 h-48 object-contain drop-shadow"
-                    onError={(e) => { e.target.src = '/images/kades-dummy.jpg'; }}
-                  />
-                </div>
+          <div className="mt-5 overflow-x-auto pb-4">
+            <div className="flex gap-5 min-w-max">
+              {pejabat.map((p, index) => (
+                <div key={index} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden w-64 flex-shrink-0">
+                  <div className="h-56 bg-gradient-to-b from-gray-200 to-gray-100 flex items-end justify-center">
+                    <img
+                      src={p.foto}
+                      alt={p.nama}
+                      className="w-100 h-48 object-contain drop-shadow"
+                      onError={(e) => { e.target.src = '/images/kades-dummy.jpg'; }}
+                    />
+                  </div>
 
-                <div className="bg-[#2C7961] px-4 py-3 text-white">
-                  <div className="text-white text-[13px] font-extrabold tracking-wide uppercase leading-tight">
-                    {p.nama}
-                  </div>
-                  <div className="text-white/90 text-[11px] leading-tight">
-                    {p.jabatan}
+                  <div className="bg-[#2C7961] px-4 py-3 text-white">
+                    <div className="text-white text-[13px] font-extrabold tracking-wide uppercase leading-tight">
+                      {p.nama}
+                    </div>
+                    <div className="text-white/90 text-[11px] leading-tight">
+                      {p.jabatan}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* ================= POTENSI DESA ================= */}
+      {/* ================= ADMINISTRASI PENDUDUK ================= */}
       <section className="bg-white py-10">
         <div className="max-w-7xl mx-auto px-4 md:px-6 font-poppins">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
             <div>
-              <h2 className="text-2xl md:text-3xl font-extrabold text-[#2C7961]">POTENSI DESA</h2>
-              <p className="mt-1 text-sm md:text-base text-black/80 max-w-lg">
-                Informasi tentang potensi dan kemajuan desa di berbagai bidang seperti ekonomi, pariwisata,
-                pertanian, industri kreatif, dan kelestarian lingkungan.
+              <h2 className="text-2xl md:text-3xl font-extrabold text-[#2C7961]">Administrasi Penduduk</h2>
+              <p className="mt-1 text-sm md:text-base text-black/80 max-w-3xl">
+                Sistem digital yang berfungsi mempermudah pengelolaan data dan informasi terkait dengan kependudukan 
+                dan pendayagunaannya untuk pelayanan publik yang efektif dan efisien
               </p>
             </div>
           </div>
 
-          <div className="mt-6 grid gap-6 md:grid-cols-3">
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
             {[
-              { judul: 'Pertanian Padi', deskripsi: 'Desa Bandarejo memiliki lahan pertanian yang luas dengan hasil panen padi yang melimpah setiap musimnya.', gambar: '/images/tani.png' },
-              { judul: 'Peternakan', deskripsi: 'Pengembangan peternakan sapi dan kambing sebagai sumber pendapatan alternatif masyarakat desa.', gambar: '/images/tani.png' },
-              { judul: 'UMKM Lokal', deskripsi: 'Berbagai usaha mikro kecil menengah berkembang di desa, mulai dari kerajinan tangan hingga makanan olahan.', gambar: '/images/tani.png' },
-            ].map((potensi, index) => (
-              <article key={index} className="bg-white rounded-xl shadow border border-gray-200 overflow-hidden flex flex-col">
-                <div className="h-40 md:h-44 bg-gray-100 overflow-hidden">
-                  <img
-                    src={potensi.gambar}
-                    alt={potensi.judul}
-                    className="w-full h-full object-cover"
-                    onError={(e) => { e.target.style.display = 'none'; }}
-                  />
+              { label: 'Penduduk', value: 0 },
+              { label: 'Laki-Laki', value: 0 },
+              { label: 'Kepala Keluarga', value: 0 },
+              { label: 'Perempuan', value: 0 },
+              { label: 'Penduduk Sementara', value: 0 },
+              { label: 'Mutasi Penduduk', value: 0 },
+            ].map((item, index) => (
+              <div key={index} className="flex items-stretch gap-0 rounded-lg overflow-hidden shadow border border-gray-200">
+                <div className="bg-[#2C7961] flex items-center justify-center px-8 py-6 min-w-[140px]">
+                  <span className="text-6xl font-bold text-white">{item.value}</span>
                 </div>
-                <div className="p-4 flex-1 flex flex-col">
-                  <h3 className="text-sm md:text-base font-extrabold text-[#2C7961] mb-2">
-                    {potensi.judul}
-                  </h3>
-                  <p className="text-xs md:text-sm text-black/70 flex-1">
-                    {potensi.deskripsi}
-                  </p>
+                <div className="bg-gray-50 flex items-center justify-center flex-1 px-6 py-6">
+                  <span className="text-lg md:text-xl font-semibold text-gray-700">{item.label}</span>
                 </div>
-              </article>
+              </div>
             ))}
           </div>
         </div>
@@ -236,16 +271,13 @@ const HomePage = () => {
             </p>
           </div>
 
-          <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               { judul: 'Gotong Royong Membersihkan Desa', tanggal: '15 Januari 2026', gambar: '/images/galeri-1.jpg' },
               { judul: 'Perayaan HUT RI ke-81', tanggal: '17 Agustus 2025', gambar: '/images/galeri-2.jpg' },
               { judul: 'Pelatihan Pertanian Modern', tanggal: '10 Januari 2026', gambar: '/images/galeri-3.jpg' },
-              { judul: 'Posyandu Balita', tanggal: '5 Januari 2026', gambar: '/images/galeri-4.jpg' },
-              { judul: 'Festival Budaya Desa', tanggal: '31 Desember 2025', gambar: '/images/galeri-5.jpg' },
-              { judul: 'Pembangunan Jalan Desa', tanggal: '20 Desember 2025', gambar: '/images/galeri-6.jpg' },
             ].map((foto, index) => (
-              <div key={index} className="rounded-md bg-white shadow-sm overflow-hidden border border-gray-200">
+              <div key={index} className="rounded-md bg-white shadow-sm overflow-hidden border border-gray-200 hover:shadow-md transition-shadow">
                 <img
                   src={foto.gambar}
                   alt={foto.judul}
@@ -261,6 +293,15 @@ const HomePage = () => {
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="mt-6 text-center">
+            <Link 
+              to="/galeri"
+              className="inline-block bg-[#2C7961] hover:bg-[#256952] text-white font-medium px-6 py-2.5 rounded-md transition"
+            >
+              Lihat Foto Lebih Banyak
+            </Link>
           </div>
         </div>
       </section>

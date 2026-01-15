@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,11 +28,15 @@ const Navbar = () => {
     setIsMobileMenuOpen(false);
   };
 
+  // Navbar transparan hanya di home page
+  const getNavbarBg = () => {
+    if (!isHomePage) return 'bg-[#2C7961] shadow-lg';
+    return isScrolled ? 'bg-[#2C7961] shadow-lg' : 'bg-transparent';
+  };
+
   return (
     <>
-      <nav className={`fixed top-0 inset-x-0 z-50 w-full text-white font-poppins transition-all duration-300 ${
-        isScrolled ? 'bg-[#2C7961] shadow-lg' : 'bg-transparent'
-      }`}>
+      <nav className={`fixed top-0 inset-x-0 z-50 w-full text-white font-poppins transition-all duration-300 ${getNavbarBg()}`}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             {/* Logo + Nama */}
@@ -47,19 +53,12 @@ const Navbar = () => {
             </Link>
 
             {/* Menu Desktop (md+) */}
-            <ul className="hidden md:flex items-center gap-8 text-base font-semibold">
+            <ul className="hidden md:flex items-center gap-8 text-base font-semibold ml-auto">
               <li><Link to="/" className="hover:opacity-90 transition-opacity">Home</Link></li>
               <li><Link to="/profil-desa" className="hover:opacity-90 transition-opacity">Profil Desa</Link></li>
               <li><Link to="/infografis" className="hover:opacity-90 transition-opacity">Infografis</Link></li>
-              <li><Link to="/berita" className="hover:opacity-90 transition-opacity">Berita</Link></li>
-              <li>
-                <Link 
-                  to="/login"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-md ring-1 ring-white/30 hover:bg-white/10 transition text-base"
-                >
-                  Login
-                </Link>
-              </li>
+              <li><Link to="/listing" className="hover:opacity-90 transition-opacity">Listing</Link></li>
+              <li><Link to="/galeri" className="hover:opacity-90 transition-opacity">Galeri</Link></li>
             </ul>
 
             {/* Tombol Hamburger (mobile) */}
@@ -97,18 +96,21 @@ const Navbar = () => {
 
           {/* Menu Mobile */}
           <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} md:hidden ${
-            isScrolled ? 'bg-[#2C7961]' : 'bg-[#2C7961]/95 backdrop-blur-md'
+            isHomePage && !isScrolled ? 'bg-[#2C7961]/95 backdrop-blur-md' : 'bg-[#2C7961]'
           } border-t border-white/10`}>
             <ul className="flex flex-col text-sm font-semibold py-2">
               <li><Link to="/" onClick={closeMobileMenu} className="block py-2 px-3 hover:bg-white/10 transition-colors">Home</Link></li>
               <li><Link to="/profil-desa" onClick={closeMobileMenu} className="block py-2 px-3 hover:bg-white/10 transition-colors">Profil Desa</Link></li>
               <li><Link to="/infografis" onClick={closeMobileMenu} className="block py-2 px-3 hover:bg-white/10 transition-colors">Infografis</Link></li>
-              <li><Link to="/berita" onClick={closeMobileMenu} className="block py-2 px-3 hover:bg-white/10 transition-colors">Berita</Link></li>
-              <li className="pt-1"><Link to="/login" onClick={closeMobileMenu} className="block py-2 px-3 hover:bg-white/10 transition-colors">Login</Link></li>
+              <li><Link to="/listing" onClick={closeMobileMenu} className="block py-2 px-3 hover:bg-white/10 transition-colors">Listing</Link></li>
+              <li><Link to="/galeri" onClick={closeMobileMenu} className="block py-2 px-3 hover:bg-white/10 transition-colors">Galeri</Link></li>
             </ul>
           </div>
         </div>
       </nav>
+
+      {/* Spacer untuk halaman non-home agar konten tidak tertutup navbar */}
+      {!isHomePage && <div className="h-20"></div>}
     </>
   );
 };
