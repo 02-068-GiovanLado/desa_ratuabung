@@ -16,12 +16,12 @@ const InfografisPage = () => {
   };
 
   const tabs = [
-    { name: 'Penduduk', icon: '👥' },
-    { name: 'APBDes', icon: '📷' },
-    { name: 'Stunting', icon: '📊' },
-    { name: 'Bansos', icon: '📦' },
-    { name: 'IDM', icon: '👑' },
-    { name: 'SDGs', icon: '🎯' },
+    { name: 'Penduduk' },
+    { name: 'APBDes' },
+    { name: 'Stunting' },
+    { name: 'Bansos' },
+    { name: 'IDM' },
+    { name: 'SDGs' },
   ];
 
   // Handle hash navigation from home page
@@ -227,65 +227,65 @@ const InfografisPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section with Title and Tabs */}
-      <section className="bg-white py-6 px-8 md:px-12 lg:px-16">
-        <div className="container mx-auto max-w-7xl">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
-            {/* Title */}
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-primary mb-2">
-                INFOGRAFIS
-              </h1>
-              <h2 className="text-4xl md:text-5xl font-bold text-primary">
-                DESA BANDAREJO
-              </h2>
-            </div>
+    <div className="min-h-screen bg-gray-50">
+      {/* Page Header */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 py-8">
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
+            <a href="/" className="hover:text-[#1E3A5F]">Home</a>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+            <span className="text-[#1E3A5F] font-medium">Infografis</span>
+          </div>
+          
+          <h1 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-2">Infografis Desa Ratu Abung</h1>
+          <p className="text-gray-600 text-base md:text-lg">Visualisasi data dan informasi desa dalam bentuk infografis interaktif</p>
+        </div>
+      </div>
 
-            {/* Tab Navigation */}
-            <div className="flex flex-wrap gap-3">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.name}
-                  onClick={() => setActiveTab(tab.name)}
-                  className={`flex flex-col items-center justify-center px-6 py-3 rounded-lg border-2 transition-all min-w-[100px] ${
-                    activeTab === tab.name
-                      ? 'bg-white border-primary shadow-md'
-                      : 'bg-gray-50 border-gray-300 hover:border-primary/50'
-                  }`}
-                >
-                  <span className="text-2xl mb-1">{tab.icon}</span>
-                  <span className={`text-sm font-medium ${
-                    activeTab === tab.name ? 'text-primary' : 'text-gray-600'
-                  }`}>
-                    {tab.name}
-                  </span>
-                </button>
-              ))}
-            </div>
+      {/* Tab Navigation */}
+      <section className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 py-6">
+          <div className="flex flex-wrap gap-3">
+
+            {tabs.map((tab) => (
+              <button
+                key={tab.name}
+                onClick={() => setActiveTab(tab.name)}
+                className={`px-6 py-2.5 rounded-lg border font-medium transition-all ${
+                  activeTab === tab.name
+                    ? 'bg-[#1E3A5F] text-white border-[#1E3A5F]'
+                    : 'bg-white text-gray-700 border-gray-200 hover:border-[#1E3A5F] hover:text-[#1E3A5F]'
+                }`}
+              >
+                {tab.name}
+              </button>
+            ))}
           </div>
         </div>
       </section>
 
       {/* APBDes Section */}
       {activeTab === 'APBDes' && (
-        <section className="bg-white py-12 px-8 md:px-12 lg:px-16">
-          <div className="container mx-auto max-w-7xl">
+        <section className="bg-gray-50 py-16 md:py-20">
+          <div className="max-w-7xl mx-auto px-6 md:px-8">
             {/* Header with Title and Filter */}
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-12">
               {/* Left - Title */}
               <div>
-                <h3 className="text-3xl md:text-4xl font-bold text-primary mb-2">
-                  APB Desa Bandar Rejo
+                <h3 className="text-2xl md:text-3xl font-bold text-[#1E3A5F] mb-2">
+                  APB Desa Ratu Abung
                 </h3>
-                <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-                  Desa Bandar Rejo, Kecamatan Batanghari, Kabupaten Lampung Timur, Provinsi Lampung
+                <p className="text-gray-600 text-sm md:text-base">
+                  Anggaran Pendapatan dan Belanja Desa
                 </p>
               </div>
 
               {/* Right - Filter Tahun */}
               <div className="flex-shrink-0">
-                <select className="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm min-w-[200px]">
+                <select className="px-4 py-2.5 border border-gray-200 rounded-lg text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-[#1E3A5F]/20 focus:border-[#1E3A5F] text-sm min-w-[200px]">
                   <option value="">Pilih Filter Tahun</option>
                   <option value="2026">2026</option>
                   <option value="2025">2025</option>
@@ -298,43 +298,43 @@ const InfografisPage = () => {
             <div className="space-y-6">
               {/* Pendapatan & Belanja */}
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
-                  <p className="text-sm text-gray-600 mb-2">● Pendapatan</p>
-                  <p className="text-3xl font-bold text-gray-800">Rp0,00</p>
+                <div className="bg-white rounded-xl p-6 border border-gray-200">
+                  <p className="text-sm font-medium text-gray-600 mb-2">Pendapatan</p>
+                  <p className="text-3xl font-bold text-[#1E3A5F]">Rp 0,00</p>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
-                  <p className="text-sm text-gray-600 mb-2">● Belanja</p>
-                  <p className="text-3xl font-bold text-gray-800">Rp0,00</p>
+                <div className="bg-white rounded-xl p-6 border border-gray-200">
+                  <p className="text-sm font-medium text-gray-600 mb-2">Belanja</p>
+                  <p className="text-3xl font-bold text-[#1E3A5F]">Rp 0,00</p>
                 </div>
               </div>
 
               {/* Pembiayaan */}
-              <div className="bg-white rounded-lg border border-gray-200 p-6">
-                <h4 className="text-lg font-semibold text-gray-800 mb-6">Pembiayaan</h4>
+              <div className="bg-white rounded-xl border border-gray-200 p-6">
+                <h4 className="text-lg font-semibold text-[#1E3A5F] mb-6">Pembiayaan</h4>
                 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="bg-gray-50 rounded-lg p-6">
-                    <p className="text-sm text-gray-600 mb-2">● Penerimaan</p>
-                    <p className="text-3xl font-bold text-gray-800">Rp0,00</p>
+                    <p className="text-sm font-medium text-gray-600 mb-2">Penerimaan</p>
+                    <p className="text-3xl font-bold text-[#1E3A5F]">Rp 0,00</p>
                   </div>
                   <div className="bg-gray-50 rounded-lg p-6">
-                    <p className="text-sm text-gray-600 mb-2">● Pengeluaran</p>
-                    <p className="text-3xl font-bold text-gray-800">Rp0,00</p>
+                    <p className="text-sm font-medium text-gray-600 mb-2">Pengeluaran</p>
+                    <p className="text-3xl font-bold text-[#1E3A5F]">Rp 0,00</p>
                   </div>
                 </div>
               </div>
 
               {/* Surplus/Defisit */}
-              <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <div className="bg-white rounded-xl border border-gray-200 p-6">
                 <div className="flex justify-between items-center">
-                  <h4 className="text-lg font-semibold text-gray-800">Surplus/Defisit</h4>
-                  <p className="text-3xl font-bold text-gray-900">Rp0,00</p>
+                  <h4 className="text-lg font-semibold text-[#1E3A5F]">Surplus/Defisit</h4>
+                  <p className="text-3xl font-bold text-[#1E3A5F]">Rp 0,00</p>
                 </div>
               </div>
 
               {/* Grafik Pendapatan dan Belanja */}
-              <div className="bg-white rounded-lg border border-gray-200 p-6">
-                <h4 className="text-lg font-semibold text-primary mb-6">
+              <div className="bg-white rounded-xl border border-gray-200 p-6">
+                <h4 className="text-lg font-semibold text-[#1E3A5F] mb-6">
                   Pendapatan dan Belanja Desa dari Tahun ke Tahun
                 </h4>
                 
@@ -349,8 +349,8 @@ const InfografisPage = () => {
               </div>
 
               {/* Pendapatan Desa */}
-              <div className="bg-white rounded-lg border border-gray-200 p-6">
-                <h4 className="text-lg font-semibold text-primary mb-6">
+              <div className="bg-white rounded-xl border border-gray-200 p-6">
+                <h4 className="text-lg font-semibold text-[#1E3A5F] mb-6">
                   Pendapatan Desa
                 </h4>
                 
@@ -376,8 +376,8 @@ const InfografisPage = () => {
               </div>
 
               {/* Belanja Desa */}
-              <div className="bg-white rounded-lg border border-gray-200 p-6">
-                <h4 className="text-lg font-semibold text-primary mb-6">
+              <div className="bg-white rounded-xl border border-gray-200 p-6">
+                <h4 className="text-lg font-semibold text-[#1E3A5F] mb-6">
                   Belanja Desa
                 </h4>
                 
@@ -403,8 +403,8 @@ const InfografisPage = () => {
               </div>
 
               {/* Pembiayaan Desa */}
-              <div className="bg-white rounded-lg border border-gray-200 p-6">
-                <h4 className="text-lg font-semibold text-primary mb-6">
+              <div className="bg-white rounded-xl border border-gray-200 p-6">
+                <h4 className="text-lg font-semibold text-[#1E3A5F] mb-6">
                   Pembiayaan Desa
                 </h4>
                 
@@ -436,15 +436,15 @@ const InfografisPage = () => {
       {/* Demografi Section */}
       {activeTab === 'Penduduk' && (
         <>
-          <section className="bg-white py-6 px-8 md:px-12 lg:px-16">
-            <div className="container mx-auto max-w-7xl">
+          <section className="bg-white py-16 md:py-20">
+            <div className="max-w-7xl mx-auto px-6 md:px-8">
               <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
                 {/* Left Content */}
                 <div>
-                  <h3 className="text-4xl font-bold text-primary mb-4">
-                    DEMOGRAFI PENDUDUK
+                  <h3 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-4">
+                    Demografi Penduduk
                   </h3>
-                  <p className="text-lg text-gray-700 leading-relaxed">
+                  <p className="text-base md:text-lg text-gray-600 leading-relaxed">
                     Memberikan informasi lengkap mengenai karakteristik demografi penduduk suatu wilayah. Mulai dari jumlah penduduk, usia, jenis kelamin, tingkat pendidikan, pekerjaan, agama, dan aspek penting lainnya yang menggambarkan komposisi populasi secara rinci.
                   </p>
                 </div>
@@ -460,66 +460,66 @@ const InfografisPage = () => {
               </div>
 
           {/* Population Cards */}
-          <h4 className="text-3xl font-bold text-primary mb-6">
+          <h4 className="text-2xl md:text-3xl font-bold text-[#1E3A5F] mb-6">
             Jumlah Penduduk dan Kepala Keluarga
           </h4>
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-gray-50 rounded-lg shadow-sm p-6 flex items-center gap-6 border border-gray-200">
+            <div className="bg-white rounded-xl p-6 flex items-center gap-6 border border-gray-200 hover:shadow-lg transition-shadow">
               <img 
                 src="/images/aset_infografis/Total Penduduk.png" 
                 alt="Population" 
-                className="w-24 h-24 object-contain"
+                className="w-20 h-20 object-contain"
               />
               <div>
-                <p className="text-xl text-gray-600 mb-1">TOTAL PENDUDUK</p>
-                <p className="text-4xl font-bold">
-                  <span className="text-primary counter" data-target={mockData.totalPenduduk}>0</span>
-                  <span className="text-gray-700"> Jiwa</span>
+                <p className="text-sm font-medium text-gray-600 mb-1">Total Penduduk</p>
+                <p className="text-3xl font-bold">
+                  <span className="text-[#1E3A5F] counter" data-target={mockData.totalPenduduk}>0</span>
+                  <span className="text-gray-700 text-lg"> Jiwa</span>
                 </p>
               </div>
             </div>
 
-            <div className="bg-gray-50 rounded-lg shadow-sm p-6 flex items-center gap-6 border border-gray-200">
+            <div className="bg-white rounded-xl p-6 flex items-center gap-6 border border-gray-200 hover:shadow-lg transition-shadow">
               <img 
                 src="/images/aset_infografis/kepala_keluarga.png" 
                 alt="Family" 
-                className="w-24 h-24 object-contain"
+                className="w-20 h-20 object-contain"
               />
               <div>
-                <p className="text-xl text-gray-600 mb-1">KEPALA KELUARGA</p>
-                <p className="text-4xl font-bold">
-                  <span className="text-primary counter" data-target={mockData.kepalaKeluarga}>0</span>
-                  <span className="text-gray-700"> KK</span>
+                <p className="text-sm font-medium text-gray-600 mb-1">Kepala Keluarga</p>
+                <p className="text-3xl font-bold">
+                  <span className="text-[#1E3A5F] counter" data-target={mockData.kepalaKeluarga}>0</span>
+                  <span className="text-gray-700 text-lg"> KK</span>
                 </p>
               </div>
             </div>
 
-            <div className="bg-gray-50 rounded-lg shadow-sm p-6 flex items-center gap-6 border border-gray-200">
+            <div className="bg-white rounded-xl p-6 flex items-center gap-6 border border-gray-200 hover:shadow-lg transition-shadow">
               <img 
                 src="/images/aset_infografis/Perempuan.png" 
                 alt="Female" 
-                className="w-24 h-24 object-contain"
+                className="w-20 h-20 object-contain"
               />
               <div>
-                <p className="text-xl text-gray-600 mb-1">PEREMPUAN</p>
-                <p className="text-4xl font-bold">
-                  <span className="text-primary counter" data-target={mockData.perempuan}>0</span>
-                  <span className="text-gray-700"> Jiwa</span>
+                <p className="text-sm font-medium text-gray-600 mb-1">Perempuan</p>
+                <p className="text-3xl font-bold">
+                  <span className="text-[#1E3A5F] counter" data-target={mockData.perempuan}>0</span>
+                  <span className="text-gray-700 text-lg"> Jiwa</span>
                 </p>
               </div>
             </div>
 
-            <div className="bg-gray-50 rounded-lg shadow-sm p-6 flex items-center gap-6 border border-gray-200">
+            <div className="bg-white rounded-xl p-6 flex items-center gap-6 border border-gray-200 hover:shadow-lg transition-shadow">
               <img 
                 src="/images/aset_infografis/laki-laki.png" 
                 alt="Male" 
-                className="w-24 h-24 object-contain"
+                className="w-20 h-20 object-contain"
               />
               <div>
-                <p className="text-xl text-gray-600 mb-1">LAKI-LAKI</p>
-                <p className="text-4xl font-bold">
-                  <span className="text-primary counter" data-target={mockData.lakiLaki}>0</span>
-                  <span className="text-gray-700"> Jiwa</span>
+                <p className="text-sm font-medium text-gray-600 mb-1">Laki-Laki</p>
+                <p className="text-3xl font-bold">
+                  <span className="text-[#1E3A5F] counter" data-target={mockData.lakiLaki}>0</span>
+                  <span className="text-gray-700 text-lg"> Jiwa</span>
                 </p>
               </div>
             </div>
@@ -528,12 +528,12 @@ const InfografisPage = () => {
       </section>
 
       {/* Chart Section - Berdasarkan Kelompok Umur */}
-      <section className="bg-white py-8 px-8 md:px-12 lg:px-16">
-        <div className="container mx-auto max-w-7xl">
-          <h4 className="text-3xl font-bold text-primary mb-6">
+      <section className="bg-gray-50 py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <h4 className="text-2xl md:text-3xl font-bold text-[#1E3A5F] mb-6">
             Berdasarkan Kelompok Umur
           </h4>
-          <div className="bg-gray-50 rounded-lg shadow-sm p-6 border border-gray-200">
+          <div className="bg-white rounded-xl p-6 border border-gray-200">
             <div className="h-[420px]">
               <canvas id="ageGroupChart"></canvas>
             </div>
@@ -542,9 +542,9 @@ const InfografisPage = () => {
       </section>
 
       {/* By Village Section */}
-      <section className="bg-white py-8 px-8 md:px-12 lg:px-16">
-        <div className="container mx-auto max-w-7xl">
-          <h4 className="text-3xl font-bold text-primary mb-6">Berdasarkan Dusun</h4>
+      <section className="bg-white py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <h4 className="text-2xl md:text-3xl font-bold text-[#1E3A5F] mb-6">Berdasarkan Dusun</h4>
           <div className="grid md:grid-cols-5 gap-8 items-start">
             <div className="md:col-span-3 flex justify-center">
               <div style={{ width: '100%', maxWidth: '550px', position: 'relative' }}>
@@ -564,17 +564,17 @@ const InfografisPage = () => {
       </section>
 
       {/* Occupation Section */}
-      <section className="bg-white py-8 px-8 md:px-12 lg:px-16">
-        <div className="container mx-auto max-w-7xl">
-          <h4 className="text-3xl font-bold text-primary mb-6">Berdasarkan Pekerjaan</h4>
+      <section className="bg-gray-50 py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <h4 className="text-2xl md:text-3xl font-bold text-[#1E3A5F] mb-6">Berdasarkan Pekerjaan</h4>
           
           <div className="grid lg:grid-cols-12 gap-8">
             {/* Left: Table with Scroll */}
             <div className="lg:col-span-5">
-              <div className="bg-white rounded-lg overflow-hidden border border-gray-200">
+              <div className="bg-white rounded-xl overflow-hidden border border-gray-200">
                 <table className="w-full">
                   <thead className="sticky top-0 z-10">
-                    <tr className="bg-primary text-white">
+                    <tr className="bg-[#1E3A5F] text-white">
                       <th className="px-4 py-3 text-left text-sm font-semibold">Jenis Pekerjaan</th>
                       <th className="px-4 py-3 text-center text-sm font-semibold">Jumlah</th>
                     </tr>
@@ -599,9 +599,9 @@ const InfografisPage = () => {
             <div className="lg:col-span-7">
               <div className="grid grid-cols-2 gap-4">
                 {topPekerjaan.slice(0, 6).map((job, i) => (
-                  <div key={i} className="bg-gray-50 rounded-lg shadow-sm p-6 text-center border border-gray-200">
+                  <div key={i} className="bg-white rounded-xl p-6 text-center border border-gray-200 hover:shadow-lg transition-shadow">
                     <p className="text-sm text-gray-600 font-medium mb-2">{job.nama}</p>
-                    <p className="text-5xl font-bold text-gray-800">{job.total}</p>
+                    <p className="text-4xl font-bold text-[#1E3A5F]">{job.total}</p>
                   </div>
                 ))}
               </div>
@@ -611,10 +611,10 @@ const InfografisPage = () => {
       </section>
 
       {/* Education Section */}
-      <section className="bg-white py-8 px-8 md:px-12 lg:px-16">
-        <div className="container mx-auto max-w-7xl">
-          <h4 className="text-3xl font-bold text-primary mb-6">Berdasarkan Pendidikan</h4>
-          <div className="bg-gray-50 rounded-lg shadow-sm p-6 border border-gray-200">
+      <section className="bg-white py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <h4 className="text-2xl md:text-3xl font-bold text-[#1E3A5F] mb-6">Berdasarkan Pendidikan</h4>
+          <div className="bg-white rounded-xl p-6 border border-gray-200">
             <div className="h-[550px]">
               <canvas id="educationChart"></canvas>
             </div>
@@ -623,18 +623,18 @@ const InfografisPage = () => {
       </section>
 
       {/* Marital Status Section */}
-      <section className="bg-white py-8 px-8 md:px-12 lg:px-16">
-        <div className="container mx-auto max-w-7xl">
-          <h4 className="text-3xl font-bold text-primary mb-6">Berdasarkan Perkawinan</h4>
+      <section className="bg-gray-50 py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <h4 className="text-2xl md:text-3xl font-bold text-[#1E3A5F] mb-6">Berdasarkan Perkawinan</h4>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {perkawinanData.map((item, i) => (
-              <div key={i} className="bg-gray-50 rounded-lg shadow-sm p-6 flex items-center gap-6 border border-gray-200">
-                <div className="flex-shrink-0 w-20 h-20">
+              <div key={i} className="bg-white rounded-xl p-6 flex items-center gap-6 border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="flex-shrink-0 w-16 h-16">
                   <img src={item.icon} alt={item.status} className="w-full h-full object-contain" />
                 </div>
                 <div className="flex flex-col">
-                  <p className="text-lg font-medium text-gray-700">{item.status}</p>
-                  <p className="text-3xl font-semibold text-primary">{item.total}</p>
+                  <p className="text-sm font-medium text-gray-600">{item.status}</p>
+                  <p className="text-3xl font-bold text-[#1E3A5F]">{item.total}</p>
                 </div>
               </div>
             ))}
@@ -643,18 +643,18 @@ const InfografisPage = () => {
       </section>
 
       {/* Religion Section */}
-      <section className="bg-white py-8 px-8 md:px-12 lg:px-16">
-        <div className="container mx-auto max-w-7xl">
-          <h4 className="text-3xl font-bold text-primary mb-6">Berdasarkan Agama</h4>
+      <section className="bg-white py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <h4 className="text-2xl md:text-3xl font-bold text-[#1E3A5F] mb-6">Berdasarkan Agama</h4>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {agamaData.map((item, i) => (
-              <div key={i} className="bg-gray-50 rounded-lg shadow-sm p-6 flex items-center gap-6 border border-gray-200">
-                <div className="flex-shrink-0 w-20 h-20">
+              <div key={i} className="bg-white rounded-xl p-6 flex items-center gap-6 border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="flex-shrink-0 w-16 h-16">
                   <img src={item.icon} alt={item.agama} className="w-full h-full object-contain" />
                 </div>
                 <div className="flex flex-col">
-                  <p className="text-lg font-medium text-gray-700">{item.agama}</p>
-                  <p className="text-3xl font-semibold text-primary">{item.total}</p>
+                  <p className="text-sm font-medium text-gray-600">{item.agama}</p>
+                  <p className="text-3xl font-bold text-[#1E3A5F]">{item.total}</p>
                 </div>
               </div>
             ))}
@@ -666,18 +666,18 @@ const InfografisPage = () => {
 
       {/* Stunting Section */}
       {activeTab === 'Stunting' && (
-        <section className="bg-white py-12 px-8 md:px-12 lg:px-16">
-          <div className="container mx-auto max-w-7xl">
-            <h3 className="text-4xl font-bold text-primary mb-8">Jumlah Stunting Per Dusun</h3>
+        <section className="bg-gray-50 py-16 md:py-20">
+          <div className="max-w-7xl mx-auto px-6 md:px-8">
+            <h3 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-8">Jumlah Stunting Per Dusun</h3>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {stuntingData.map((item, i) => (
-                <div key={i} className="bg-gray-50 rounded-lg shadow-sm p-6 flex items-center gap-6 border border-gray-200">
-                  <div className="flex-shrink-0 w-20 h-20">
+                <div key={i} className="bg-white rounded-xl p-6 flex items-center gap-6 border border-gray-200 hover:shadow-lg transition-shadow">
+                  <div className="flex-shrink-0 w-16 h-16">
                     <img src={item.icon} alt={item.name} className="w-full h-full object-contain" />
                   </div>
                   <div className="flex flex-col">
-                    <p className="text-lg font-medium text-gray-700">{item.name}</p>
-                    <p className="text-3xl font-semibold text-primary">{item.count}</p>
+                    <p className="text-sm font-medium text-gray-600">{item.name}</p>
+                    <p className="text-3xl font-bold text-[#1E3A5F]">{item.count}</p>
                   </div>
                 </div>
               ))}
@@ -688,18 +688,18 @@ const InfografisPage = () => {
 
       {/* Bansos Section */}
       {activeTab === 'Bansos' && (
-        <section className="bg-white py-12 px-8 md:px-12 lg:px-16">
-          <div className="container mx-auto max-w-7xl">
-            <h3 className="text-4xl font-bold text-primary mb-8">Jumlah Bantuan Sosial</h3>
+        <section className="bg-gray-50 py-16 md:py-20">
+          <div className="max-w-7xl mx-auto px-6 md:px-8">
+            <h3 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-8">Jumlah Bantuan Sosial</h3>
             <div className="grid sm:grid-cols-2 gap-6">
               {bansosData.map((item, i) => (
-                <div key={i} className="bg-gray-50 rounded-lg shadow-sm p-6 flex items-center gap-6 border border-gray-200">
-                  <div className="flex-shrink-0 w-20 h-20">
+                <div key={i} className="bg-white rounded-xl p-6 flex items-center gap-6 border border-gray-200 hover:shadow-lg transition-shadow">
+                  <div className="flex-shrink-0 w-16 h-16">
                     <img src={item.icon} alt={item.name} className="w-full h-full object-contain" />
                   </div>
                   <div className="flex flex-col">
-                    <p className="text-lg font-medium text-gray-700">{item.name}</p>
-                    <p className="text-3xl font-semibold text-primary">{item.count}</p>
+                    <p className="text-sm font-medium text-gray-600">{item.name}</p>
+                    <p className="text-3xl font-bold text-[#1E3A5F]">{item.count}</p>
                   </div>
                 </div>
               ))}
@@ -710,12 +710,14 @@ const InfografisPage = () => {
 
       {/* IDM & SDGs Placeholder */}
       {(activeTab === 'IDM' || activeTab === 'SDGs') && (
-        <section id={activeTab === 'IDM' ? 'idm' : 'sdgs'} className="bg-white py-12 px-8 md:px-12 lg:px-16">
-          <div className="container mx-auto max-w-7xl text-center">
-            <h3 className="text-4xl font-bold text-primary mb-4">
-              {activeTab === 'IDM' ? 'Indeks Desa Membangun' : 'Sustainable Development Goals'}
-            </h3>
-            <p className="text-gray-600 text-lg">Data {activeTab} akan tersedia segera.</p>
+        <section id={activeTab === 'IDM' ? 'idm' : 'sdgs'} className="bg-gray-50 py-16 md:py-20">
+          <div className="max-w-7xl mx-auto px-6 md:px-8 text-center">
+            <div className="bg-white rounded-xl border border-gray-200 p-12">
+              <h3 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-4">
+                {activeTab === 'IDM' ? 'Indeks Desa Membangun' : 'Sustainable Development Goals'}
+              </h3>
+              <p className="text-gray-600 text-base md:text-lg">Data {activeTab} akan tersedia segera.</p>
+            </div>
           </div>
         </section>
       )}

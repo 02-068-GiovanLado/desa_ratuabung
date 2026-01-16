@@ -1,6 +1,6 @@
 const GaleriPage = () => {
   const galeriData = [
-    { id: 1, judul: 'Kegiatan Gotong Royong Warga Desa Bandarejo', tanggal: '10 Jan 2026', views: 150, author: 'Admin Desa', gambar: '/images/galeri-1.jpg' },
+    { id: 1, judul: 'Kegiatan Gotong Royong Warga Desa Ratu Abung', tanggal: '10 Jan 2026', views: 150, author: 'Admin Desa', gambar: '/images/galeri-1.jpg' },
     { id: 2, judul: 'Penyuluhan Pertanian Modern', tanggal: '8 Jan 2026', views: 230, author: 'Admin Desa', gambar: '/images/galeri-2.jpg' },
     { id: 3, judul: 'Posyandu Mengadakan Pemeriksaan Rutin', tanggal: '5 Jan 2026', views: 189, author: 'Posyandu desa', gambar: '/images/galeri-3.jpg' },
     { id: 4, judul: 'Pelatihan UMKM Desa', tanggal: '3 Jan 2026', views: 165, author: 'Admin Desa', gambar: '/images/galeri-4.jpg' },
@@ -12,65 +12,77 @@ const GaleriPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-10 font-poppins">
-        <h2 className="text-2xl md:text-3xl font-extrabold text-[#2C7961] mb-2 sm:mb-3">
-          Galeri Desa
-        </h2>
-        <p className="text-base sm:text-lg text-black mb-6 sm:mb-8">
-          Menyajikan dokumentasi kegiatan dan momen-momen penting di Desa Bandarejo
-        </p>
+    <div className="min-h-screen bg-gray-50">
+      {/* Page Header */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 py-8">
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
+            <a href="/" className="hover:text-[#1E3A5F]">Home</a>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+            <span className="text-[#1E3A5F] font-medium">Galeri</span>
+          </div>
+          
+          <h1 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-2">Galeri Desa Ratu Abung</h1>
+          <p className="text-gray-600 text-base md:text-lg">Dokumentasi kegiatan dan momen-momen penting di Desa Ratu Abung</p>
+        </div>
+      </div>
 
-        {/* Grid Galeri */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8 mb-8">
-          {galeriData.map((item) => (
-            <div
-              key={item.id}
-              className="group relative bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-xl transition-all duration-300"
-            >
-              {/* Gambar */}
-              <div className="w-full h-40 sm:h-48 md:h-56 lg:h-60 bg-gray-200 overflow-hidden">
-                <img
-                  src={item.gambar}
-                  alt={item.judul}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  onError={(e) => {
-                    e.target.src = '/images/galeri-dummy.jpg';
-                    e.target.onerror = null;
-                  }}
-                />
-              </div>
-
-              {/* Konten */}
-              <div className="p-4 sm:p-5">
-                <h3 className="text-lg sm:text-xl font-semibold text-slate-900 hover:text-[#2C7961] transition-colors duration-200 line-clamp-2">
-                  {item.judul}
-                </h3>
-
-                <div className="mt-4 sm:mt-5 space-y-1">
-                  <div className="flex items-center gap-2 text-slate-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm7 8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1 7 7 0 0 1 14 0Z"/>
-                    </svg>
-                    <span className="text-xs sm:text-sm">{item.author}</span>
+      {/* Gallery Grid Section */}
+      <section className="py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {galeriData.map((item) => (
+              <div
+                key={item.id}
+                className="group bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow"
+              >
+                {/* Gambar */}
+                <div className="relative w-full aspect-[4/3] bg-gray-100 overflow-hidden">
+                  <img
+                    src={item.gambar}
+                    alt={item.judul}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    onError={(e) => {
+                      e.target.src = '/images/galeri-dummy.jpg';
+                      e.target.onerror = null;
+                    }}
+                  />
+                  {/* Badge Tanggal */}
+                  <div className="absolute top-4 right-4 bg-[#1E3A5F] text-white px-3 py-1.5 rounded-lg text-xs font-medium">
+                    {item.tanggal}
                   </div>
-                  <div className="flex items-center gap-2 text-slate-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 5-5 5 5 0 0 1-5 5Zm0-8a3 3 0 1 0 3 3 3 3 0 0 0-3-3Z"/>
-                    </svg>
-                    <span className="text-xs sm:text-sm">Dilihat {item.views} kali</span>
+                </div>
+
+                {/* Konten */}
+                <div className="p-5">
+                  <h3 className="text-lg font-semibold text-[#1E3A5F] line-clamp-2 mb-3 group-hover:text-[#2E5C8A] transition-colors">
+                    {item.judul}
+                  </h3>
+
+                  <div className="space-y-2 text-sm text-gray-600">
+                    <div className="flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                      <span>{item.author}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                      </svg>
+                      <span>{item.views} kali dilihat</span>
+                    </div>
                   </div>
                 </div>
               </div>
-
-              {/* Badge Tanggal */}
-              <div className="absolute bottom-0 right-0 z-10 bg-gradient-to-br from-[#2C7961] to-emerald-300 text-white rounded-tl-xl rounded-br-xl px-3 sm:px-4 py-2 leading-tight text-center shadow-md ring-1 ring-emerald-500/20">
-                <div className="text-xs font-semibold">{item.tanggal}</div>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

@@ -28,28 +28,29 @@ const Navbar = () => {
     setIsMobileMenuOpen(false);
   };
 
-  // Navbar transparan hanya di home page dengan glassmorphism
+  // Navbar background - solid for better readability
   const getNavbarBg = () => {
-    if (!isHomePage) return 'bg-[#1E3A5F]/95 backdrop-blur-lg shadow-xl border border-white/10';
-    return isScrolled ? 'bg-[#1E3A5F]/95 backdrop-blur-lg shadow-xl border border-white/10' : 'bg-white/5 backdrop-blur-sm border border-white/20';
+    if (!isHomePage) return 'bg-[#1E3A5F] shadow-md';
+    return isScrolled ? 'bg-[#1E3A5F] shadow-md' : 'bg-[#1E3A5F]/90 shadow-sm';
   };
 
   const menuItems = [
-    { path: '/', label: 'Home', icon: '🏠' },
-    { path: '/profil-desa', label: 'Profil Desa', icon: '📋' },
-    { path: '/infografis', label: 'Infografis', icon: '📊' },
-    { path: '/listing', label: 'Listing', icon: '📝' },
-    { path: '/infografis#idm', label: 'IDM', icon: '⭐' },
-    { path: '/galeri', label: 'Galeri', icon: '📷' },
-    { path: '/listing', label: 'Belanja', icon: '🛒' },
-    { path: '/infografis#ppid', label: 'PPID', icon: '📄' },
+    { path: '/', label: 'Home' },
+    { path: '/profil-desa', label: 'Profil Desa' },
+    { path: '/infografis', label: 'Infografis' },
+    { path: '/listing', label: 'Listing' },
+    { path: '/infografis#idm', label: 'IDM' },
+    { path: '/galeri', label: 'Galeri' },
+    { path: '/listing', label: 'Belanja' },
+    { path: '/infografis#ppid', label: 'PPID' },
   ];
 
   return (
     <>
-      {/* Floating Navbar Container */}
-      <div className="fixed top-0 inset-x-0 z-50 px-4 pt-4">
-        <nav className={`max-w-7xl mx-auto rounded-2xl text-white font-poppins transition-all duration-500 ${getNavbarBg()}`}>
+      {/* Navbar Container */}
+      <div className="fixed top-0 inset-x-0 z-50">
+        <nav className={`text-white font-poppins transition-all duration-300 ${getNavbarBg()}`}>
+          <div className="max-w-7xl mx-auto">
           <div className="px-6">
             <div className="flex items-center justify-between h-20">
               {/* Logo + Nama di Kiri */}
@@ -68,8 +69,8 @@ const Navbar = () => {
                 </div>
               </Link>
 
-              {/* Menu Desktop (md+) di Kanan dengan Icon & Underline */}
-              <ul className="hidden md:flex items-center gap-2">
+              {/* Menu Desktop (md+) di Kanan */}
+              <ul className="hidden md:flex items-center gap-1">
                 {menuItems.map((item) => {
                   const isActive = location.pathname === item.path || 
                     (item.path.includes('#') && location.pathname + location.hash === item.path);
@@ -78,30 +79,29 @@ const Navbar = () => {
                     <li key={item.path}>
                       <Link 
                         to={item.path} 
-                        className={`group relative flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${
+                        className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 block ${
                           isActive 
-                            ? 'bg-white/20 text-white' 
-                            : 'hover:bg-white/10 text-white/90 hover:text-white'
+                            ? 'text-white' 
+                            : 'text-white/80 hover:text-white'
                         }`}
                       >
-                        <span className="text-sm">{item.icon}</span>
-                        <span className="text-sm font-medium">{item.label}</span>
+                        {item.label}
                         
-                        {/* Animated Underline */}
-                        <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-white rounded-full transition-all duration-300 ${
-                          isActive ? 'w-3/4' : 'w-0 group-hover:w-3/4'
-                        }`}></span>
+                        {/* Bottom border for active state */}
+                        {isActive && (
+                          <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-white"></span>
+                        )}
                       </Link>
                     </li>
                   );
                 })}
               </ul>
 
-              {/* Tombol Hamburger (mobile) dengan Glass Effect */}
+              {/* Tombol Hamburger (mobile) */}
               <button
                 type="button"
                 onClick={toggleMobileMenu}
-                className="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                className="md:hidden inline-flex items-center justify-center h-10 w-10 rounded hover:bg-white/10 transition-colors duration-200 focus:outline-none"
                 aria-label="Toggle menu"
               >
                 {/* ikon hamburger */}
@@ -134,8 +134,8 @@ const Navbar = () => {
             <div className={`overflow-hidden transition-all duration-500 ${
               isMobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
             } md:hidden`}>
-              <div className="border-t border-white/10 mt-2">
-                <ul className="flex flex-col text-sm font-medium py-2 space-y-1">
+              <div className="border-t border-white/20 mt-2">
+                <ul className="flex flex-col text-sm font-medium py-3 space-y-1">
                   {menuItems.map((item) => {
                     const isActive = location.pathname === item.path || 
                       (item.path.includes('#') && location.pathname + location.hash === item.path);
@@ -145,14 +145,13 @@ const Navbar = () => {
                         <Link 
                           to={item.path} 
                           onClick={closeMobileMenu} 
-                          className={`flex items-center gap-3 py-3 px-4 mx-2 rounded-lg transition-all duration-300 ${
+                          className={`block py-3 px-4 transition-colors duration-200 ${
                             isActive 
-                              ? 'bg-white/20 text-white' 
-                              : 'hover:bg-white/10 text-white/90'
+                              ? 'text-white bg-white/10' 
+                              : 'text-white/80 hover:text-white hover:bg-white/5'
                           }`}
                         >
-                          <span className="text-lg">{item.icon}</span>
-                          <span>{item.label}</span>
+                          {item.label}
                         </Link>
                       </li>
                     );
@@ -161,11 +160,12 @@ const Navbar = () => {
               </div>
             </div>
           </div>
+          </div>
         </nav>
       </div>
 
-      {/* Spacer untuk halaman non-home agar konten tidak tertutup navbar */}
-      {!isHomePage && <div className="h-20"></div>}
+      {/* Spacer agar konten tidak tertutup navbar */}
+      <div className="h-20"></div>
     </>
   );
 };
