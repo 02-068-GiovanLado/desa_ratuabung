@@ -293,15 +293,17 @@ const HomePage = () => {
       </section>
 
       {/* ================= PETA DESA ================= */}
-      <section className="bg-white py-10">
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
-          <h2 className="text-2xl md:text-3xl font-extrabold text-[#1E3A5F] mb-2">PETA DESA</h2>
-          <p className="text-sm md:text-base text-black/80 mb-6">
-            Menampilkan Peta Desa Dengan <span className="italic">Interest Point</span> Desa Bandarejo
-          </p>
+      <section className="bg-white py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <div className="mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-3">Peta Lokasi</h2>
+            <p className="text-gray-600 text-base md:text-lg">
+              Lokasi Desa Ratu Abung, Kecamatan Abung Selatan
+            </p>
+          </div>
 
-          <div className="bg-white rounded-lg overflow-hidden shadow-lg border border-gray-200">
-            <div className="relative w-full h-[500px] md:h-[600px]">
+          <div className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm">
+            <div className="relative w-full h-[400px] md:h-[500px]">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31730.5!2d105.3!3d-5.4!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNcKwMjQnMDAuMCJTIDEwNcKwMTgnMDAuMCJF!5e0!3m2!1sen!2sid!4v1234567890!5m2!1sen!2sid"
                 width="100%"
@@ -310,19 +312,21 @@ const HomePage = () => {
                 allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Peta Desa Bandarejo"
+                title="Peta Desa Ratu Abung"
               ></iframe>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===== SOTK dengan Carousel ===== */}
-      <section className="bg-gradient-to-br from-[#EFF6FF] to-white py-16">
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
-          <div className="text-center space-y-2 mb-10">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#1E3A5F]">Struktur Organisasi</h2>
-            <p className="text-sm md:text-base text-gray-600">
+      {/* ===== SOTK - Gov.sg Clean Style ===== */}
+      <section className="bg-white py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <div className="mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-3">
+              Struktur Organisasi
+            </h2>
+            <p className="text-gray-600 text-base md:text-lg">
               Pejabat dan Perangkat Desa Ratu Abung
             </p>
           </div>
@@ -336,22 +340,22 @@ const HomePage = () => {
               >
                 {pejabat.map((p, index) => (
                   <div key={index} className="w-1/4 flex-shrink-0 px-3">
-                    <div className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 hover:shadow-2xl transition-all duration-300">
-                      <div className="h-64 bg-gradient-to-b from-gray-100 to-white flex items-end justify-center p-4">
+                    <div className="bg-white rounded-xl border border-gray-200 hover:border-[#2E5C8A] hover:shadow-lg transition-all duration-300 overflow-hidden">
+                      <div className="aspect-square bg-gray-50 flex items-end justify-center p-4">
                         <img
                           src={p.foto}
                           alt={p.nama}
-                          className="w-full h-56 object-contain drop-shadow-lg"
+                          className="w-full h-full object-contain"
                           onError={(e) => { e.target.src = '/images/kades-dummy.jpg'; }}
                         />
                       </div>
-                      <div className="bg-gradient-to-r from-[#1E3A5F] to-[#2E5C8A] px-4 py-4 text-white">
-                        <div className="text-white text-sm font-bold tracking-wide leading-tight">
+                      <div className="p-4 bg-white">
+                        <h4 className="text-sm font-semibold text-[#1E3A5F] mb-1">
                           {p.nama}
-                        </div>
-                        <div className="text-white/90 text-xs mt-1 leading-tight">
+                        </h4>
+                        <p className="text-xs text-gray-600">
                           {p.jabatan}
-                        </div>
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -362,30 +366,33 @@ const HomePage = () => {
             {/* Navigation Buttons */}
             <button 
               onClick={prevSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white hover:bg-[#EFF6FF] text-[#1E3A5F] p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white hover:bg-gray-50 text-[#1E3A5F] p-2 rounded-lg border border-gray-300 shadow-sm transition-all duration-300"
+              aria-label="Previous"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
             <button 
               onClick={nextSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white hover:bg-[#EFF6FF] text-[#1E3A5F] p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white hover:bg-gray-50 text-[#1E3A5F] p-2 rounded-lg border border-gray-300 shadow-sm transition-all duration-300"
+              aria-label="Next"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
 
             {/* Indicators */}
-            <div className="flex justify-center mt-6 space-x-2">
+            <div className="flex justify-center mt-8 space-x-2">
               {Array.from({ length: Math.max(1, pejabat.length - 3) }).map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setCurrentSlide(idx)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    currentSlide === idx ? 'bg-[#3B82F6] w-8' : 'bg-gray-300 hover:bg-gray-400'
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    currentSlide === idx ? 'bg-[#1E3A5F] w-8' : 'bg-gray-300 w-2 hover:bg-gray-400'
                   }`}
+                  aria-label={`Slide ${idx + 1}`}
                 />
               ))}
             </div>
@@ -393,44 +400,33 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* ================= ADMINISTRASI PENDUDUK dengan Animated Counter ================= */}
-      <section className="bg-white py-16">
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
-          <div className="text-center space-y-3 mb-12">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#1E3A5F]">Statistik Penduduk</h2>
-            <p className="text-sm md:text-base text-gray-600 max-w-3xl mx-auto">
-              Data real-time kependudukan Desa Ratu Abung untuk pelayanan publik yang efektif dan efisien
+      {/* ================= STATISTIK PENDUDUK - Gov.sg Style ================= */}
+      <section className="bg-gray-50 py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <div className="mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-3">
+              Data Kependudukan
+            </h2>
+            <p className="text-gray-600 text-base md:text-lg">
+              Statistik penduduk Desa Ratu Abung terkini
             </p>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {[
-              { label: 'Total Penduduk', value: counters.penduduk, icon: '👥', color: 'from-[#3B82F6] to-[#2563EB]' },
-              { label: 'Laki-Laki', value: counters.lakiLaki, icon: '👨', color: 'from-[#2E5C8A] to-[#1E3A5F]' },
-              { label: 'Perempuan', value: counters.perempuan, icon: '👩', color: 'from-pink-500 to-pink-600' },
-              { label: 'Kepala Keluarga', value: counters.kepalaKeluarga, icon: '🏠', color: 'from-amber-500 to-amber-600' },
+              { label: 'Total Penduduk', value: counters.penduduk, color: 'bg-blue-500' },
+              { label: 'Laki-Laki', value: counters.lakiLaki, color: 'bg-[#2E5C8A]' },
+              { label: 'Perempuan', value: counters.perempuan, color: 'bg-pink-500' },
+              { label: 'Kepala Keluarga', value: counters.kepalaKeluarga, color: 'bg-amber-500' },
             ].map((item, index) => (
-              <div key={index} className="group relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-2xl blur opacity-25 group-hover:opacity-40 transition-opacity"></div>
-                <div className="relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100">
-                  <div className="p-6 space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-4xl">{item.icon}</span>
-                      <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${item.color} flex items-center justify-center shadow-lg`}>
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-4xl font-bold text-gray-800 mb-1">
-                        {item.value.toLocaleString('id-ID')}
-                      </div>
-                      <div className="text-sm font-medium text-gray-600">{item.label}</div>
-                    </div>
+              <div key={index} className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="p-6">
+                  <div className="text-sm font-medium text-gray-600 mb-2">{item.label}</div>
+                  <div className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-4">
+                    {item.value.toLocaleString('id-ID')}
                   </div>
-                  <div className={`h-2 bg-gradient-to-r ${item.color}`}></div>
                 </div>
+                <div className={`h-1.5 ${item.color}`}></div>
               </div>
             ))}
           </div>
@@ -441,13 +437,13 @@ const HomePage = () => {
               { label: 'Penduduk Sementara', value: 0 },
               { label: 'Mutasi Penduduk', value: 0 },
             ].map((item, index) => (
-              <div key={index} className="bg-gradient-to-r from-gray-50 to-white rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-200 overflow-hidden">
+              <div key={index} className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="flex items-center">
-                  <div className="bg-[#1E3A5F] flex items-center justify-center px-8 py-6 min-w-[140px]">
-                    <span className="text-4xl font-bold text-white">{item.value}</span>
+                  <div className="bg-[#1E3A5F] flex items-center justify-center px-8 py-6 min-w-[120px]">
+                    <span className="text-3xl font-bold text-white">{item.value}</span>
                   </div>
                   <div className="flex-1 px-6">
-                    <span className="text-lg font-semibold text-gray-700">{item.label}</span>
+                    <span className="text-base font-semibold text-gray-700">{item.label}</span>
                   </div>
                 </div>
               </div>
@@ -456,116 +452,126 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* ================= GALERI DESA ================= */}
-      <section className="bg-white py-10 font-poppins">
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
-          <div>
-            <h2 className="text-2xl md:text-3xl font-extrabold text-[#1E3A5F]">GALERI DESA</h2>
-            <p className="text-sm md:text-base text-black/80 mt-1">
-              Menampilkan kegiatan-kegiatan yang berlangsung di desa
+      {/* ================= GALERI KEGIATAN ================= */}
+      <section className="bg-white py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <div className="mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-3">Galeri Kegiatan</h2>
+            <p className="text-gray-600 text-base md:text-lg">
+              Dokumentasi kegiatan dan acara di Desa Ratu Abung
             </p>
           </div>
 
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { judul: 'Gotong Royong Membersihkan Desa', tanggal: '15 Januari 2026', gambar: '/images/galeri-1.jpg' },
               { judul: 'Perayaan HUT RI ke-81', tanggal: '17 Agustus 2025', gambar: '/images/galeri-2.jpg' },
               { judul: 'Pelatihan Pertanian Modern', tanggal: '10 Januari 2026', gambar: '/images/galeri-3.jpg' },
             ].map((foto, index) => (
-              <div key={index} className="rounded-md bg-white shadow-sm overflow-hidden border border-gray-200 hover:shadow-md transition-shadow">
-                <img
-                  src={foto.gambar}
-                  alt={foto.judul}
-                  className="w-full h-40 md:h-48 object-cover"
-                  onError={(e) => { 
-                    e.target.src = '/images/galeri-dummy.jpg';
-                    e.target.onerror = null;
-                  }}
-                />
-                <div className="px-3 py-2 text-[11px] md:text-xs text-black/70">
-                  <p className="font-semibold line-clamp-1">{foto.judul}</p>
-                  <p className="text-[10px] text-gray-400">{foto.tanggal}</p>
+              <div key={index} className="group bg-white rounded-xl overflow-hidden border border-gray-200 hover:border-[#2E5C8A] hover:shadow-lg transition-all">
+                <div className="aspect-video overflow-hidden bg-gray-100">
+                  <img
+                    src={foto.gambar}
+                    alt={foto.judul}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    onError={(e) => { 
+                      e.target.src = '/images/galeri-dummy.jpg';
+                      e.target.onerror = null;
+                    }}
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-sm font-semibold text-[#1E3A5F] mb-1 line-clamp-2">{foto.judul}</h3>
+                  <p className="text-xs text-gray-500">{foto.tanggal}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="mt-6 text-center">
+          <div className="mt-8 text-center">
             <Link 
               to="/galeri"
-              className="inline-block bg-[#1E3A5F] hover:bg-[#2E5C8A] text-white font-medium px-6 py-2.5 rounded-md transition"
+              className="inline-flex items-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-[#1E3A5F] font-medium px-6 py-3 rounded-lg transition-all"
             >
-              Lihat Foto Lebih Banyak
+              <span>Lihat Semua Galeri</span>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ================= FEEDBACK PENGUNJUNG ================= */}
-      <section className="bg-white py-10 font-poppins">
-        <div className="max-w-2xl mx-auto px-4 md:px-6">
-          <h2 className="text-2xl md:text-3xl font-extrabold text-[#1E3A5F] mb-2 text-center">Kritik & Saran</h2>
-          <p className="text-sm md:text-base text-black/80 mb-6 text-center">
-            Kami sangat menghargai masukan Anda untuk meningkatkan pelayanan dan kualitas website Desa Bandar Rejo.
-            Silakan tinggalkan kritik, saran, atau pesan Anda di bawah ini.
-          </p>
+      {/* ================= HUBUNGI KAMI ================= */}
+      <section className="bg-gray-50 py-16 md:py-20">
+        <div className="max-w-3xl mx-auto px-6 md:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-3">Hubungi Kami</h2>
+            <p className="text-gray-600 text-base md:text-lg">
+              Sampaikan kritik, saran, atau pertanyaan Anda untuk meningkatkan pelayanan kami
+            </p>
+          </div>
 
-          <form 
-            onSubmit={(e) => {
-              e.preventDefault();
-              alert('Terima kasih atas feedback Anda! Fitur ini akan segera terhubung dengan backend.');
-            }}
-            className="bg-white rounded-lg shadow-md p-6 space-y-4"
-          >
-            <div>
-              <label htmlFor="nama" className="block text-sm font-semibold text-gray-700 mb-1">Nama</label>
-              <input
-                type="text"
-                id="nama"
-                name="nama"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]"
-                placeholder="Nama Anda (opsional)"
-              />
+          <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8">
+            <form 
+              onSubmit={(e) => {
+                e.preventDefault();
+                alert('Terima kasih atas masukan Anda! Pesan Anda akan segera kami proses.');
+              }}
+              className="space-y-6"
+            >
+              <div>
+                <label htmlFor="nama" className="block text-sm font-medium text-gray-700 mb-2">Nama</label>
+                <input
+                  type="text"
+                  id="nama"
+                  name="nama"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#2E5C8A] focus:border-transparent transition-all"
+                  placeholder="Nama lengkap Anda"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#2E5C8A] focus:border-transparent transition-all"
+                  placeholder="email@example.com"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="pesan" className="block text-sm font-medium text-gray-700 mb-2">
+                  Pesan <span className="text-red-600">*</span>
+                </label>
+                <textarea
+                  id="pesan"
+                  name="pesan"
+                  rows="5"
+                  required
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#2E5C8A] focus:border-transparent transition-all resize-none"
+                  placeholder="Tulis pesan, kritik, atau saran Anda..."
+                ></textarea>
+              </div>
+
+              <div className="flex justify-end">
+                <button 
+                  type="submit"
+                  className="bg-[#1E3A5F] hover:bg-[#2E5C8A] text-white font-medium px-8 py-3 rounded-lg transition-all shadow-sm hover:shadow-md"
+                >
+                  Kirim Pesan
+                </button>
+              </div>
+            </form>
+
+            <div className="mt-6 pt-6 border-t border-gray-200">
+              <p className="text-sm text-gray-500 text-center">
+                Privasi Anda dijaga. Informasi yang Anda berikan hanya digunakan untuk keperluan komunikasi.
+              </p>
             </div>
-
-            <div>
-              <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-1">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]"
-                placeholder="Email Anda (opsional)"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="pesan" className="block text-sm font-semibold text-gray-700 mb-1">
-                Pesan / Saran <span className="text-red-600">*</span>
-              </label>
-              <textarea
-                id="pesan"
-                name="pesan"
-                rows="4"
-                required
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]"
-                placeholder="Tulis kritik, saran, atau pesan Anda di sini..."
-              ></textarea>
-            </div>
-
-            <div className="flex justify-end">
-              <button 
-                type="submit"
-                className="bg-[#1E3A5F] hover:bg-[#2E5C8A] text-white font-semibold px-6 py-2 rounded-md transition"
-              >
-                Kirim Feedback
-              </button>
-            </div>
-          </form>
-
-          <p className="text-xs text-gray-500 mt-3 text-center">
-            Data Anda akan dijaga kerahasiaannya. Terima kasih atas partisipasi Anda!
-          </p>
+          </div>
         </div>
       </section>
     </div>
