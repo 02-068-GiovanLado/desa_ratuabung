@@ -47,8 +47,8 @@ const Navbar = () => {
                 className="h-12 w-12 object-contain rounded-full bg-white/10 ring-1 ring-white/20" 
               />
               <div className="leading-tight">
-                <div className="text-lg md:text-xl font-bold">Desa Bandarejo</div>
-                <div className="text-sm md:text-base text-white/90">Kabupaten Lampung Selatan</div>
+                <div className="text-lg md:text-xl font-bold">Desa Ratu Abung</div>
+                <div className="text-sm md:text-base text-white/90">Kabupaten Lampung Utara</div>
               </div>
             </Link>
 

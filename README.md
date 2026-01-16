@@ -1,6 +1,6 @@
-# Website Desa Bandarejo - React Version
+# Website Desa Ratu Abung - React Version
 
-Website resmi Desa Bandarejo yang dibangun dengan React + Vite dan Tailwind CSS.
+Website resmi Desa Ratu Abung yang dibangun dengan React + Vite dan Tailwind CSS.
 
 ## Fitur
 
