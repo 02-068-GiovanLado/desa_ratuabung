@@ -59,7 +59,7 @@ const Navbar = () => {
               <li><Link to="/infografis" className="hover:opacity-90 transition-opacity">Infografis</Link></li>
               <li><Link to="/listing" className="hover:opacity-90 transition-opacity">Listing</Link></li>
               <li><Link to="/infografis#idm" className="hover:opacity-90 transition-opacity">IDM</Link></li>
-              <li><Link to="/listing" className="hover:opacity-90 transition-opacity">Berita</Link></li>
+              <li><Link to="/galeri" className="hover:opacity-90 transition-opacity">Galeri</Link></li>
               <li><Link to="/listing" className="hover:opacity-90 transition-opacity">Belanja</Link></li>
               <li><Link to="/infografis#ppid" className="hover:opacity-90 transition-opacity">PPID</Link></li>
             </ul>
