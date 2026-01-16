@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   const pejabat = [
-    { nama: 'Sularto', jabatan: 'Kepala Desa', foto: '/images/kades.jpg' },
+    { nama: 'Budiyono', jabatan: 'Kepala Desa', foto: '/images/kades.jpg' },
     { nama: 'Sutrisno', jabatan: 'Sekretaris Desa', foto: '/images/sekdes.jpg' },
     { nama: 'Sri Rahayu', jabatan: 'Bendahara Desa', foto: '/images/pejabat-3.jpg' },
     { nama: 'Supriyadi', jabatan: 'Kepala Urusan Perencanaan', foto: '/images/kaur-perencanaan.jpg' },
@@ -20,7 +20,7 @@ const HomePage = () => {
       {/* ================= HERO ================= */}
       <div 
         className="relative w-full h-screen bg-cover bg-center flex items-center justify-center text-center"
-        style={{ backgroundImage: "url('/images/container.png')" }}
+        style={{ backgroundImage: "url('/images/hero.jpg')" }}
       >
         {/* Overlay (opsional) */}
         <div className="absolute inset-0 bg-black/40"></div>
@@ -28,10 +28,10 @@ const HomePage = () => {
         {/* Konten teks */}
         <div className="relative z-10 px-6">
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Selamat Datang di Website Resmi Desa Bandarejo
+            Selamat Datang di Website Resmi Ratu Abung
           </h1>
           <p className="text-white leading-relaxed max-w-2xl mx-auto">
-            Website Resmi Pemerintah Desa Bandarejo, Kecamatan Natar, Kabupaten Lampung Utara.
+            Website Resmi Pemerintah Desa Ratu Abung, Kecamatan Abung Selatan, Kabupaten Lampung Utara.
             Dapatkan informasi terbaru seputar desa, layanan publik, dan kegiatan masyarakat.
           </p>
         </div>
@@ -146,19 +146,19 @@ const HomePage = () => {
           {/* Teks sambutan */}
           <div className="md:col-span-8">
             <h3 className="text-2xl md:text-3xl font-extrabold text-[#2C7961]">
-              Sambutan Kepala Desa Bandarejo
+              Sambutan Kepala Desa Ratu Abung 
             </h3>
             <div className="mt-1">
-              <p className="text-xs font-extrabold tracking-wide text-black">SULARTO</p>
-              <p className="text-[11px] uppercase tracking-wide text-black/60">KEPALA DESA BANDAREJO</p>
+              <p className="text-xs font-extrabold tracking-wide text-black">BUDIYONO</p>
+              <p className="text-[11px] uppercase tracking-wide text-black/60">KEPALA DESA RATU ABUNG</p>
             </div>
             <p className="mt-4 text-sm md:text-base leading-relaxed text-black/80 text-justify">
-              Selamat datang di Website Resmi Pemerintah Desa Bandarejo, Kecamatan Natar, Kabupaten Lampung Utara.
+              Selamat datang di Website Resmi Pemerintah Desa Ratu Abung, Kecamatan Abung Selatan, Kabupaten Lampung Utara.
               Website ini hadir sebagai sarana informasi yang bertujuan untuk memberikan pelayanan yang lebih baik dan
-              lebih cepat kepada seluruh masyarakat Desa Bandarejo. Dengan kemajuan teknologi yang semakin pesat, kami berharap
+              lebih cepat kepada seluruh masyarakat Desa Ratu Abung. Dengan kemajuan teknologi yang semakin pesat, kami berharap
               platform ini dapat menjadi jembatan yang menghubungkan antara pemerintah desa dengan warga.
               Melalui website ini, masyarakat dapat dengan mudah mengakses berbagai informasi penting terkait program,
-              kegiatan, dan kebijakan yang dilaksanakan oleh Pemerintah Desa Bandar Rejo.
+              kegiatan, dan kebijakan yang dilaksanakan oleh Pemerintah Desa Ratu Abung.
             </p>
           </div>
         </div>
@@ -194,7 +194,7 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto px-4 md:px-6">
           <h2 className="text-2xl md:text-3xl font-extrabold text-[#2C7961]">SOTK</h2>
           <p className="text-sm md:text-base text-black/80 mt-1">
-            Struktur Organisasi dan Tata Kerja Desa Bandarejo
+            Struktur Organisasi dan Tata Kerja Desa Ratu Abung
           </p>
 
           <div className="mt-5 overflow-x-auto pb-4">

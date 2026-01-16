@@ -11,7 +11,7 @@ const BeritaPage = () => {
         id: 1,
         slug: 'kegiatan-gotong-royong',
         title: 'Kegiatan Gotong Royong Membersihkan Lingkungan Desa',
-        description: 'Warga desa Bandarejo mengadakan kegiatan gotong royong rutin untuk membersihkan lingkungan desa dan fasilitas umum.',
+        description: 'Warga desa Ratu Abung mengadakan kegiatan gotong royong rutin untuk membersihkan lingkungan desa dan fasilitas umum.',
         author: 'Admin Desa',
         date: '2026-01-10',
         views: 150,

@@ -1,8 +1,8 @@
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const alamat = "Bandarejo, Kec. Natar, Kabupaten Lampung Utara, Lampung 35362, Indonesia";
+  const alamat = "Ratu Abung, Kec. Abung Selatan, Kabupaten Lampung Utara, Lampung 35362, Indonesia";
   const telp = "000000000000";
-  const email = "bandarejo@lampungselatankab.go.id";
+  const email = "ratuabung@lampungutara.go.id";
 
   return (
     <footer className="w-full bg-[#2C7961] text-white font-poppins">
@@ -19,7 +19,7 @@ const Footer = () => {
                 className="h-16 w-16 object-contain"
               />
               <div className="text-sm leading-relaxed">
-                <div className="font-semibold mb-2 text-base">Pemerintah Desa Bandarejo</div>
+                <div className="font-semibold mb-2 text-base">Pemerintah Desa Ratu Abung</div>
                 <p className="text-white/90">{alamat}</p>
               </div>
             </div>
@@ -49,7 +49,7 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                           d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <span className="text-white/90">Kec. Natar, Lampung Selatan</span>
+                  <span className="text-white/90">Kec. Abung Selatan, Lampung Utara</span>
                 </li>
               </ul>
             </div>
@@ -102,7 +102,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="text-center text-white/80 text-sm mt-6">
-          <p>&copy; {currentYear} Pemerintah Desa Bandarejo. All rights reserved.</p>
+          <p>&copy; {currentYear} Pemerintah Desa Ratu Abung. All rights reserved.</p>
         </div>
       </div>
     </footer>
