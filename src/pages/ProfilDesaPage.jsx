@@ -94,14 +94,14 @@ const ProfilDesaPage = () => {
 
               <div className="bg-white rounded-xl shadow-md overflow-hidden">
                 <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31786.158225657124!2d105.26312028848467!3d-5.220248346599821!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e40c713ab488f55%3A0xf6dc504899f954ee!2sBandar%20Rejo%2C%20Kec.%20Natar%2C%20Kabupaten%20Lampung%20Selatan%2C%20Lampung!5e0!3m2!1sid!2sid!4v1761722726153!5m2!1sid!2sid" 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3799.2221469958017!2d104.94364677476686!3d-4.904839895071049!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e4755001907cecd%3A0x91d0918aeb27b4f8!2sRatu%20abung!5e1!3m2!1sid!2sid!4v1768581064771!5m2!1sid!2sid" 
                   width="100%" 
-                  height="300" 
+                  height="400" 
                   style={{ border: 0 }}
                   allowFullScreen="" 
                   loading="lazy" 
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Peta Lokasi Desa Bandarejo"
+                  title="Peta Lokasi Desa Ratu Abung"
                 ></iframe>
               </div>
             </div>

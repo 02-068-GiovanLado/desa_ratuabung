@@ -5,7 +5,7 @@ const Footer = () => {
   const email = "ratuabung@lampungutara.go.id";
 
   return (
-    <footer className="w-full bg-[#2C7961] text-white font-poppins">
+    <footer className="w-full bg-[#1E3A5F] text-white font-poppins">
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Kotak border dashed */}
         <div className="rounded-md border border-dashed border-white/40 p-6">
