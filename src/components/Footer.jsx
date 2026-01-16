@@ -1,6 +1,6 @@
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const alamat = "Bandarejo, Kec. Natar, Kabupaten Lampung Selatan, Lampung 35362, Indonesia";
+  const alamat = "Bandarejo, Kec. Natar, Kabupaten Lampung Utara, Lampung 35362, Indonesia";
   const telp = "000000000000";
   const email = "bandarejo@lampungselatankab.go.id";
 
@@ -16,7 +16,7 @@ const Footer = () => {
               <img 
                 src="/images/Logo.png" 
                 alt="Logo Desa"
-                className="h-16 w-16 object-contain rounded-full bg-white p-1"
+                className="h-16 w-16 object-contain"
               />
               <div className="text-sm leading-relaxed">
                 <div className="font-semibold mb-2 text-base">Pemerintah Desa Bandarejo</div>
@@ -82,7 +82,7 @@ const Footer = () => {
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
-                    Pemkab Lampung Selatan
+                    Pemkab Lampung Utara
                   </a>
                 </li>
                 <li>

@@ -31,7 +31,7 @@ const HomePage = () => {
             Selamat Datang di Website Resmi Desa Bandarejo
           </h1>
           <p className="text-white leading-relaxed max-w-2xl mx-auto">
-            Website Resmi Pemerintah Desa Bandarejo, Kecamatan Natar, Kabupaten Lampung Selatan.
+            Website Resmi Pemerintah Desa Bandarejo, Kecamatan Natar, Kabupaten Lampung Utara.
             Dapatkan informasi terbaru seputar desa, layanan publik, dan kegiatan masyarakat.
           </p>
         </div>
@@ -153,7 +153,7 @@ const HomePage = () => {
               <p className="text-[11px] uppercase tracking-wide text-black/60">KEPALA DESA BANDAREJO</p>
             </div>
             <p className="mt-4 text-sm md:text-base leading-relaxed text-black/80 text-justify">
-              Selamat datang di Website Resmi Pemerintah Desa Bandarejo, Kecamatan Natar, Kabupaten Lampung Selatan.
+              Selamat datang di Website Resmi Pemerintah Desa Bandarejo, Kecamatan Natar, Kabupaten Lampung Utara.
               Website ini hadir sebagai sarana informasi yang bertujuan untuk memberikan pelayanan yang lebih baik dan
               lebih cepat kepada seluruh masyarakat Desa Bandarejo. Dengan kemajuan teknologi yang semakin pesat, kami berharap
               platform ini dapat menjadi jembatan yang menghubungkan antara pemerintah desa dengan warga.

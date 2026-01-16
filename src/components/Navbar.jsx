@@ -39,26 +39,29 @@ const Navbar = () => {
       <nav className={`fixed top-0 inset-x-0 z-50 w-full text-white font-poppins transition-all duration-300 ${getNavbarBg()}`}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-20">
-            {/* Logo + Nama */}
+            {/* Logo + Nama di Kiri */}
             <Link to="/" className="flex items-center gap-3 shrink-0">
               <img 
                 src="/images/Logo.png" 
                 alt="Logo Desa"
-                className="h-12 w-12 object-contain rounded-full bg-white/10 ring-1 ring-white/20" 
+                className="h-14 w-14 object-contain" 
               />
               <div className="leading-tight">
-                <div className="text-lg md:text-xl font-bold">Desa Bandarejo</div>
-                <div className="text-sm md:text-base text-white/90">Kabupaten Lampung Selatan</div>
+                <div className="text-lg md:text-xl font-bold">Desa Banjar Rejo</div>
+                <div className="text-sm md:text-base text-white/90">Kabupaten Lampung Timur</div>
               </div>
             </Link>
 
-            {/* Menu Desktop (md+) */}
-            <ul className="hidden md:flex items-center gap-8 text-base font-semibold ml-auto">
+            {/* Menu Desktop (md+) di Kanan */}
+            <ul className="hidden md:flex items-center gap-6 text-base font-medium">
               <li><Link to="/" className="hover:opacity-90 transition-opacity">Home</Link></li>
               <li><Link to="/profil-desa" className="hover:opacity-90 transition-opacity">Profil Desa</Link></li>
               <li><Link to="/infografis" className="hover:opacity-90 transition-opacity">Infografis</Link></li>
               <li><Link to="/listing" className="hover:opacity-90 transition-opacity">Listing</Link></li>
-              <li><Link to="/galeri" className="hover:opacity-90 transition-opacity">Galeri</Link></li>
+              <li><Link to="/infografis#idm" className="hover:opacity-90 transition-opacity">IDM</Link></li>
+              <li><Link to="/listing" className="hover:opacity-90 transition-opacity">Berita</Link></li>
+              <li><Link to="/listing" className="hover:opacity-90 transition-opacity">Belanja</Link></li>
+              <li><Link to="/infografis#ppid" className="hover:opacity-90 transition-opacity">PPID</Link></li>
             </ul>
 
             {/* Tombol Hamburger (mobile) */}
