@@ -84,7 +84,7 @@ const BeritaPage = () => {
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-10 font-poppins" id="berita-container">
       <h2 className="text-2xl md:text-3xl font-extrabold text-emerald-700 mb-2 sm:mb-3">Berita Desa</h2>
       <p className="text-base sm:text-lg text-black mb-6 sm:mb-8">
-        Menyajikan informasi terbaru tentang peristiwa, berita terkini, dan artikel-artikel jurnalistik dari Desa Bandarejo
+        Menyajikan informasi terbaru tentang peristiwa, berita terkini, dan artikel-artikel jurnalistik dari Desa Ratu Abung
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8 mb-8">
