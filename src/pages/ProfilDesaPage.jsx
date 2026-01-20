@@ -121,13 +121,10 @@ const ProfilDesaPage = () => {
                 <div className="md:col-span-3 p-8 md:p-10">
                   <div className="prose prose-gray max-w-none">
                     <p className="text-gray-700 leading-relaxed">
-                      Desa Ratu Abung merupakan salah satu desa di Kecamatan Abung Selatan, Kabupaten Lampung Utara yang berkembang dari aktivitas permukiman dan pengelolaan lahan pertanian masyarakat setempat. 
-                      Sejak awal perkembangannya, sektor pertanian menjadi penopang utama perekonomian desa dengan komoditas utama berupa padi, jadung dan palawija yang hingga kini masih menjadi mata pencaharian mayoritas penduduk.
+                      Desa Ratu Abung terletak diwilayah Kecamatan Abung Selatan, luas desa sekitar 346 Ha dengan wilayah terbagi dalam 7 dusun dan 19 rt. Terlihat dalam peta desa, sebelah utara desa berbatasan dengan Desa Kembang Tanjung, sebelah selatan berbatasan dengan Desa Kemalo Abung, adapun sebelah barat berbatasan dengan Desa Candimas sedangkan sebelah timur berbatasan dengan Desa Kalibalangan dan Desa Trimodadi.
                     </p>
                     <p className="text-gray-700 leading-relaxed mt-4">
-                    Secara geografis, Desa Ratu Abung memiliki luas wilayah sekitar 817 Hektare dan berada di kawasan dataran rendah yang relatif subur sehingga mendukung kegiatan pertanian.
-                    Secara administratif, desa ini terbagi ke dalam 7 dusun dan 19 RT. 
-                    Jarak Desa Ratu Abung ke pusat Kecamatan Abung Selatan relatif terjangkau, sedangkan ke ibukota Kabupaten Lampung Utara dapat ditempuh melalui jaringan jalan yang memadai, sehingga memudahkan distribusi hasil pertanian ke pasar kecamatan maupun kabupaten.
+                    Jumlah penduduk tahun 2025 sebanyak 2175 jiwa, dengan penduduk laki-laki sebanyak 1068 jiwa dan perempuan sebanyak 1107 jiwa. Mayoritas penduduk bekerja sebagai lainnya yaitu sebanyak 256 orang.
                     </p>
                   </div>
                 </div>
@@ -157,7 +154,7 @@ const ProfilDesaPage = () => {
                     </div>
                     <div>
                       <p className="text-sm font-medium text-gray-900">Utara</p>
-                      <p className="text-sm text-gray-600">Desa Kalibalangan</p>
+                      <p className="text-sm text-gray-600">Desa Kembang Tanjung</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
@@ -168,7 +165,7 @@ const ProfilDesaPage = () => {
                     </div>
                     <div>
                       <p className="text-sm font-medium text-gray-900">Selatan</p>
-                      <p className="text-sm text-gray-600">Desa Trimodadi</p>
+                      <p className="text-sm text-gray-600">Desa Kemalo Abung</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
@@ -179,7 +176,7 @@ const ProfilDesaPage = () => {
                     </div>
                     <div>
                       <p className="text-sm font-medium text-gray-900">Timur</p>
-                      <p className="text-sm text-gray-600">Desa Cabang Abung Raya</p>
+                      <p className="text-sm text-gray-600">Desa Kalibalangan dan Trimodadi</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
@@ -190,7 +187,7 @@ const ProfilDesaPage = () => {
                     </div>
                     <div>
                       <p className="text-sm font-medium text-gray-900">Barat</p>
-                      <p className="text-sm text-gray-600">Desa Cabang Empat</p>
+                      <p className="text-sm text-gray-600">Desa Candimas</p>
                     </div>
                   </div>
                 </div>
