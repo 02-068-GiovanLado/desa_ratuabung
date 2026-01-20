@@ -16,7 +16,7 @@ const HomePage = () => {
     { nama: 'Muharyati', jabatan: 'Kepala Urusan TU dan Umum', foto: '/images/kaur-tu.jpg' },
     { nama: 'Deni Endera', jabatan: 'Kepala Urusan Perencanaan', foto: '/images/kaur-perencanaan.jpg' },
     { nama: 'Maryoko', jabatan: 'Kepala Urusan Keuangan', foto: '/images/kaurkeuangan.jpg' },
-    { nama: 'Agus Maryoko', jabatan: 'Kasi Pemerintahan', foto: '/images/kasipemerintahan.jpg' },
+    { nama: 'Agus Iqbal', jabatan: 'Kasi Pemerintahan', foto: '/images/kasipemerintahan.jpg' },
     { nama: 'Nindia Utari', jabatan: 'Kasi Pelayanan', foto: '/images/kasipelayanan.jpg' },
     { nama: 'Edi Septiawan', jabatan: 'Kasi Kesejahteraan', foto: '/images/kasikesra.jpg' },
     { nama: 'Tukino', jabatan: 'Kepala Dusun 1', foto: '/images/kadus 1.jpg' },
