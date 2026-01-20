@@ -195,11 +195,11 @@ const ProfilDesaPage = () => {
                 <div className="border-t border-gray-200 mt-6 pt-6 space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-sm font-medium text-gray-700">Luas Wilayah</span>
-                    <span className="text-sm font-semibold text-[#1E3A5F]">817 Ha</span>
+                    <span className="text-sm font-semibold text-[#1E3A5F]">346 Ha</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm font-medium text-gray-700">Jumlah Penduduk</span>
-                    <span className="text-sm font-semibold text-[#1E3A5F]">3,154 Jiwa</span>
+                    <span className="text-sm font-semibold text-[#1E3A5F]">2.175 Jiwa</span>
                   </div>
                 </div>
               </div>
