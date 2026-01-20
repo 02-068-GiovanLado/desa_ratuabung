@@ -9,10 +9,10 @@ const InfografisPage = () => {
 
   // Mock data
   const mockData = {
-    totalPenduduk: 3154,
-    kepalaKeluarga: 904,
-    perempuan: 1589,
-    lakiLaki: 1565,
+    totalPenduduk: 2175,
+    kepalaKeluarga: 744,
+    perempuan: 1107,
+    lakiLaki: 1068,
   };
 
   const tabs = [
@@ -141,7 +141,7 @@ const InfografisPage = () => {
           labels: ['Tidak/Belum Sekolah', 'Belum Tamat SD', 'Tamat SD', 'SLTP', 'SLTA', 'Diploma I/II', 'Akademi/Diploma III', 'Diploma IV/Strata I', 'Strata II', 'Strata III'],
           datasets: [{
             label: 'Jumlah Penduduk',
-            data: [245, 189, 876, 512, 678, 45, 123, 234, 34, 12],
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             backgroundColor: 'rgba(44, 121, 97, 0.8)',
           }]
         },
@@ -168,45 +168,43 @@ const InfografisPage = () => {
   }, []);
 
   const topPekerjaan = [
-    { nama: 'Petani', total: 892 },
-    { nama: 'Buruh Tani', total: 567 },
-    { nama: 'Pedagang', total: 234 },
-    { nama: 'Wirausaha', total: 189 },
-    { nama: 'Ibu Rumah Tangga', total: 678 },
-    { nama: 'Karyawan Swasta', total: 156 },
+    { nama: 'Petani', total: 109 },
+    { nama: 'Buruh Tani', total: 209 },
+    { nama: 'Buruh Perusahaan', total: 48 },
+    { nama: 'Tidak bekerja/Pengangguran', total: 67 },
+    { nama: 'Pedagang/Jasa', total: 25 },
+    { nama: 'Karyawan/Pegawai Swasta', total: 37 },
   ];
 
   const allPekerjaan = [
-    { jenis: 'Petani', jumlah: 892 },
-    { jenis: 'Buruh Tani', jumlah: 567 },
-    { jenis: 'Pedagang', jumlah: 234 },
-    { jenis: 'Pegawai Negeri Sipil (PNS)', jumlah: 98 },
-    { jenis: 'Guru', jumlah: 87 },
-    { jenis: 'Tenaga Kesehatan', jumlah: 45 },
-    { jenis: 'Karyawan Swasta', jumlah: 156 },
-    { jenis: 'Wirausaha', jumlah: 189 },
-    { jenis: 'Sopir/Driver', jumlah: 76 },
-    { jenis: 'Nelayan', jumlah: 34 },
-    { jenis: 'Ibu Rumah Tangga', jumlah: 678 },
-    { jenis: 'Pelajar/Mahasiswa', jumlah: 245 },
-    { jenis: 'Tidak Bekerja', jumlah: 123 },
+    { jenis: 'TNI/POLRI', jumlah: 8 },
+    { jenis: 'PNS/PPPK', jumlah: 12 },
+    { jenis: 'Karyawan/Pegawai Swasta', jumlah: 37 },
+    { jenis: 'Petani', jumlah: 109 },
+    { jenis: 'Buruh Tani', jumlah: 209 },
+    { jenis: 'Buruh Perusahaan', jumlah: 48 },
+    { jenis: 'Pedagang/Jasa', jumlah: 25 },
+    { jenis: 'Peternak', jumlah: 12 },
+    { jenis: 'Tukang/Kuli Bangunan', jumlah: 24 },
+    { jenis: 'Lainnya', jumlah: 256 },
+    { jenis: 'Tidak bekerja/Pengangguran', jumlah: 67 },
   ];
 
   const perkawinanData = [
-    { status: 'Belum Kawin', total: 1245, icon: '/images/aset_infografis/belumkawin.png' },
-    { status: 'Kawin', total: 1678, icon: '/images/aset_infografis/kawin.png' },
-    { status: 'Cerai Mati', total: 145, icon: '/images/aset_infografis/mt.png' },
-    { status: 'Kawin Tercatat', total: 89, icon: '/images/aset_infografis/kawintercatat.png' },
-    { status: 'Cerai Hidup', total: 67, icon: '/images/aset_infografis/Cerai Hidup.png' },
-    { status: 'Kawin Tidak Tercatat', total: 34, icon: '/images/aset_infografis/kawin tak tercatat.png' },
+    { status: 'Belum Kawin', total: 0, icon: '/images/aset_infografis/belumkawin.png' },
+    { status: 'Kawin', total: 0, icon: '/images/aset_infografis/kawin.png' },
+    { status: 'Cerai Mati', total: 0, icon: '/images/aset_infografis/mt.png' },
+    { status: 'Kawin Tercatat', total: 0, icon: '/images/aset_infografis/kawintercatat.png' },
+    { status: 'Cerai Hidup', total: 0, icon: '/images/aset_infografis/Cerai Hidup.png' },
+    { status: 'Kawin Tidak Tercatat', total: 0, icon: '/images/aset_infografis/kawin tak tercatat.png' },
   ];
 
   const agamaData = [
-    { agama: 'Islam', total: 2987, icon: '/images/aset_infografis/islam.png' },
-    { agama: 'Kristen', total: 123, icon: '/images/aset_infografis/kristen.png' },
-    { agama: 'Katolik', total: 34, icon: '/images/aset_infografis/katolik.png' },
-    { agama: 'Hindu', total: 7, icon: '/images/aset_infografis/hindu.png' },
-    { agama: 'Budha', total: 3, icon: '/images/aset_infografis/budha.png' },
+    { agama: 'Islam', total: 0, icon: '/images/aset_infografis/islam.png' },
+    { agama: 'Kristen', total: 0, icon: '/images/aset_infografis/kristen.png' },
+    { agama: 'Katolik', total: 0, icon: '/images/aset_infografis/katolik.png' },
+    { agama: 'Hindu', total: 0, icon: '/images/aset_infografis/hindu.png' },
+    { agama: 'Budha', total: 0, icon: '/images/aset_infografis/budha.png' },
   ];
 
   const stuntingData = [
