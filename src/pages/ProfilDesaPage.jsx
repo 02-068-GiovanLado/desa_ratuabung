@@ -121,10 +121,13 @@ const ProfilDesaPage = () => {
                 <div className="md:col-span-3 p-8 md:p-10">
                   <div className="prose prose-gray max-w-none">
                     <p className="text-gray-700 leading-relaxed">
-                      Desa Bandar Rejo terbentuk melalui program transmigrasi yang membawa penduduk dari Pulau Jawa untuk membuka dan mengelola lahan baru di kawasan Natar. Sejak awal, kegiatan ekonomi desa didominasi oleh pertanian—khususnya padi, jagung, dan palawija—yang tetap menjadi mata pencaharian utama hingga saat ini.
+                      Desa Ratu Abung merupakan salah satu desa di Kecamatan Abung Selatan, Kabupaten Lampung Utara yang berkembang dari aktivitas permukiman dan pengelolaan lahan pertanian masyarakat setempat. 
+                      Sejak awal perkembangannya, sektor pertanian menjadi penopang utama perekonomian desa dengan komoditas utama berupa padi, jadung dan palawija yang hingga kini masih menjadi mata pencaharian mayoritas penduduk.
                     </p>
                     <p className="text-gray-700 leading-relaxed mt-4">
-                      Secara geografis, desa memiliki luas sekitar 817 hektare dan terletak di wilayah dataran rendah yang cocok untuk pertanian. Administratif desa dibagi menjadi 7 dusun dan 19 RT. Jarak ke pusat Kecamatan Natar sekitar 22 km dan ke ibu kota Kabupaten Lampung Utara sekitar 90 km. Akses jalan menuju desa mendukung pergerakan komoditas pertanian ke pasar kecamatan.
+                    Secara geografis, Desa Ratu Abung memiliki luas wilayah sekitar 817 Hektare dan berada di kawasan dataran rendah yang relatif subur sehingga mendukung kegiatan pertanian.
+                    Secara administratif, desa ini terbagi ke dalam 7 dusun dan 19 RT. 
+                    Jarak Desa Ratu Abung ke pusat Kecamatan Abung Selatan relatif terjangkau, sedangkan ke ibukota Kabupaten Lampung Utara dapat ditempuh melalui jaringan jalan yang memadai, sehingga memudahkan distribusi hasil pertanian ke pasar kecamatan maupun kabupaten.
                     </p>
                   </div>
                 </div>
@@ -154,7 +157,7 @@ const ProfilDesaPage = () => {
                     </div>
                     <div>
                       <p className="text-sm font-medium text-gray-900">Utara</p>
-                      <p className="text-sm text-gray-600">Desa Serdang</p>
+                      <p className="text-sm text-gray-600">Desa Kalibalangan</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
@@ -165,7 +168,7 @@ const ProfilDesaPage = () => {
                     </div>
                     <div>
                       <p className="text-sm font-medium text-gray-900">Selatan</p>
-                      <p className="text-sm text-gray-600">Desa Natar</p>
+                      <p className="text-sm text-gray-600">Desa Trimodadi</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
@@ -176,7 +179,7 @@ const ProfilDesaPage = () => {
                     </div>
                     <div>
                       <p className="text-sm font-medium text-gray-900">Timur</p>
-                      <p className="text-sm text-gray-600">Desa Merak Batin</p>
+                      <p className="text-sm text-gray-600">Desa Cabang Abung Raya</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
@@ -187,7 +190,7 @@ const ProfilDesaPage = () => {
                     </div>
                     <div>
                       <p className="text-sm font-medium text-gray-900">Barat</p>
-                      <p className="text-sm text-gray-600">Desa Branti</p>
+                      <p className="text-sm text-gray-600">Desa Cabang Empat</p>
                     </div>
                   </div>
                 </div>
