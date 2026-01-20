@@ -15,7 +15,7 @@ const HomePage = () => {
     { nama: 'Nanan Feryadi, S.Kom', jabatan: 'Sekretaris Desa', foto: '/images/sekdes.jpg' },
     { nama: 'Muharyati', jabatan: 'Kepala Urusan TU dan Umum', foto: '/images/kaur-tu.jpg' },
     { nama: 'Deni Endera', jabatan: 'Kepala Urusan Perencanaan', foto: '/images/kaur-perencanaan.jpg' },
-    { nama: 'Maryoko', jabatan: 'Kepala Urusan Keuangan', foto: '/images/pejabat-3.jpg' },
+    { nama: 'Maryoko', jabatan: 'Kepala Urusan Keuangan', foto: '/images/kaurkeuangan.jpg' },
     { nama: 'Agus Iqbal', jabatan: 'Kasi Pemerintahan', foto: '/images/kasipemerintahan.jpg' },
     { nama: 'Nindia Utari', jabatan: 'Kasi Pelayanan', foto: '/images/kasipelayanan.jpg' },
     { nama: 'Edi Septiawan', jabatan: 'Kasi Kesejahteraan', foto: '/images/kasikesra.jpg' },
@@ -309,7 +309,7 @@ const HomePage = () => {
           <div className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm">
             <div className="relative w-full h-[400px] md:h-[500px]">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31730.5!2d105.3!3d-5.4!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNcKwMjQnMDAuMCJTIDEwNcKwMTgnMDAuMCJF!5e0!3m2!1sen!2sid!4v1234567890!5m2!1sen!2sid"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31802.5545991708!2d104.924985187695!3d-4.886091925513833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e38aa06c5c5a66d%3A0xfead7bbc27eabfec!2sRatu%20Abung%2C%20Kec.%20Abung%20Sel.%2C%20Kabupaten%20Lampung%20Utara%2C%20Lampung!5e0!3m2!1sid!2sid!4v1768883630958!5m2!1sid!2sid"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
