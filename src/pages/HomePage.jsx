@@ -222,7 +222,7 @@ const HomePage = () => {
             </Link>
 
             <Link 
-              to="/infografis#ppid" 
+              to="/ppid" 
               className="group bg-white rounded-xl border border-gray-200 hover:border-[#2E5C8A] hover:shadow-lg transition-all duration-300 overflow-hidden"
             >
               <div className="p-6">

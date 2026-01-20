@@ -8,6 +8,7 @@ import DetailBeritaPage from './pages/DetailBeritaPage';
 import ProfilDesaPage from './pages/ProfilDesaPage';
 import InfografisPage from './pages/InfografisPage';
 import ListingPage from './pages/ListingPage';
+import PPIDPage from './pages/PPIDPage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/profil-desa" element={<ProfilDesaPage />} />
             <Route path="/infografis" element={<InfografisPage />} />
+            <Route path="/ppid" element={<PPIDPage />} />
             <Route path="/listing" element={<ListingPage />} />
             <Route path="/galeri" element={<GaleriPage />} />
             <Route path="/berita/:slug" element={<DetailBeritaPage />} />

@@ -39,10 +39,9 @@ const Navbar = () => {
     { path: '/profil-desa', label: 'Profil Desa' },
     { path: '/infografis', label: 'Infografis' },
     { path: '/listing', label: 'Listing' },
-    { path: '/infografis#idm', label: 'IDM' },
     { path: '/galeri', label: 'Galeri' },
     { path: '/belanja', label: 'Belanja' },
-    { path: '/infografis#ppid', label: 'PPID' },
+    { path: '/ppid', label: 'PPID' },
   ];
 
   return (

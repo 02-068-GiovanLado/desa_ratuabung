@@ -29,8 +29,6 @@ const InfografisPage = () => {
     const hash = location.hash.replace('#', '');
     if (hash === 'idm') {
       setActiveTab('IDM');
-    } else if (hash === 'ppid') {
-      setActiveTab('IDM'); // PPID doesn't exist yet, redirect to IDM
     } else if (hash === 'sdgs') {
       setActiveTab('SDGs');
     }
@@ -436,27 +434,6 @@ const InfografisPage = () => {
         <>
           <section className="bg-white py-16 md:py-20">
             <div className="max-w-7xl mx-auto px-6 md:px-8">
-              <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
-                {/* Left Content */}
-                <div>
-                  <h3 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-4">
-                    Demografi Penduduk
-                  </h3>
-                  <p className="text-base md:text-lg text-gray-600 leading-relaxed">
-                    Memberikan informasi lengkap mengenai karakteristik demografi penduduk suatu wilayah. Mulai dari jumlah penduduk, usia, jenis kelamin, tingkat pendidikan, pekerjaan, agama, dan aspek penting lainnya yang menggambarkan komposisi populasi secara rinci.
-                  </p>
-                </div>
-
-                {/* Right Illustration */}
-                <div className="flex justify-center lg:justify-end">
-                  <img 
-                    src="/images/aset_infografis/Demografi.png" 
-                    alt="Demografi Illustration" 
-                    className="w-full max-w-md"
-                  />
-                </div>
-              </div>
-
           {/* Population Cards */}
           <h4 className="text-2xl md:text-3xl font-bold text-[#1E3A5F] mb-6">
             Jumlah Penduduk dan Kepala Keluarga
