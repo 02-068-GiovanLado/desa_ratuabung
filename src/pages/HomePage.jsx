@@ -19,13 +19,13 @@ const HomePage = () => {
     { nama: 'Agus Iqbal', jabatan: 'Kasi Pemerintahan', foto: '/images/kasipemerintahan.jpg' },
     { nama: 'Nindia Utari', jabatan: 'Kasi Pelayanan', foto: '/images/kasipelayanan.jpg' },
     { nama: 'Edi Septiawan', jabatan: 'Kasi Kesejahteraan', foto: '/images/kasikesra.jpg' },
-    { nama: 'Tukino', jabatan: 'Kepala Dusun 1', foto: '/images/kadus1.jpg' },
-    { nama: 'Purwanto', jabatan: 'Kepala Dusun 2', foto: '/images/kadus2.jpg' },
-    { nama: 'Hariyanto', jabatan: 'Kepala Dusun 3', foto: '/images/kadus3.jpg' },
-    { nama: 'Kasno', jabatan: 'Kepala Dusun 4', foto: '/images/kadus4.jpg' },
-    { nama: 'Purwadi', jabatan: 'Kepala Dusun 5', foto: '/images/kadus5.jpg' },
-    { nama: 'Budiono', jabatan: 'Kepala Dusun 6', foto: '/images/kadus6.jpg' },
-    { nama: 'Sutriyanto', jabatan: 'Kepala Dusun 7', foto: '/images/kadus7.jpg' },
+    { nama: 'Tukino', jabatan: 'Kepala Dusun 1', foto: '/images/kadus 1.jpg' },
+    { nama: 'Purwanto', jabatan: 'Kepala Dusun 2', foto: '/images/kadus 2.jpg' },
+    { nama: 'Hariyanto', jabatan: 'Kepala Dusun 3', foto: '/images/kadus 3.jpg' },
+    { nama: 'Kasno', jabatan: 'Kepala Dusun 4', foto: '/images/kadus 4.jpg' },
+    { nama: 'Purwadi', jabatan: 'Kepala Dusun 5', foto: '/images/kadus 5.jpg' },
+    { nama: 'Budiono', jabatan: 'Kepala Dusun 6', foto: '/images/kadus 6.jpg' },
+    { nama: 'Sutriyanto', jabatan: 'Kepala Dusun 7', foto: '/images/kadus 7.jpg' },
   ];
 
   // Animated counter effect
