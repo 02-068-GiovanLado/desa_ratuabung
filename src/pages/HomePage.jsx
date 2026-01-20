@@ -12,16 +12,20 @@ const HomePage = () => {
 
   const pejabat = [
     { nama: 'Budiyono', jabatan: 'Kepala Desa', foto: '/images/kades.jpg' },
-    { nama: 'Sutrisno', jabatan: 'Sekretaris Desa', foto: '/images/sekdes.jpg' },
-    { nama: 'Sri Rahayu', jabatan: 'Bendahara Desa', foto: '/images/pejabat-3.jpg' },
-    { nama: 'Supriyadi', jabatan: 'Kepala Urusan Perencanaan', foto: '/images/kaur-perencanaan.jpg' },
-    { nama: 'Budi Santoso', jabatan: 'Kepala Urusan TU dan Umum', foto: '/images/kaur-tu.jpg' },
-    { nama: 'Suparto', jabatan: 'Kasi Kesra', foto: '/images/kasikesra.jpg' },
-    { nama: 'Suseno', jabatan: 'Kasi Pelayanan', foto: '/images/kasipelayanan.jpg' },
-    { nama: 'Jarman', jabatan: 'Kepala Dusun 1', foto: '/images/kadus1.jpg' },
-    { nama: 'Tomad', jabatan: 'Kepala Dusun 2', foto: '/images/kadus2.jpg' },
-    { nama: 'Marsudi', jabatan: 'Kepala Dusun 4', foto: '/images/kadus4.jpg' },
-    { nama: 'Suraji', jabatan: 'Kepala Dusun 6', foto: '/images/kadus6.jpg' },
+    { nama: 'Nanan Feryadi, S.Kom', jabatan: 'Sekretaris Desa', foto: '/images/sekdes.jpg' },
+    { nama: 'Muharyati', jabatan: 'Kepala Urusan TU dan Umum', foto: '/images/kaur-tu.jpg' },
+    { nama: 'Deni Endera', jabatan: 'Kepala Urusan Perencanaan', foto: '/images/kaur-perencanaan.jpg' },
+    { nama: 'Maryoko', jabatan: 'Kepala Urusan Keuangan', foto: '/images/pejabat-3.jpg' },
+    { nama: 'Agus Iqbal', jabatan: 'Kasi Pemerintahan', foto: '/images/kasipemerintahan.jpg' },
+    { nama: 'Nindia Utari', jabatan: 'Kasi Pelayanan', foto: '/images/kasipelayanan.jpg' },
+    { nama: 'Edi Septiawan', jabatan: 'Kasi Kesejahteraan', foto: '/images/kasikesra.jpg' },
+    { nama: 'Tukino', jabatan: 'Kepala Dusun 1', foto: '/images/kadus1.jpg' },
+    { nama: 'Purwanto', jabatan: 'Kepala Dusun 2', foto: '/images/kadus2.jpg' },
+    { nama: 'Hariyanto', jabatan: 'Kepala Dusun 3', foto: '/images/kadus3.jpg' },
+    { nama: 'Kasno', jabatan: 'Kepala Dusun 4', foto: '/images/kadus4.jpg' },
+    { nama: 'Purwadi', jabatan: 'Kepala Dusun 5', foto: '/images/kadus5.jpg' },
+    { nama: 'Budiono', jabatan: 'Kepala Dusun 6', foto: '/images/kadus6.jpg' },
+    { nama: 'Sutriyanto', jabatan: 'Kepala Dusun 7', foto: '/images/kadus7.jpg' },
   ];
 
   // Animated counter effect
