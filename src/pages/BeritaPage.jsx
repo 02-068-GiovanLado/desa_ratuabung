@@ -1,12 +1,21 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { beritaAPI } from '../services/api';
 
 const BeritaPage = () => {
   const [berita, setBerita] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Mock data berita
-    const mockBerita = [
+    const fetchBerita = async () => {
+      try {
+        setLoading(true);
+        const response = await beritaAPI.getAll();
+        setBerita(response);
+      } catch (error) {
+        console.error('Error fetching berita:', error);
+        // Use fallback data if API fails
+        const mockBerita = [
       {
         id: 1,
         slug: 'kegiatan-gotong-royong',
@@ -68,8 +77,12 @@ const BeritaPage = () => {
         image: '/images/berita-6.jpg'
       }
     ];
-
-    setBerita(mockBerita);
+        setBerita(mockBerita);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBerita();
   }, []);
 
   const formatDate = (dateString) => {
@@ -87,6 +100,12 @@ const BeritaPage = () => {
         Menyajikan informasi terbaru tentang peristiwa, berita terkini, dan artikel-artikel jurnalistik dari Desa Ratu Abung
       </p>
 
+      {loading ? (
+        <div className="text-center py-12 mb-8">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-700"></div>
+          <p className="mt-4 text-gray-600">Memuat berita...</p>
+        </div>
+      ) : (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8 mb-8">
         {berita.length > 0 ? (
           berita.map((item) => {
@@ -125,7 +144,7 @@ const BeritaPage = () => {
                     {item.description}
                   </p>
 
-                  <div className="mt-4 sm:mt-5 space-y-1 flex-grow">
+                  <div className="mt-4 sm:mt-5 space-y-1 grow">
                     <div className="flex items-center gap-2 text-slate-600">
                       <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm7 8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1 7 7 0 0 1 14 0Z"/>
@@ -142,7 +161,7 @@ const BeritaPage = () => {
                 </div>
 
                 {/* Badge tanggal */}
-                <div className="absolute bottom-0 right-0 z-10 bg-gradient-to-br from-emerald-600 to-emerald-300 text-white rounded-tl-xl rounded-br-xl px-3 sm:px-4 py-2 leading-tight text-center shadow-md ring-1 ring-emerald-500/20">
+                <div className="absolute bottom-0 right-0 z-10 bg-linear-to-br from-emerald-600 to-emerald-300 text-white rounded-tl-xl rounded-br-xl px-3 sm:px-4 py-2 leading-tight text-center shadow-md ring-1 ring-emerald-500/20">
                   <div className="text-xs font-semibold" style={{ fontFamily: "'Poppins', sans-serif" }}>{day} {month}</div>
                   <div className="text-xs font-bold" style={{ fontFamily: "'Poppins', sans-serif" }}>{year}</div>
                 </div>

@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { galeriAPI } from '../services/api';
 
 const HomePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [galeriData, setGaleriData] = useState([]);
   const [counters, setCounters] = useState({
     penduduk: 0,
     lakiLaki: 0,
@@ -27,6 +29,25 @@ const HomePage = () => {
     { nama: 'Budiono', jabatan: 'Kepala Dusun 6', foto: '/images/kadus 6.jpg' },
     { nama: 'Sutriyanto', jabatan: 'Kepala Dusun 7', foto: '/images/kadus 7.jpg' },
   ];
+
+  // Fetch galeri data
+  useEffect(() => {
+    const fetchGaleri = async () => {
+      try {
+        const response = await galeriAPI.getAll();
+        setGaleriData(response.slice(0, 3)); // Only take first 3 items
+      } catch (error) {
+        console.error('Error fetching galeri:', error);
+        // Use fallback data if API fails
+        setGaleriData([
+          { id: 1, judul: 'Gotong Royong Membersihkan Desa', tanggal: '2026-01-15', gambar: '/images/galeri-1.jpg' },
+          { id: 2, judul: 'Perayaan HUT RI ke-81', tanggal: '2025-08-17', gambar: '/images/galeri-2.jpg' },
+          { id: 3, judul: 'Pelatihan Pertanian Modern', tanggal: '2026-01-10', gambar: '/images/galeri-3.jpg' },
+        ]);
+      }
+    };
+    fetchGaleri();
+  }, []);
 
   // Animated counter effect
   useEffect(() => {
@@ -467,11 +488,7 @@ const HomePage = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { judul: 'Gotong Royong Membersihkan Desa', tanggal: '15 Januari 2026', gambar: '/images/galeri-1.jpg' },
-              { judul: 'Perayaan HUT RI ke-81', tanggal: '17 Agustus 2025', gambar: '/images/galeri-2.jpg' },
-              { judul: 'Pelatihan Pertanian Modern', tanggal: '10 Januari 2026', gambar: '/images/galeri-3.jpg' },
-            ].map((foto, index) => (
+            {galeriData.map((foto, index) => (
               <div key={index} className="group bg-white rounded-xl overflow-hidden border border-gray-200 hover:border-[#2E5C8A] hover:shadow-lg transition-all">
                 <div className="aspect-video overflow-hidden bg-gray-100">
                   <img
@@ -486,7 +503,9 @@ const HomePage = () => {
                 </div>
                 <div className="p-4">
                   <h3 className="text-sm font-semibold text-[#1E3A5F] mb-1 line-clamp-2">{foto.judul}</h3>
-                  <p className="text-xs text-gray-500">{foto.tanggal}</p>
+                  <p className="text-xs text-gray-500">
+                    {new Date(foto.tanggal).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                  </p>
                 </div>
               </div>
             ))}

@@ -1,14 +1,29 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { beritaAPI } from '../services/api';
 
 const DetailBeritaPage = () => {
   const { slug } = useParams();
   const [artikel, setArtikel] = useState(null);
   const [beritaLainnya, setBeritaLainnya] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Mock data - sesuaikan dengan data dari BeritaPage
-    const allBerita = [
+    const fetchBerita = async () => {
+      try {
+        setLoading(true);
+        // Fetch current article
+        const currentArtikel = await beritaAPI.getBySlug(slug);
+        setArtikel(currentArtikel);
+        
+        // Fetch all berita for "berita lainnya" section
+        const allBerita = await beritaAPI.getAll();
+        const otherBerita = allBerita.filter(b => b.slug !== slug).slice(0, 5);
+        setBeritaLainnya(otherBerita);
+      } catch (error) {
+        console.error('Error fetching berita:', error);
+        // Use fallback data if API fails
+        const allBerita = [
       {
         id: 1,
         slug: 'kegiatan-gotong-royong',
@@ -76,18 +91,16 @@ const DetailBeritaPage = () => {
         image: '/images/berita-6.jpg'
       }
     ];
-
-    const currentArtikel = allBerita.find(b => b.slug === slug);
-    setArtikel(currentArtikel);
-    
-    // Ambil 5 berita lainnya (exclude artikel saat ini)
-    const otherBerita = allBerita.filter(b => b.slug !== slug).slice(0, 5);
-    setBeritaLainnya(otherBerita);
-
-    // Increment views (in real app, this would be an API call)
-    if (currentArtikel) {
-      currentArtikel.views += 1;
-    }
+        const currentArtikel = allBerita.find(b => b.slug === slug);
+        setArtikel(currentArtikel);
+        
+        const otherBerita = allBerita.filter(b => b.slug !== slug).slice(0, 5);
+        setBeritaLainnya(otherBerita);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBerita();
   }, [slug]);
 
   const formatDate = (dateString) => {
@@ -98,6 +111,17 @@ const DetailBeritaPage = () => {
       year: 'numeric' 
     });
   };
+
+  if (loading) {
+    return (
+      <div className="container mx-auto mt-10 px-4">
+        <div className="text-center py-12">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+          <p className="mt-4 text-gray-600">Memuat artikel...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!artikel) {
     return (

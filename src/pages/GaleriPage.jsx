@@ -1,15 +1,30 @@
+import { useState, useEffect } from 'react';
+import { galeriAPI } from '../services/api';
+
 const GaleriPage = () => {
-  const galeriData = [
-    { id: 1, judul: 'Kegiatan Gotong Royong Warga Desa Ratu Abung', tanggal: '10 Jan 2026', views: 150, author: 'Admin Desa', gambar: '/images/galeri-1.jpg' },
-    { id: 2, judul: 'Penyuluhan Pertanian Modern', tanggal: '8 Jan 2026', views: 230, author: 'Admin Desa', gambar: '/images/galeri-2.jpg' },
-    { id: 3, judul: 'Posyandu Mengadakan Pemeriksaan Rutin', tanggal: '5 Jan 2026', views: 189, author: 'Posyandu desa', gambar: '/images/galeri-3.jpg' },
-    { id: 4, judul: 'Pelatihan UMKM Desa', tanggal: '3 Jan 2026', views: 165, author: 'Admin Desa', gambar: '/images/galeri-4.jpg' },
-    { id: 5, judul: 'Festival Budaya Desa', tanggal: '31 Des 2025', views: 342, author: 'Admin Desa', gambar: '/images/galeri-5.jpg' },
-    { id: 6, judul: 'Pembangunan Jalan Desa', tanggal: '28 Des 2025', views: 278, author: 'Admin Desa', gambar: '/images/galeri-6.jpg' },
-    { id: 7, judul: 'Perayaan HUT RI ke-81', tanggal: '17 Agu 2025', views: 456, author: 'Admin Desa', gambar: '/images/galeri-7.jpg' },
-    { id: 8, judul: 'Kunjungan Dinas Pertanian', tanggal: '15 Des 2025', views: 198, author: 'Admin Desa', gambar: '/images/galeri-8.jpg' },
-    { id: 9, judul: 'Sosialisasi Program Desa', tanggal: '12 Des 2025', views: 223, author: 'Admin Desa', gambar: '/images/galeri-9.jpg' },
-  ];
+  const [galeriData, setGaleriData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchGaleri = async () => {
+      try {
+        setLoading(true);
+        const response = await galeriAPI.getAll();
+        setGaleriData(response);
+      } catch (error) {
+        console.error('Error fetching galeri:', error);
+        // Use fallback data if API fails
+        setGaleriData([
+          { id: 1, judul: 'Kegiatan Gotong Royong Warga Desa Ratu Abung', tanggal: '2026-01-10', views: 150, author: 'Admin Desa', gambar: '/images/galeri-1.jpg' },
+          { id: 2, judul: 'Penyuluhan Pertanian Modern', tanggal: '2026-01-08', views: 230, author: 'Admin Desa', gambar: '/images/galeri-2.jpg' },
+          { id: 3, judul: 'Posyandu Mengadakan Pemeriksaan Rutin', tanggal: '2026-01-05', views: 189, author: 'Posyandu desa', gambar: '/images/galeri-3.jpg' },
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchGaleri();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -33,6 +48,12 @@ const GaleriPage = () => {
       {/* Gallery Grid Section */}
       <section className="py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-6 md:px-8">
+          {loading ? (
+            <div className="text-center py-12">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#1E3A5F]"></div>
+              <p className="mt-4 text-gray-600">Memuat galeri...</p>
+            </div>
+          ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {galeriData.map((item) => (
               <div
@@ -52,7 +73,7 @@ const GaleriPage = () => {
                   />
                   {/* Badge Tanggal */}
                   <div className="absolute top-4 right-4 bg-[#1E3A5F] text-white px-3 py-1.5 rounded-lg text-xs font-medium">
-                    {item.tanggal}
+                    {new Date(item.tanggal).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
                   </div>
                 </div>
 
@@ -81,6 +102,7 @@ const GaleriPage = () => {
               </div>
             ))}
           </div>
+          )}
         </div>
       </section>
     </div>
