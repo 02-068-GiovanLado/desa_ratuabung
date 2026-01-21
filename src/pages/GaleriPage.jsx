@@ -4,6 +4,7 @@ import { galeriAPI } from '../services/api';
 const GaleriPage = () => {
   const [galeriData, setGaleriData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
@@ -11,21 +12,15 @@ const GaleriPage = () => {
     const fetchGaleri = async () => {
       try {
         setLoading(true);
+        setError(null);
         const response = await galeriAPI.getAll();
         // Handle response structure: { success: true, data: [...] }
         const dataArray = response.data || response || [];
         setGaleriData(dataArray);
       } catch (error) {
         console.error('Error fetching galeri:', error);
-        // Use fallback data if API fails
-        setGaleriData([
-          { id: 1, judul: 'Kegiatan Gotong Royong Warga Desa Ratu Abung', tanggal: '2026-01-10', views: 150, author: 'Admin Desa', gambar: '/images/galeri-1.jpg' },
-          { id: 2, judul: 'Penyuluhan Pertanian Modern', tanggal: '2026-01-08', views: 230, author: 'Admin Desa', gambar: '/images/galeri-2.jpg' },
-          { id: 3, judul: 'Posyandu Mengadakan Pemeriksaan Rutin', tanggal: '2026-01-05', views: 189, author: 'Posyandu Desa', gambar: '/images/galeri-3.jpg' },
-          { id: 4, judul: 'Pelatihan UMKM untuk Warga Desa', tanggal: '2026-01-03', views: 165, author: 'Kelompok Tani', gambar: '/images/galeri-4.jpg' },
-          { id: 5, judul: 'Festival Budaya Desa Ratu Abung', tanggal: '2025-12-31', views: 342, author: 'Bidan Desa', gambar: '/images/galeri-5.jpg' },
-          { id: 6, judul: 'Pembangunan Infrastruktur Jalan Desa', tanggal: '2025-12-28', views: 278, author: 'Admin Desa', gambar: '/images/galeri-6.jpg' },
-        ]);
+        setError('Gagal memuat galeri. Pastikan backend sudah berjalan.');
+        setGaleriData([]); // Set empty array on error
       } finally {
         setLoading(false);
       }
@@ -45,7 +40,7 @@ const GaleriPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="bg-gray-50">
       {/* Page Header */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 md:px-8 py-8">
@@ -63,16 +58,49 @@ const GaleriPage = () => {
         </div>
       </div>
 
-      {/* Gallery Grid Section */}
-      <section className="py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-6 md:px-8">
-          {loading ? (
+      {/* Loading State */}
+      {loading && (
+        <section className="py-8 md:py-12">
+          <div className="max-w-7xl mx-auto px-6 md:px-8">
             <div className="text-center py-12">
               <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#1E3A5F]"></div>
               <p className="mt-4 text-gray-600">Memuat galeri...</p>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          </div>
+        </section>
+      )}
+
+      {/* Error State */}
+      {error && !loading && (
+        <section className="py-8 md:py-12">
+          <div className="max-w-7xl mx-auto px-6 md:px-8">
+            <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+              <svg className="w-12 h-12 text-red-500 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <h3 className="text-lg font-semibold text-red-900 mb-2">Gagal Memuat Galeri</h3>
+              <p className="text-red-700 mb-4">{error}</p>
+              <button 
+                onClick={() => window.location.reload()}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+              >
+                Coba Lagi
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Gallery Grid Section */}
+      {!loading && !error && (
+        <section className="py-8 md:py-12">
+          <div className="max-w-7xl mx-auto px-6 md:px-8">
+            {currentData.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-gray-500">Belum ada galeri foto</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {currentData.map((item) => (
                 <div
                   key={item.id}
@@ -120,11 +148,11 @@ const GaleriPage = () => {
                 </div>
               ))}
             </div>
-          )}
+            )}
 
-          {/* Pagination */}
-          {!loading && totalPages > 1 && (
-            <div className="flex justify-center items-center gap-2 mt-12">
+            {/* Pagination */}
+            {!loading && !error && totalPages > 1 && (
+              <div className="flex justify-center items-center gap-2 mt-12">
               {/* Previous Button */}
               <button
                 onClick={() => handlePageChange(currentPage - 1)}
@@ -173,9 +201,10 @@ const GaleriPage = () => {
                 </svg>
               </button>
             </div>
-          )}
-        </div>
-      </section>
+            )}
+          </div>
+        </section>
+      )}
     </div>
   );
 };
