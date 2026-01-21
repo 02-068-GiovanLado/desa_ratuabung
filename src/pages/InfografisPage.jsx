@@ -272,10 +272,10 @@ const InfografisPage = () => {
   ];
 
   const bansosData = [
-    { name: 'Program Keluarga Harapan', count: 120, icon: '/images/aset_infografis/pkh.png' },
-    { name: 'Bantuan Pangan Non Tunai', count: 98, icon: '/images/aset_infografis/bpnt.png' },
-    { name: 'Program Indonesia Pintar', count: 75, icon: '/images/aset_infografis/pip.png' },
-    { name: 'Kartu Indonesia Sehat', count: 156, icon: '/images/aset_infografis/kis.png' },
+    { name: 'Program Keluarga Harapan', count: 0, icon: '/images/aset_infografis/pkh.png' },
+    { name: 'Bantuan Pangan Non Tunai', count: 0, icon: '/images/aset_infografis/bpnt.png' },
+    { name: 'Program Indonesia Pintar', count: 0, icon: '/images/aset_infografis/pip.png' },
+    { name: 'Kartu Indonesia Sehat', count: 0, icon: '/images/aset_infografis/kis.png' },
   ];
 
   return (
@@ -803,13 +803,25 @@ const InfografisPage = () => {
                         key={goal.id} 
                         className="bg-white rounded-lg border border-gray-300 p-6 hover:shadow-md transition-shadow"
                       >
-                        {/* Icon */}
+                        {/* Icon - Using SDG Logo */}
                         <div className="flex justify-between items-start mb-4">
-                          <div 
-                            className="w-16 h-16 rounded-lg flex items-center justify-center"
-                            style={{ backgroundColor: sdgColors[goal.id] || '#1E3A5F' }}
-                          >
-                            <span className="text-white font-bold text-2xl">{goal.id}</span>
+                          <div className="w-20 h-20">
+                            <img 
+                              src={`https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-${String(goal.id).padStart(2, '0')}.jpg`}
+                              alt={`SDG ${goal.id}`}
+                              className="w-full h-full object-cover rounded-lg shadow-sm"
+                              onError={(e) => {
+                                // Fallback to colored badge if image fails to load
+                                e.target.style.display = 'none';
+                                e.target.nextSibling.style.display = 'flex';
+                              }}
+                            />
+                            <div 
+                              className="w-20 h-20 rounded-lg items-center justify-center hidden"
+                              style={{ backgroundColor: sdgColors[goal.id] || '#1E3A5F' }}
+                            >
+                              <span className="text-white font-bold text-2xl">{goal.id}</span>
+                            </div>
                           </div>
                           <span className="text-xs text-gray-500 font-medium">Nilai</span>
                         </div>
