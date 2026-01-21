@@ -1,13 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { productsAPI } from '../services/api';
 
 const BelanjaPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('Semua');
   const [currentPage, setCurrentPage] = useState(1);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const itemsPerPage = 8;
 
   const categories = ['Semua', 'Hasil Pertanian', 'UMKM', 'Kerajinan', 'Makanan & Minuman'];
 
-  const products = [
+  // Fetch products from API
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await productsAPI.getAll();
+        setProducts(response.data || []);
+      } catch (err) {
+        console.error('Error fetching products:', err);
+        setError('Gagal memuat produk. Pastikan backend sudah berjalan.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const productsBackup = [
     { 
       id: 1, 
       name: 'Beras Organik Premium', 
@@ -109,9 +132,11 @@ const BelanjaPage = () => {
     },
   ];
 
+  const displayProducts = products.length > 0 ? products : productsBackup;
+
   const filteredProducts = selectedCategory === 'Semua' 
-    ? products 
-    : products.filter(product => product.category === selectedCategory);
+    ? displayProducts 
+    : displayProducts.filter(product => product.category === selectedCategory);
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -175,10 +200,56 @@ const BelanjaPage = () => {
         </div>
       </section>
 
+      {/* Loading State */}
+      {loading && (
+        <section className="py-8 md:py-12">
+          <div className="max-w-7xl mx-auto px-6 md:px-8">
+            <div className="flex justify-center items-center py-20">
+              <div className="text-center">
+                <div className="w-16 h-16 border-4 border-[#1E3A5F] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                <p className="text-gray-600">Memuat produk...</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Error State */}
+      {error && !loading && (
+        <section className="py-8 md:py-12">
+          <div className="max-w-7xl mx-auto px-6 md:px-8">
+            <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+              <svg className="w-12 h-12 text-red-500 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <h3 className="text-lg font-semibold text-red-900 mb-2">Gagal Memuat Produk</h3>
+              <p className="text-red-700 mb-4">{error}</p>
+              <button 
+                onClick={() => window.location.reload()}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+              >
+                Coba Lagi
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Products Grid */}
-      <section className="py-8 md:py-12">
-        <div className="max-w-7xl mx-auto px-6 md:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {!loading && !error && (
+        <section className="py-8 md:py-12">
+          <div className="max-w-7xl mx-auto px-6 md:px-8">
+            {filteredProducts.length === 0 ? (
+              <div className="text-center py-20">
+                <svg className="w-24 h-24 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                </svg>
+                <h3 className="text-xl font-semibold text-gray-700 mb-2">Tidak Ada Produk</h3>
+                <p className="text-gray-500">Belum ada produk di kategori ini.</p>
+              </div>
+            ) : (
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {displayedProducts.map((product) => (
               <div
                 key={product.id}
@@ -301,21 +372,11 @@ const BelanjaPage = () => {
               </button>
             </div>
           )}
-
-          {filteredProducts.length === 0 && (
-            <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
-              <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                </svg>
-              </div>
-              <p className="text-gray-500 text-base">
-                Belum ada produk dalam kategori ini
-              </p>
-            </div>
-          )}
+              </>
+            )}
         </div>
       </section>
+      )}
 
       {/* CTA Section */}
       <section className="bg-white py-16 md:py-20 border-t border-gray-200">
