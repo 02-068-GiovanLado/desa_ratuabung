@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Chart } from 'chart.js/auto';
+import { infografisAPI } from '../services/api';
 
 const InfografisPage = () => {
   const location = useLocation();
   const chartInstances = useRef({});
   const [activeTab, setActiveTab] = useState('Penduduk');
+  const [sdgsData, setSdgsData] = useState([]);
+  const [loadingSDGs, setLoadingSDGs] = useState(false);
 
   // Mock data
   const mockData = {
@@ -33,6 +36,59 @@ const InfografisPage = () => {
       setActiveTab('SDGs');
     }
   }, [location]);
+
+  // Fetch SDGs data when tab is active
+  useEffect(() => {
+    if (activeTab === 'SDGs') {
+      fetchSDGsData();
+    }
+  }, [activeTab]);
+
+  const fetchSDGsData = async () => {
+    try {
+      setLoadingSDGs(true);
+      const response = await infografisAPI.getByType('sdgs');
+      if (response.success && response.data.length > 0) {
+        // Parse JSON data from first result
+        const data = typeof response.data[0].data === 'string' 
+          ? JSON.parse(response.data[0].data) 
+          : response.data[0].data;
+        setSdgsData(data.goals || []);
+      }
+    } catch (error) {
+      console.error('Error fetching SDGs data:', error);
+      // Use default data if API fails
+      setSdgsData(getDefaultSDGsData());
+    } finally {
+      setLoadingSDGs(false);
+    }
+  };
+
+  const getDefaultSDGsData = () => [
+    { id: 1, title: 'Tanpa Kemiskinan', description: 'Mengakhiri kemiskinan dalam segala bentuk di semua tempat', progress: 75, color: 'red-500' },
+    { id: 2, title: 'Tanpa Kelaparan', description: 'Menghilangkan kelaparan dan mewujudkan ketahanan pangan', progress: 82, color: 'yellow-500' },
+    { id: 3, title: 'Kehidupan Sehat', description: 'Menjamin kehidupan yang sehat dan mendorong kesejahteraan', progress: 68, color: 'green-500' },
+    { id: 4, title: 'Pendidikan Berkualitas', description: 'Memastikan pendidikan berkualitas yang inklusif dan merata', progress: 71, color: 'red-600' },
+    { id: 6, title: 'Air Bersih & Sanitasi', description: 'Menjamin akses air bersih dan sanitasi yang layak untuk semua', progress: 88, color: 'cyan-500' },
+    { id: 7, title: 'Energi Bersih', description: 'Memastikan akses energi yang terjangkau, andal, dan modern', progress: 65, color: 'yellow-600' },
+    { id: 8, title: 'Pekerjaan Layak', description: 'Mempromosikan pertumbuhan ekonomi dan pekerjaan yang layak', progress: 73, color: 'red-700' },
+    { id: 10, title: 'Berkurangnya Kesenjangan', description: 'Mengurangi kesenjangan di dalam dan antar negara', progress: 69, color: 'pink-500' },
+    { id: 11, title: 'Kota Berkelanjutan', description: 'Menjadikan kota dan pemukiman inklusif dan berkelanjutan', progress: 77, color: 'orange-500' },
+    { id: 13, title: 'Penanganan Iklim', description: 'Mengambil tindakan cepat untuk mengatasi perubahan iklim', progress: 62, color: 'green-700' },
+    { id: 15, title: 'Kehidupan di Darat', description: 'Melindungi dan memulihkan ekosistem daratan', progress: 70, color: 'lime-600' },
+    { id: 16, title: 'Perdamaian & Keadilan', description: 'Mempromosikan masyarakat yang adil, damai, dan inklusif', progress: 85, color: 'blue-700' }
+  ];
+
+  const displaySDGsData = sdgsData.length > 0 ? sdgsData : getDefaultSDGsData();
+
+  const calculateSDGsSummary = () => {
+    const totalGoals = displaySDGsData.length;
+    const avgProgress = Math.round(displaySDGsData.reduce((sum, goal) => sum + goal.progress, 0) / totalGoals);
+    const above70 = displaySDGsData.filter(goal => goal.progress >= 70).length;
+    return { avgProgress, totalGoals, above70 };
+  };
+
+  const sdgsSummary = calculateSDGsSummary();
 
   useEffect(() => {
     // Counter animation
@@ -683,16 +739,96 @@ const InfografisPage = () => {
         </section>
       )}
 
-      {/* IDM & SDGs Placeholder */}
-      {(activeTab === 'IDM' || activeTab === 'SDGs') && (
-        <section id={activeTab === 'IDM' ? 'idm' : 'sdgs'} className="bg-gray-50 py-16 md:py-20">
+      {/* IDM Placeholder */}
+      {activeTab === 'IDM' && (
+        <section id="idm" className="bg-gray-50 py-16 md:py-20">
           <div className="max-w-7xl mx-auto px-6 md:px-8 text-center">
             <div className="bg-white rounded-xl border border-gray-200 p-12">
               <h3 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-4">
-                {activeTab === 'IDM' ? 'Indeks Desa Membangun' : 'Sustainable Development Goals'}
+                Indeks Desa Membangun
               </h3>
-              <p className="text-gray-600 text-base md:text-lg">Data {activeTab} akan tersedia segera.</p>
+              <p className="text-gray-600 text-base md:text-lg">Data IDM akan tersedia segera.</p>
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* SDGs Section */}
+      {activeTab === 'SDGs' && (
+        <section id="sdgs" className="bg-gray-50 py-12 md:py-16">
+          <div className="max-w-7xl mx-auto px-6 md:px-8">
+            <div className="mb-10 text-center">
+              <h3 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-3">
+                Sustainable Development Goals
+              </h3>
+              <p className="text-gray-600 text-base md:text-lg max-w-3xl mx-auto">
+                Capaian Desa Ratu Abung dalam mendukung Tujuan Pembangunan Berkelanjutan (TPB/SDGs) 
+                untuk menciptakan kesejahteraan masyarakat yang berkelanjutan.
+              </p>
+            </div>
+
+            {/* Loading State */}
+            {loadingSDGs && (
+              <div className="flex justify-center items-center py-20">
+                <div className="text-center">
+                  <div className="w-16 h-16 border-4 border-[#2C7961] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                  <p className="text-gray-600">Memuat data SDGs...</p>
+                </div>
+              </div>
+            )}
+
+            {/* SDGs Grid */}
+            {!loadingSDGs && (
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {displaySDGsData.map((goal) => {
+                    // Define SDG colors
+                    const sdgColors = {
+                      1: '#E5243B',  // Red
+                      2: '#DDA63A',  // Yellow/Orange
+                      3: '#4C9F38',  // Green
+                      4: '#C5192D',  // Dark Red
+                      5: '#FF3A21',  // Orange Red
+                      6: '#26BDE2',  // Light Blue
+                      7: '#FCC30B',  // Yellow
+                      8: '#A21942',  // Dark Pink
+                      9: '#FD6925',  // Orange
+                      10: '#DD1367', // Pink
+                      11: '#FD9D24', // Orange
+                      12: '#BF8B2E', // Brown/Gold
+                    };
+                    
+                    return (
+                      <div 
+                        key={goal.id} 
+                        className="bg-white rounded-lg border border-gray-300 p-6 hover:shadow-md transition-shadow"
+                      >
+                        {/* Icon */}
+                        <div className="flex justify-between items-start mb-4">
+                          <div 
+                            className="w-16 h-16 rounded-lg flex items-center justify-center"
+                            style={{ backgroundColor: sdgColors[goal.id] || '#1E3A5F' }}
+                          >
+                            <span className="text-white font-bold text-2xl">{goal.id}</span>
+                          </div>
+                          <span className="text-xs text-gray-500 font-medium">Nilai</span>
+                        </div>
+
+                        {/* Title */}
+                        <h4 className="font-bold text-gray-900 text-base mb-2 leading-tight min-h-[40px]">
+                          {goal.title}
+                        </h4>
+
+                        {/* Progress Value */}
+                        <div className="text-right">
+                          <div className="text-4xl font-bold text-gray-900">{goal.progress}</div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            )}
           </div>
         </section>
       )}
