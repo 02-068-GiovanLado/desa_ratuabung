@@ -4,14 +4,16 @@ import { galeriAPI } from '../services/api';
 const GaleriPage = () => {
   const [galeriData, setGaleriData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
   useEffect(() => {
     const fetchGaleri = async () => {
       try {
         setLoading(true);
         const response = await galeriAPI.getAll();
-        // Handle both array and object responses
-        const dataArray = Array.isArray(response) ? response : (response.data || []);
+        // Handle response structure: { success: true, data: [...] }
+        const dataArray = response.data || response || [];
         setGaleriData(dataArray);
       } catch (error) {
         console.error('Error fetching galeri:', error);
@@ -30,6 +32,17 @@ const GaleriPage = () => {
     };
     fetchGaleri();
   }, []);
+
+  // Calculate pagination
+  const totalPages = Math.ceil(galeriData.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentData = galeriData.slice(startIndex, endIndex);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -60,7 +73,7 @@ const GaleriPage = () => {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {galeriData.map((item) => (
+              {currentData.map((item) => (
                 <div
                   key={item.id}
                   className="group bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow"
@@ -68,8 +81,8 @@ const GaleriPage = () => {
                   {/* Gambar */}
                   <div className="relative w-full aspect-4/3 bg-gray-100 overflow-hidden">
                     <img
-                      src={item.gambar}
-                      alt={item.judul}
+                      src={item.image || item.gambar}
+                      alt={item.title || item.judul}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       onError={(e) => {
                         e.target.src = '/images/galeri-dummy.jpg';
@@ -78,14 +91,14 @@ const GaleriPage = () => {
                     />
                     {/* Badge Tanggal */}
                     <div className="absolute top-4 right-4 bg-[#1E3A5F] text-white px-3 py-1.5 rounded-lg text-xs font-medium">
-                      {new Date(item.tanggal).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
+                      {new Date(item.createdAt || item.tanggal).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
                     </div>
                   </div>
 
                   {/* Konten */}
                   <div className="p-5">
-                    <h3 className="text-lg font-bold text-[#1E3A5F] mb-2 group-hover:text-[#2E5C8A] transition-colors min-h-[56px]">
-                      {item.judul || item.title || item.nama || 'Kegiatan Desa'}
+                    <h3 className="text-lg font-bold text-[#1E3A5F] mb-2 group-hover:text-[#2E5C8A] transition-colors min-h-14">
+                      {item.title || item.judul || item.nama || 'Kegiatan Desa'}
                     </h3>
 
                     <div className="space-y-2 text-sm text-gray-600">
@@ -106,6 +119,59 @@ const GaleriPage = () => {
                   </div>
                 </div>
               ))}
+            </div>
+          )}
+
+          {/* Pagination */}
+          {!loading && totalPages > 1 && (
+            <div className="flex justify-center items-center gap-2 mt-12">
+              {/* Previous Button */}
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className={`px-3 py-2 rounded-lg transition-all ${
+                  currentPage === 1
+                    ? 'text-gray-400 cursor-not-allowed'
+                    : 'text-gray-700 hover:bg-gray-100'
+                }`}
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+
+              {/* Page Numbers */}
+              {[...Array(totalPages)].map((_, index) => {
+                const pageNumber = index + 1;
+                return (
+                  <button
+                    key={pageNumber}
+                    onClick={() => handlePageChange(pageNumber)}
+                    className={`w-10 h-10 rounded-lg transition-all font-medium ${
+                      currentPage === pageNumber
+                        ? 'bg-[#1E3A5F] text-white'
+                        : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                    }`}
+                  >
+                    {pageNumber}
+                  </button>
+                );
+              })}
+
+              {/* Next Button */}
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className={`px-3 py-2 rounded-lg transition-all ${
+                  currentPage === totalPages
+                    ? 'text-gray-400 cursor-not-allowed'
+                    : 'text-gray-700 hover:bg-gray-100'
+                }`}
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
             </div>
           )}
         </div>

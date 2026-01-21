@@ -35,8 +35,8 @@ const HomePage = () => {
     const fetchGaleri = async () => {
       try {
         const response = await galeriAPI.getAll();
-        // Handle both array and object responses
-        const dataArray = Array.isArray(response) ? response : (response.data || []);
+        // Handle response structure: { success: true, data: [...] }
+        const dataArray = response.data || response || [];
         setGaleriData(dataArray.slice(0, 3)); // Only take first 3 items
       } catch (error) {
         console.error('Error fetching galeri:', error);
@@ -494,8 +494,8 @@ const HomePage = () => {
               <div key={index} className="group bg-white rounded-xl overflow-hidden border border-gray-200 hover:border-[#2E5C8A] hover:shadow-lg transition-all">
                 <div className="aspect-video overflow-hidden bg-gray-100">
                   <img
-                    src={foto.gambar}
-                    alt={foto.judul}
+                    src={foto.image || foto.gambar}
+                    alt={foto.title || foto.judul}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     onError={(e) => { 
                       e.target.src = '/images/galeri-dummy.jpg';
@@ -504,9 +504,9 @@ const HomePage = () => {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-sm font-semibold text-[#1E3A5F] mb-1 line-clamp-2">{foto.judul}</h3>
+                  <h3 className="text-sm font-semibold text-[#1E3A5F] mb-1 line-clamp-2">{foto.title || foto.judul}</h3>
                   <p className="text-xs text-gray-500">
-                    {new Date(foto.tanggal).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    {new Date(foto.createdAt || foto.tanggal).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
                   </p>
                 </div>
               </div>
@@ -516,7 +516,7 @@ const HomePage = () => {
           <div className="mt-8 text-center">
             <Link 
               to="/galeri"
-              className="inline-flex items-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-[#1E3A5F] font-medium px-6 py-3 rounded-lg transition-all"
+              className="inline-flex items-center gap-2 bg-white border border-[#1E3A5F] text-[#1E3A5F] font-medium px-6 py-3 rounded-lg transition-all hover:bg-[#1E3A5F] hover:text-white"
             >
               <span>Lihat Semua Galeri</span>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

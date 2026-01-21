@@ -11,6 +11,11 @@ const BelanjaPage = () => {
 
   const categories = ['Semua', 'Hasil Pertanian', 'UMKM', 'Kerajinan', 'Makanan & Minuman'];
 
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   // Fetch products from API
   useEffect(() => {
     const fetchProducts = async () => {
@@ -325,7 +330,7 @@ const BelanjaPage = () => {
             <div className="mt-8 flex justify-center items-center gap-2">
               {/* Previous Button */}
               <button
-                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
                 disabled={currentPage === 1}
                 className={`px-4 py-2 rounded-lg border font-medium transition-all ${
                   currentPage === 1
@@ -344,7 +349,7 @@ const BelanjaPage = () => {
                 return (
                   <button
                     key={pageNumber}
-                    onClick={() => setCurrentPage(pageNumber)}
+                    onClick={() => handlePageChange(pageNumber)}
                     className={`px-4 py-2 rounded-lg border font-medium transition-all ${
                       currentPage === pageNumber
                         ? 'bg-[#1E3A5F] text-white border-[#1E3A5F]'
@@ -358,7 +363,7 @@ const BelanjaPage = () => {
 
               {/* Next Button */}
               <button
-                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}
                 disabled={currentPage === totalPages}
                 className={`px-4 py-2 rounded-lg border font-medium transition-all ${
                   currentPage === totalPages
