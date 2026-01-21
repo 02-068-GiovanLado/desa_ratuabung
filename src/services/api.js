@@ -23,23 +23,6 @@ export const productsAPI = {
   }
 };
 
-// Berita API
-export const beritaAPI = {
-  getAll: async (params = {}) => {
-    const queryString = new URLSearchParams(params).toString();
-    const url = `${API_BASE_URL}/berita${queryString ? `?${queryString}` : ''}`;
-    const response = await fetch(url);
-    if (!response.ok) throw new Error('Failed to fetch berita');
-    return response.json();
-  },
-
-  getBySlug: async (slug) => {
-    const response = await fetch(`${API_BASE_URL}/berita/${slug}`);
-    if (!response.ok) throw new Error('Failed to fetch berita');
-    return response.json();
-  }
-};
-
 // Galeri API
 export const galeriAPI = {
   getAll: async () => {

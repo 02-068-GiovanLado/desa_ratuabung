@@ -35,7 +35,9 @@ const HomePage = () => {
     const fetchGaleri = async () => {
       try {
         const response = await galeriAPI.getAll();
-        setGaleriData(response.slice(0, 3)); // Only take first 3 items
+        // Handle both array and object responses
+        const dataArray = Array.isArray(response) ? response : (response.data || []);
+        setGaleriData(dataArray.slice(0, 3)); // Only take first 3 items
       } catch (error) {
         console.error('Error fetching galeri:', error);
         // Use fallback data if API fails
