@@ -31,7 +31,7 @@ const PPIDPage = () => {
           {/* Modal Dasar Hukum */}
           {showDasarHukum && (
             <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setShowDasarHukum(false)}>
-              <div className="bg-white rounded-xl max-w-4xl max-h-[80vh] overflow-y-auto p-8" onClick={(e) => e.stopPropagation()}>
+              <div className="bg-white rounded-lg max-w-4xl max-h-[80vh] overflow-y-auto p-8" onClick={(e) => e.stopPropagation()}>
                 <div className="flex justify-between items-start mb-6">
                   <h2 className="text-2xl font-bold text-[#1E3A5F]">Dasar Hukum PPID</h2>
                   <button onClick={() => setShowDasarHukum(false)} className="text-gray-500 hover:text-gray-700">
@@ -45,15 +45,15 @@ const PPIDPage = () => {
                     <h3 className="font-bold text-lg text-[#1E3A5F] mb-3">Undang Undang Republik Indonesia</h3>
                     <ul className="space-y-2 ml-4">
                       <li className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 shrink-0"></span>
                         <span>Undang-Undang Nomor 14 Tahun 2008 tentang Keterbukaan Informasi Publik</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 shrink-0"></span>
                         <span>Undang-Undang Nomor 25 Tahun 2009 tentang Pelayanan Publik</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 shrink-0"></span>
                         <span>Undang-Undang Nomor 6 Tahun 2014 tentang Desa</span>
                       </li>
                     </ul>
@@ -62,7 +62,7 @@ const PPIDPage = () => {
                     <h3 className="font-bold text-lg text-[#1E3A5F] mb-3">Peraturan Pemerintah</h3>
                     <ul className="space-y-2 ml-4">
                       <li className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 shrink-0"></span>
                         <span>Peraturan Pemerintah Nomor 61 Tahun 2010 Tentang Pelaksanaan Undang-Undang Nomor 14 Tahun 2008 tentang Keterbukaan Informasi Publik</span>
                       </li>
                     </ul>
@@ -71,23 +71,23 @@ const PPIDPage = () => {
                     <h3 className="font-bold text-lg text-[#1E3A5F] mb-3">Peraturan Komisi Informasi</h3>
                     <ul className="space-y-2 ml-4">
                       <li className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 shrink-0"></span>
                         <span>Peraturan Komisi Informasi Pusat Republik Indonesia Nomor 1 Tahun 2010 tentang Standar Layanan Informasi Publik</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 shrink-0"></span>
                         <span>Peraturan Komisi Informasi Pusat Republik Indonesia Nomor 1 Tahun 2013 tentang Prosedur Penyelesaian Sengketa Informasi Publik</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 shrink-0"></span>
                         <span>Peraturan Komisi Informasi Pusat Republik Indonesia Nomor 1 Tahun 2017 tentang Pengklasifikasian Informasi Publik</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 shrink-0"></span>
                         <span>Peraturan Komisi Informasi Pusat Republik Indonesia Nomor 1 Tahun 2018 tentang Standar Layanan Informasi Publik Desa</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 shrink-0"></span>
                         <span>Peraturan Komisi Informasi Pusat Republik Indonesia Nomor 1 Tahun 2021 tentang Standar Layanan Informasi Publik</span>
                       </li>
                     </ul>
@@ -96,7 +96,7 @@ const PPIDPage = () => {
                     <h3 className="font-bold text-lg text-[#1E3A5F] mb-3">Peraturan Menteri Dalam Negeri</h3>
                     <ul className="space-y-2 ml-4">
                       <li className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 flex-shrink-0"></span>
+                        <span className="w-1.5 h-1.5 bg-[#1E3A5F] rounded-full mt-2 shrink-0"></span>
                         <span>Peraturan Pemerintah Nomor 61 Tahun 2010 Tentang Pelaksanaan Undang-Undang Nomor 14 Tahun 2008 tentang Keterbukaan Informasi Publik</span>
                       </li>
                     </ul>
@@ -118,7 +118,7 @@ const PPIDPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Card 1 */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow">
+            <div className="bg-white rounded-lg p-6 border border-gray-200 hover:shadow-lg transition-shadow">
               <div className="w-12 h-12 bg-[#EFF6FF] rounded-lg flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-[#1E3A5F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -133,7 +133,7 @@ const PPIDPage = () => {
             </div>
 
             {/* Card 2 */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow">
+            <div className="bg-white rounded-lg p-6 border border-gray-200 hover:shadow-lg transition-shadow">
               <div className="w-12 h-12 bg-[#EFF6FF] rounded-lg flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-[#1E3A5F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -148,7 +148,7 @@ const PPIDPage = () => {
             </div>
 
             {/* Card 3 */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow">
+            <div className="bg-white rounded-lg p-6 border border-gray-200 hover:shadow-lg transition-shadow">
               <div className="w-12 h-12 bg-[#EFF6FF] rounded-lg flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-[#1E3A5F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -173,7 +173,7 @@ const PPIDPage = () => {
             <p className="text-gray-600 text-base">Dokumen dan informasi terbaru yang dipublikasikan</p>
           </div>
           
-          <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
+          <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
             <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4">
               <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -205,3 +205,4 @@ const PPIDPage = () => {
 };
 
 export default PPIDPage;
+

@@ -18,7 +18,7 @@ const ProfilDesaPage = () => {
         </div>
       </div>
 
-      <main className="flex-grow">
+      <main className="grow">
         {/* ====== VISI & MISI ====== */}
         <section className="py-16 md:py-20">
           <div className="max-w-7xl mx-auto px-6 md:px-8">
@@ -49,19 +49,19 @@ const ProfilDesaPage = () => {
                 </div>
                 <ul className="text-gray-700 space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 bg-[#2E5C8A] rounded-full mt-2 flex-shrink-0"></span>
+                    <span className="w-1.5 h-1.5 bg-[#2E5C8A] rounded-full mt-2 shrink-0"></span>
                     <span>Menyelenggarakan pemerintahan yang transparan, akuntabel, dan responsif.</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 bg-[#2E5C8A] rounded-full mt-2 flex-shrink-0"></span>
+                    <span className="w-1.5 h-1.5 bg-[#2E5C8A] rounded-full mt-2 shrink-0"></span>
                     <span>Meningkatkan sarana dan prasarana berbasis ekonomi produktif.</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 bg-[#2E5C8A] rounded-full mt-2 flex-shrink-0"></span>
+                    <span className="w-1.5 h-1.5 bg-[#2E5C8A] rounded-full mt-2 shrink-0"></span>
                     <span>Meningkatkan pembangunan infrastruktur yang mendukung perekonomian desa.</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 bg-[#2E5C8A] rounded-full mt-2 flex-shrink-0"></span>
+                    <span className="w-1.5 h-1.5 bg-[#2E5C8A] rounded-full mt-2 shrink-0"></span>
                     <span>Meningkatkan pelayanan kesehatan desa.</span>
                   </li>
                 </ul>
@@ -147,7 +147,7 @@ const ProfilDesaPage = () => {
                 <h3 className="text-lg font-semibold text-[#1E3A5F] mb-4">Batas Wilayah</h3>
                 <div className="space-y-3">
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-[#EFF6FF] rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 bg-[#EFF6FF] rounded-lg flex items-center justify-center shrink-0">
                       <svg className="w-4 h-4 text-[#1E3A5F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
                       </svg>
@@ -158,7 +158,7 @@ const ProfilDesaPage = () => {
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-[#EFF6FF] rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 bg-[#EFF6FF] rounded-lg flex items-center justify-center shrink-0">
                       <svg className="w-4 h-4 text-[#1E3A5F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                       </svg>
@@ -169,7 +169,7 @@ const ProfilDesaPage = () => {
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-[#EFF6FF] rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 bg-[#EFF6FF] rounded-lg flex items-center justify-center shrink-0">
                       <svg className="w-4 h-4 text-[#1E3A5F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
@@ -180,7 +180,7 @@ const ProfilDesaPage = () => {
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-[#EFF6FF] rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 bg-[#EFF6FF] rounded-lg flex items-center justify-center shrink-0">
                       <svg className="w-4 h-4 text-[#1E3A5F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                       </svg>
@@ -210,7 +210,7 @@ const ProfilDesaPage = () => {
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3799.2221469958017!2d104.94364677476686!3d-4.904839895071049!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e4755001907cecd%3A0x91d0918aeb27b4f8!2sRatu%20abung!5e1!3m2!1sid!2sid!4v1768581064771!5m2!1sid!2sid" 
                   width="100%" 
                   height="100%"
-                  className="min-h-[400px]" 
+                  className="min-h-100" 
                   style={{ border: 0 }}
                   allowFullScreen="" 
                   loading="lazy" 
@@ -227,3 +227,4 @@ const ProfilDesaPage = () => {
 };
 
 export default ProfilDesaPage;
+

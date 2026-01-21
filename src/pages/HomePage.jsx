@@ -87,11 +87,11 @@ const HomePage = () => {
     <div className="overflow-x-hidden bg-gray-50">
       {/* ================= HERO - Gov.sg Inspired ================= */}
       <div 
-        className="relative w-full min-h-[600px] md:min-h-[700px] bg-cover bg-center flex items-center animate-fade-in"
+        className="relative w-full min-h-150 md:min-h-175 bg-cover bg-center flex items-center animate-fade-in"
         style={{ backgroundImage: "url('/images/hero.jpg')" }}
       >
         {/* Cleaner Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1E3A5F]/95 via-[#1E3A5F]/85 to-[#1E3A5F]/70"></div>
+        <div className="absolute inset-0 bg-linear-to-r from-[#1E3A5F]/95 via-[#1E3A5F]/85 to-[#1E3A5F]/70"></div>
 
         {/* Content Container */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-8">
@@ -307,7 +307,7 @@ const HomePage = () => {
           </div>
 
           <div className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm">
-            <div className="relative w-full h-[400px] md:h-[500px]">
+            <div className="relative w-full h-100 md:h-125">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31802.5545991708!2d104.924985187695!3d-4.886091925513833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e38aa06c5c5a66d%3A0xfead7bbc27eabfec!2sRatu%20Abung%2C%20Kec.%20Abung%20Sel.%2C%20Kabupaten%20Lampung%20Utara%2C%20Lampung!5e0!3m2!1sid!2sid!4v1768883630958!5m2!1sid!2sid"
                 width="100%"
@@ -343,7 +343,7 @@ const HomePage = () => {
                 style={{ transform: `translateX(-${currentSlide * (100 / 4)}%)` }}
               >
                 {pejabat.map((p, index) => (
-                  <div key={index} className="w-1/4 flex-shrink-0 px-3">
+                  <div key={index} className="w-1/4 shrink-0 px-3">
                     <div className="bg-white rounded-xl border border-gray-200 hover:border-[#2E5C8A] hover:shadow-lg transition-all duration-300 overflow-hidden">
                       <div className="aspect-square bg-gray-50 flex items-end justify-center p-4">
                         <img
@@ -443,7 +443,7 @@ const HomePage = () => {
             ].map((item, index) => (
               <div key={index} className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="flex items-center">
-                  <div className="bg-[#1E3A5F] flex items-center justify-center px-8 py-6 min-w-[120px]">
+                  <div className="bg-[#1E3A5F] flex items-center justify-center px-8 py-6 min-w-30">
                     <span className="text-3xl font-bold text-white">{item.value}</span>
                   </div>
                   <div className="flex-1 px-6">

@@ -184,7 +184,7 @@ const DetailBeritaPage = () => {
       </div>
 
       {/* Bagian Kanan: Berita Lainnya */}
-      <div className="w-full md:w-1/3 lg:w-1/4 md:min-w-[260px] bg-white p-6 rounded-lg shadow-lg">
+      <div className="w-full md:w-1/3 lg:w-1/4 md:min-w-65 bg-white p-6 rounded-lg shadow-lg">
         <h3 className="text-xl font-bold text-black mb-6">Berita Lainnya</h3>
         <ul>
           {beritaLainnya.map((item) => (
@@ -194,7 +194,7 @@ const DetailBeritaPage = () => {
                   <img 
                     src={item.image} 
                     alt={item.title}
-                    className="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-md flex-shrink-0 group-hover:scale-[1.02] transition-transform duration-300 ease-out"
+                    className="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-md shrink-0 group-hover:scale-[1.02] transition-transform duration-300 ease-out"
                     onError={(e) => {
                       e.target.style.display = 'none';
                       e.target.nextSibling.style.display = 'flex';

@@ -65,18 +65,18 @@ const InfografisPage = () => {
   };
 
   const getDefaultSDGsData = () => [
-    { id: 1, title: 'Tanpa Kemiskinan', description: 'Mengakhiri kemiskinan dalam segala bentuk di semua tempat', progress: 75, color: 'red-500' },
-    { id: 2, title: 'Tanpa Kelaparan', description: 'Menghilangkan kelaparan dan mewujudkan ketahanan pangan', progress: 82, color: 'yellow-500' },
-    { id: 3, title: 'Kehidupan Sehat', description: 'Menjamin kehidupan yang sehat dan mendorong kesejahteraan', progress: 68, color: 'green-500' },
-    { id: 4, title: 'Pendidikan Berkualitas', description: 'Memastikan pendidikan berkualitas yang inklusif dan merata', progress: 71, color: 'red-600' },
-    { id: 6, title: 'Air Bersih & Sanitasi', description: 'Menjamin akses air bersih dan sanitasi yang layak untuk semua', progress: 88, color: 'cyan-500' },
-    { id: 7, title: 'Energi Bersih', description: 'Memastikan akses energi yang terjangkau, andal, dan modern', progress: 65, color: 'yellow-600' },
-    { id: 8, title: 'Pekerjaan Layak', description: 'Mempromosikan pertumbuhan ekonomi dan pekerjaan yang layak', progress: 73, color: 'red-700' },
-    { id: 10, title: 'Berkurangnya Kesenjangan', description: 'Mengurangi kesenjangan di dalam dan antar negara', progress: 69, color: 'pink-500' },
-    { id: 11, title: 'Kota Berkelanjutan', description: 'Menjadikan kota dan pemukiman inklusif dan berkelanjutan', progress: 77, color: 'orange-500' },
-    { id: 13, title: 'Penanganan Iklim', description: 'Mengambil tindakan cepat untuk mengatasi perubahan iklim', progress: 62, color: 'green-700' },
-    { id: 15, title: 'Kehidupan di Darat', description: 'Melindungi dan memulihkan ekosistem daratan', progress: 70, color: 'lime-600' },
-    { id: 16, title: 'Perdamaian & Keadilan', description: 'Mempromosikan masyarakat yang adil, damai, dan inklusif', progress: 85, color: 'blue-700' }
+    { id: 1, title: 'Tanpa Kemiskinan', description: 'Mengakhiri kemiskinan dalam segala bentuk di semua tempat', progress: 0, color: 'red-500' },
+    { id: 2, title: 'Tanpa Kelaparan', description: 'Menghilangkan kelaparan dan mewujudkan ketahanan pangan', progress: 0, color: 'yellow-500' },
+    { id: 3, title: 'Kehidupan Sehat', description: 'Menjamin kehidupan yang sehat dan mendorong kesejahteraan', progress: 0, color: 'green-500' },
+    { id: 4, title: 'Pendidikan Berkualitas', description: 'Memastikan pendidikan berkualitas yang inklusif dan merata', progress: 0, color: 'red-600' },
+    { id: 6, title: 'Air Bersih & Sanitasi', description: 'Menjamin akses air bersih dan sanitasi yang layak untuk semua', progress: 0, color: 'cyan-500' },
+    { id: 7, title: 'Energi Bersih', description: 'Memastikan akses energi yang terjangkau, andal, dan modern', progress: 0, color: 'yellow-600' },
+    { id: 8, title: 'Pekerjaan Layak', description: 'Mempromosikan pertumbuhan ekonomi dan pekerjaan yang layak', progress: 0, color: 'red-700' },
+    { id: 10, title: 'Berkurangnya Kesenjangan', description: 'Mengurangi kesenjangan di dalam dan antar negara', progress: 0, color: 'pink-500' },
+    { id: 11, title: 'Kota Berkelanjutan', description: 'Menjadikan kota dan pemukiman inklusif dan berkelanjutan', progress: 0, color: 'orange-500' },
+    { id: 13, title: 'Penanganan Iklim', description: 'Mengambil tindakan cepat untuk mengatasi perubahan iklim', progress: 0, color: 'green-700' },
+    { id: 15, title: 'Kehidupan di Darat', description: 'Melindungi dan memulihkan ekosistem daratan', progress: 0, color: 'lime-600' },
+    { id: 16, title: 'Perdamaian & Keadilan', description: 'Mempromosikan masyarakat yang adil, damai, dan inklusif', progress: 0, color: 'blue-700' }
   ];
 
   const displaySDGsData = sdgsData.length > 0 ? sdgsData : getDefaultSDGsData();
@@ -336,8 +336,8 @@ const InfografisPage = () => {
               </div>
 
               {/* Right - Filter Tahun */}
-              <div className="flex-shrink-0">
-                <select className="px-4 py-2.5 border border-gray-200 rounded-lg text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-[#1E3A5F]/20 focus:border-[#1E3A5F] text-sm min-w-[200px]">
+              <div className="shrink-0">
+                <select className="px-4 py-2.5 border border-gray-200 rounded-lg text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-[#1E3A5F]/20 focus:border-[#1E3A5F] text-sm min-w-50">
                   <option value="">Pilih Filter Tahun</option>
                   <option value="2026">2026</option>
                   <option value="2025">2025</option>
@@ -565,7 +565,7 @@ const InfografisPage = () => {
             Berdasarkan Kelompok Umur
           </h4>
           <div className="bg-white rounded-xl p-6 border border-gray-200">
-            <div className="h-[420px]">
+            <div className="h-105">
               <canvas id="ageGroupChart"></canvas>
             </div>
           </div>
@@ -611,7 +611,7 @@ const InfografisPage = () => {
                     </tr>
                   </thead>
                 </table>
-                <div className="max-h-[420px] overflow-y-auto">
+                <div className="max-h-105 overflow-y-auto">
                   <table className="w-full">
                     <tbody>
                       {allPekerjaan.map((job, i) => (
@@ -646,7 +646,7 @@ const InfografisPage = () => {
         <div className="max-w-7xl mx-auto px-6 md:px-8">
           <h4 className="text-2xl md:text-3xl font-bold text-[#1E3A5F] mb-6">Berdasarkan Pendidikan</h4>
           <div className="bg-white rounded-xl p-6 border border-gray-200">
-            <div className="h-[550px]">
+            <div className="h-137.5">
               <canvas id="educationChart"></canvas>
             </div>
           </div>
@@ -660,7 +660,7 @@ const InfografisPage = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {perkawinanData.map((item, i) => (
               <div key={i} className="bg-white rounded-xl p-6 flex items-center gap-6 border border-gray-200 hover:shadow-lg transition-shadow">
-                <div className="flex-shrink-0 w-16 h-16">
+                <div className="shrink-0 w-16 h-16">
                   <img src={item.icon} alt={item.status} className="w-full h-full object-contain" />
                 </div>
                 <div className="flex flex-col">
@@ -680,7 +680,7 @@ const InfografisPage = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {agamaData.map((item, i) => (
               <div key={i} className="bg-white rounded-xl p-6 flex items-center gap-6 border border-gray-200 hover:shadow-lg transition-shadow">
-                <div className="flex-shrink-0 w-16 h-16">
+                <div className="shrink-0 w-16 h-16">
                   <img src={item.icon} alt={item.agama} className="w-full h-full object-contain" />
                 </div>
                 <div className="flex flex-col">
@@ -703,7 +703,7 @@ const InfografisPage = () => {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {stuntingData.map((item, i) => (
                 <div key={i} className="bg-white rounded-xl p-6 flex items-center gap-6 border border-gray-200 hover:shadow-lg transition-shadow">
-                  <div className="flex-shrink-0 w-16 h-16">
+                  <div className="shrink-0 w-16 h-16">
                     <img src={item.icon} alt={item.name} className="w-full h-full object-contain" />
                   </div>
                   <div className="flex flex-col">
@@ -725,7 +725,7 @@ const InfografisPage = () => {
             <div className="grid sm:grid-cols-2 gap-6">
               {bansosData.map((item, i) => (
                 <div key={i} className="bg-white rounded-xl p-6 flex items-center gap-6 border border-gray-200 hover:shadow-lg transition-shadow">
-                  <div className="flex-shrink-0 w-16 h-16">
+                  <div className="shrink-0 w-16 h-16">
                     <img src={item.icon} alt={item.name} className="w-full h-full object-contain" />
                   </div>
                   <div className="flex flex-col">
@@ -771,7 +771,7 @@ const InfografisPage = () => {
             {loadingSDGs && (
               <div className="flex justify-center items-center py-20">
                 <div className="text-center">
-                  <div className="w-16 h-16 border-4 border-[#2C7961] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                  <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                   <p className="text-gray-600">Memuat data SDGs...</p>
                 </div>
               </div>
@@ -827,7 +827,7 @@ const InfografisPage = () => {
                         </div>
 
                         {/* Title */}
-                        <h4 className="font-bold text-gray-900 text-base mb-2 leading-tight min-h-[40px]">
+                        <h4 className="font-bold text-gray-900 text-base mb-2 leading-tight min-h-10">
                           {goal.title}
                         </h4>
 

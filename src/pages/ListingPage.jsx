@@ -22,7 +22,7 @@ const ListingPage = () => {
       <section className="py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-6 md:px-8">
           <div className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm">
-            <div className="relative w-full h-[500px] md:h-[700px]">
+            <div className="relative w-full h-125 md:h-175">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31802.5545991708!2d104.924985187695!3d-4.886091925513833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e38aa06c5c5a66d%3A0xfead7bbc27eabfec!2sRatu%20Abung%2C%20Kec.%20Abung%20Sel.%2C%20Kabupaten%20Lampung%20Utara%2C%20Lampung!5e0!3m2!1sid!2sid!4v1768883630958!5m2!1sid!2sid"
                 style={{ width: "100%", height: "100%", border: 0 }}

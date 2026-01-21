@@ -40,7 +40,7 @@ const GaleriPage = () => {
                 className="group bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow"
               >
                 {/* Gambar */}
-                <div className="relative w-full aspect-[4/3] bg-gray-100 overflow-hidden">
+                <div className="relative w-full aspect-4/3 bg-gray-100 overflow-hidden">
                   <img
                     src={item.gambar}
                     alt={item.judul}

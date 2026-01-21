@@ -17,7 +17,7 @@ function App() {
       <ScrollToTop />
       <div className="min-h-screen flex flex-col">
         <Navbar />
-        <main className="flex-grow">
+        <main className="grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/profil-desa" element={<ProfilDesaPage />} />
