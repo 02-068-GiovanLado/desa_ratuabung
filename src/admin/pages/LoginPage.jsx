@@ -10,20 +10,20 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
     if (!username || !password) {
-      setError('Username dan password harus diisi');
+      setError('Email dan password harus diisi');
       return;
     }
 
-    const success = login(username, password);
-    if (success) {
+    const result = await login(username, password);
+    if (result.success) {
       navigate('/admin/dashboard');
     } else {
-      setError('Username atau password salah');
+      setError(result.message || 'Email atau password salah');
     }
   };
 
@@ -57,15 +57,15 @@ const LoginPage = () => {
 
               {/* Demo Info */}
               <div className="bg-blue-50 border border-blue-200 text-blue-700 px-4 py-3 rounded-lg text-sm">
-                <p className="font-semibold mb-1">Demo Login:</p>
-                <p>Username: <span className="font-mono">admin</span></p>
+                <p className="font-semibold mb-1">Demo Login (Backend):</p>
+                <p>Email: <span className="font-mono">admin@webdesa.com</span></p>
                 <p>Password: <span className="font-mono">admin123</span></p>
               </div>
 
-              {/* Username Input */}
+              {/* Email Input */}
               <div>
                 <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
-                  Username
+                  Email
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -79,7 +79,7 @@ const LoginPage = () => {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2E5C8A] focus:border-transparent transition-all"
-                    placeholder="Masukkan username"
+                    placeholder="Masukkan email"
                   />
                 </div>
               </div>

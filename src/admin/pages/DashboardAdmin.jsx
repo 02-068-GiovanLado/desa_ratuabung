@@ -12,8 +12,8 @@ const DashboardAdmin = () => {
     }
   }, [user, navigate]);
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     navigate('/');
   };
 
@@ -48,8 +48,8 @@ const DashboardAdmin = () => {
             </div>
             <div className="flex items-center gap-4">
               <div className="text-right">
-                <p className="text-sm font-medium text-gray-900">{user.username}</p>
-                <p className="text-xs text-gray-500 capitalize">{user.role}</p>
+                <p className="text-sm font-medium text-gray-900">{user.name}</p>
+                <p className="text-xs text-gray-500">{user.email}</p>
               </div>
               <button
                 onClick={handleLogout}
@@ -70,7 +70,7 @@ const DashboardAdmin = () => {
         {/* Welcome Section */}
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            Selamat Datang, {user.username}!
+            Selamat Datang, {user.name}!
           </h2>
           <p className="text-gray-600">Kelola konten website Desa Ratu Abung dari dashboard ini</p>
         </div>
