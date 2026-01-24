@@ -137,7 +137,8 @@ const BelanjaPage = () => {
     },
   ];
 
-  const displayProducts = products.length > 0 ? products : productsBackup;
+  // Hanya gunakan data dari backend, tidak pakai fallback dummy
+  const displayProducts = products;
 
   const filteredProducts = selectedCategory === 'Semua' 
     ? displayProducts 
