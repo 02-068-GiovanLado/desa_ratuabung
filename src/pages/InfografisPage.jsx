@@ -12,10 +12,10 @@ const InfografisPage = () => {
 
   // Mock data
   const mockData = {
-    totalPenduduk: 2175,
-    kepalaKeluarga: 744,
-    perempuan: 1107,
-    lakiLaki: 1068,
+    totalPenduduk: 2177,
+    kepalaKeluarga: 694,
+    perempuan: 1070,
+    lakiLaki: 1107,
   };
 
   const tabs = [
@@ -130,12 +130,12 @@ const InfografisPage = () => {
           datasets: [
             {
               label: 'Laki-laki',
-              data: [145, 178, 189, 165, 156, 143, 134, 121, 98, 87, 76, 65, 54, 154],
+              data: [71, 123, 104, 109, 109, 79, 81, 88, 80, 106, 72, 69, 60, 65],
               backgroundColor: 'rgba(44, 121, 97, 0.8)',
             },
             {
               label: 'Perempuan',
-              data: [139, 171, 182, 158, 149, 137, 128, 115, 92, 81, 71, 61, 50, 155],
+              data: [51, 84, 96, 85, 75, 59, 71, 84, 99, 90, 65, 45, 37, 74],
               backgroundColor: 'rgba(251, 146, 60, 0.8)',
             }
           ]
@@ -158,9 +158,9 @@ const InfografisPage = () => {
       const dusunChart = new Chart(dusunCtx, {
         type: 'doughnut',
         data: {
-          labels: ['Dusun 1', 'Dusun 2', 'Dusun 3', 'Dusun 4', 'Dusun 5', 'Dusun 6', 'Dusun 7'],
+          labels: ['Dusun Bangun Rejo', 'Dusun Tanjung Rejo', 'Dusun Mekar Jaya', 'Dusun Bumi Rejo 1', 'Dusun Bumi Rejo 2', 'Dusun Purwo Sari', 'Dusun Mekar Sari'],
           datasets: [{
-            data: [512, 489, 467, 423, 401, 389, 473],
+            data: [259, 386, 289, 279, 359, 337, 266],
             backgroundColor: [
               'rgba(44, 121, 97, 0.8)',
               'rgba(251, 146, 60, 0.8)',
@@ -254,9 +254,9 @@ const InfografisPage = () => {
   ];
 
   const agamaData = [
-    { agama: 'Islam', total: 0, icon: '/images/aset_infografis/islam.png' },
-    { agama: 'Kristen', total: 0, icon: '/images/aset_infografis/kristen.png' },
-    { agama: 'Katolik', total: 0, icon: '/images/aset_infografis/katolik.png' },
+    { agama: 'Islam', total: 2076, icon: '/images/aset_infografis/islam.png' },
+    { agama: 'Kristen', total: 12, icon: '/images/aset_infografis/kristen.png' },
+    { agama: 'Katolik', total: 2, icon: '/images/aset_infografis/katolik.png' },
     { agama: 'Hindu', total: 0, icon: '/images/aset_infografis/hindu.png' },
     { agama: 'Budha', total: 0, icon: '/images/aset_infografis/budha.png' },
   ];
@@ -585,7 +585,7 @@ const InfografisPage = () => {
             <div className="md:col-span-2 space-y-2 md:pl-4">
               <p className="text-xl font-bold text-gray-800 mb-4">Keterangan:</p>
               <div className="space-y-1">
-                {['Dusun 1: 512 Jiwa', 'Dusun 2: 489 Jiwa', 'Dusun 3: 467 Jiwa', 'Dusun 4: 423 Jiwa', 'Dusun 5: 401 Jiwa', 'Dusun 6: 389 Jiwa', 'Dusun 7: 473 Jiwa'].map((text, i) => (
+                {['Dusun Bangun Rejo: 259 Jiwa', 'Dusun Tanjung Rejo: 386 Jiwa', 'Dusun Mekar Jaya: 289 Jiwa', 'Dusun Bumi Rejo 1: 279 Jiwa', 'Dusun Bumi Rejo 2: 359 Jiwa', 'Dusun Purwo Sari: 337 Jiwa', 'Dusun Mekar Sari: 266 Jiwa'].map((text, i) => (
                   <p key={i} className="text-base text-gray-700">{text}</p>
                 ))}
               </div>
