@@ -246,7 +246,7 @@ const InfografisPage = () => {
 
   const perkawinanData = [
     { status: 'Belum Kawin', total: 0, icon: '/images/aset_infografis/belumkawin.png' },
-    { status: 'Kawin', total: 0, icon: '/images/aset_infografis/kawin.png' },
+    { status: 'Kawin', total: 0, icon: '/images/aset_infografis/Kawin.png' },
     { status: 'Cerai Mati', total: 0, icon: '/images/aset_infografis/mt.png' },
     { status: 'Kawin Tercatat', total: 0, icon: '/images/aset_infografis/kawintercatat.png' },
     { status: 'Cerai Hidup', total: 0, icon: '/images/aset_infografis/Cerai Hidup.png' },
