@@ -9,25 +9,12 @@ import InfografisPage from './pages/InfografisPage';
 import ListingPage from './pages/ListingPage';
 import PPIDPage from './pages/PPIDPage';
 import BelanjaPage from './pages/BelanjaPage';
-import DashboardAdmin from './pages/DashboardAdmin';
+import LoginPage from './admin/pages/LoginPage';
+import DashboardAdmin from './admin/pages/DashboardAdmin';
+import ProductsPage from './admin/pages/ProductsPage';
+import AdminGaleriPage from './admin/pages/GaleriPage';
+import AdminInfografisPage from './admin/pages/InfografisPage';
 import { AuthProvider, useAuth } from './admin/context/AuthContext';
-
-// Create the files in these locations:
-// src/admin/context/AuthContext.jsx
-// src/admin/pages/LoginPage.jsx
-// src/pages/DashboardAdmin.jsx
-
-// Placeholder component - replace with actual LoginPage
-const LoginPage = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h2 className="text-2xl font-bold mb-4">Login Page</h2>
-        <p>Please create src/admin/pages/LoginPage.jsx</p>
-      </div>
-    </div>
-  );
-};
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -130,6 +117,24 @@ function App() {
           <Route path="/admin/dashboard" element={
             <ProtectedRoute>
               <DashboardAdmin />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/admin/dashboard/products" element={
+            <ProtectedRoute>
+              <ProductsPage />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/admin/dashboard/galeri" element={
+            <ProtectedRoute>
+              <AdminGaleriPage />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/admin/dashboard/infografis" element={
+            <ProtectedRoute>
+              <AdminInfografisPage />
             </ProtectedRoute>
           } />
 
