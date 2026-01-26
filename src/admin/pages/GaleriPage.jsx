@@ -18,8 +18,7 @@ const GaleriPage = () => {
   const [formData, setFormData] = useState({
     title: '',
     image: null,
-    author: '',
-    views: ''
+    author: ''
   });
 
   const [imagePreview, setImagePreview] = useState(null);
@@ -123,7 +122,6 @@ const GaleriPage = () => {
         title: '',
         image: null,
         author: '',
-        views: ''
       });
       setImagePreview(null);
     }
@@ -150,7 +148,6 @@ const GaleriPage = () => {
       const dataToSend = {
         title: formData.title,
         author: formData.author,
-        views: formData.views || 0,
         image: imagePreview || null // Send base64 string
       };
 
@@ -165,7 +162,10 @@ const GaleriPage = () => {
         body: JSON.stringify(dataToSend)
       });
 
-      if (!response.ok) throw new Error('Gagal menyimpan galeri');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Gagal menyimpan galeri');
+      }
       
       await fetchGaleries();
       setShowModal(false);
@@ -416,18 +416,6 @@ const GaleriPage = () => {
                   required
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]"
                   placeholder="Nama pengarang"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Views</label>
-                <input
-                  type="number"
-                  name="views"
-                  value={formData.views}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]"
-                  placeholder="0"
                 />
               </div>
 

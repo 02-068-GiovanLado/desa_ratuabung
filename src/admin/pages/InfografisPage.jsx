@@ -14,17 +14,20 @@ const InfografisPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
-
-  const [formData, setFormData] = useState({
-    title: '',
-    type: 'Penduduk',
-    data: '',
-    description: ''
-  });
+  const [selectedType, setSelectedType] = useState('Penduduk');
+  const [formData, setFormData] = useState({});
 
   const API_URL = 'http://localhost:3000/api';
   const itemsPerPage = 10;
-  const types = ['Penduduk', 'APBDes', 'Stunting', 'Bansos', 'IDM', 'SDGs'];
+
+  const infografisTypes = [
+    { value: 'Penduduk', label: 'Data Penduduk' },
+    { value: 'APBDes', label: 'APB Desa' },
+    { value: 'Stunting', label: 'Data Stunting' },
+    { value: 'Bansos', label: 'Data Bansos' },
+    { value: 'IDM', label: 'IDM' },
+    { value: 'SDGs', label: 'SDGs' },
+  ];
 
   useEffect(() => {
     fetchInfografis();
@@ -45,6 +48,25 @@ const InfografisPage = () => {
     }
   };
 
+  const renderFormByType = () => {
+    switch (selectedType) {
+      case 'Penduduk':
+        return <FormPenduduk formData={formData} setFormData={setFormData} />;
+      case 'APBDes':
+        return <FormAPBDes formData={formData} setFormData={setFormData} />;
+      case 'Stunting':
+        return <FormStunting formData={formData} setFormData={setFormData} />;
+      case 'Bansos':
+        return <FormBansos formData={formData} setFormData={setFormData} />;
+      case 'IDM':
+        return <FormIDM formData={formData} setFormData={setFormData} />;
+      case 'SDGs':
+        return <FormSDGs formData={formData} setFormData={setFormData} />;
+      default:
+        return null;
+    }
+  };
+
   const filteredInfografis = infografis.filter(i =>
     i.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -53,30 +75,47 @@ const InfografisPage = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedInfografis = filteredInfografis.slice(startIndex, startIndex + itemsPerPage);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
   const openModal = (item = null) => {
     if (item) {
       setEditingId(item.id);
-      setFormData(item);
+      setSelectedType(item.type);
+      const data = typeof item.data === 'string' ? JSON.parse(item.data) : item.data;
+      setFormData(data);
     } else {
       setEditingId(null);
-      setFormData({
-        title: '',
-        type: 'Penduduk',
-        data: '',
-        description: ''
-      });
+      setSelectedType('Penduduk');
+      setFormData({});
     }
     setShowModal(true);
+  };
+
+  const generateTitle = (type) => {
+    const now = new Date().toLocaleDateString('id-ID');
+    return `Data ${type} - ${now}`;
+  };
+
+  const generateDescription = (type) => {
+    const descriptions = {
+      'Penduduk': 'Data kependudukan desa',
+      'APBDes': 'Anggaran Pendapatan dan Belanja Desa',
+      'Stunting': 'Data stunting berdasarkan dusun',
+      'Bansos': 'Data program bantuan sosial',
+      'IDM': 'Indeks Desa Membangun',
+      'SDGs': 'Sustainable Development Goals'
+    };
+    return descriptions[type] || '';
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
     try {
+      const payload = {
+        title: generateTitle(selectedType),
+        type: selectedType,
+        data: JSON.stringify(formData),
+        description: generateDescription(selectedType)
+      };
+
       const method = editingId ? 'PUT' : 'POST';
       const endpoint = editingId 
         ? `${API_URL}/infografis/${editingId}`
@@ -85,7 +124,7 @@ const InfografisPage = () => {
       const response = await fetch(endpoint, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payload)
       });
 
       if (!response.ok) throw new Error('Gagal menyimpan infografis');
@@ -123,7 +162,6 @@ const InfografisPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
       <nav className="bg-white border-b border-gray-200 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -145,14 +183,12 @@ const InfografisPage = () => {
         </div>
       </nav>
 
-      {/* Main Content */}
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-2">Data Infografis</h2>
           <p className="text-gray-600">Kelola data statistik dan infografis desa</p>
         </div>
 
-        {/* Toolbar */}
         <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
             <input
@@ -181,7 +217,6 @@ const InfografisPage = () => {
           </div>
         </div>
 
-        {/* Loading */}
         {loading && (
           <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
             <div className="w-12 h-12 border-4 border-[#1E3A5F] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
@@ -189,7 +224,6 @@ const InfografisPage = () => {
           </div>
         )}
 
-        {/* Error */}
         {error && !loading && (
           <div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center">
             <p className="text-red-700 mb-4">{error}</p>
@@ -202,7 +236,6 @@ const InfografisPage = () => {
           </div>
         )}
 
-        {/* Table */}
         {!loading && !error && (
           <>
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
@@ -213,14 +246,13 @@ const InfografisPage = () => {
                       <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700">Judul</th>
                       <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700">Tipe</th>
                       <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700">Deskripsi</th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700">Data</th>
                       <th className="px-6 py-3 text-center text-xs font-semibold text-gray-700">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
                     {paginatedInfografis.length === 0 ? (
                       <tr>
-                        <td colSpan="5" className="px-6 py-8 text-center text-gray-500">
+                        <td colSpan="4" className="px-6 py-8 text-center text-gray-500">
                           Tidak ada infografis
                         </td>
                       </tr>
@@ -236,7 +268,6 @@ const InfografisPage = () => {
                             </span>
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-600 max-w-xs truncate">{item.description}</td>
-                          <td className="px-6 py-4 text-sm text-gray-600 max-w-xs truncate">{typeof item.data === 'string' ? item.data.substring(0, 30) + '...' : JSON.stringify(item.data).substring(0, 30) + '...'}</td>
                           <td className="px-6 py-4">
                             <div className="flex gap-2 justify-center">
                               <button
@@ -300,7 +331,6 @@ const InfografisPage = () => {
         )}
       </div>
 
-      {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
@@ -315,81 +345,47 @@ const InfografisPage = () => {
               </button>
             </div>
 
-            <div className="p-6 space-y-6">
+            <form onSubmit={handleSave} className="p-6 space-y-6">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Judul *</label>
-                <input
-                  type="text"
-                  name="title"
-                  value={formData.title}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]"
-                  placeholder="Judul infografis"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Tipe *</label>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Jenis Infografis *</label>
                 <select
-                  name="type"
-                  value={formData.type}
-                  onChange={handleChange}
-                  required
+                  value={selectedType}
+                  onChange={(e) => {
+                    setSelectedType(e.target.value);
+                    setFormData({});
+                  }}
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]"
                 >
-                  {types.map(t => (
-                    <option key={t} value={t}>{t}</option>
+                  {infografisTypes.map(type => (
+                    <option key={type.value} value={type.value}>{type.label}</option>
                   ))}
                 </select>
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Deskripsi</label>
-                <textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleChange}
-                  rows="3"
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]"
-                  placeholder="Deskripsi infografis"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Data (JSON) *</label>
-                <textarea
-                  name="data"
-                  value={formData.data}
-                  onChange={handleChange}
-                  rows="6"
-                  required
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2E5C8A] font-mono text-sm"
-                  placeholder='{"key": "value"}'
-                />
-                <p className="text-xs text-gray-500 mt-1">Masukkan data dalam format JSON</p>
+              <div className="border-t border-gray-200 pt-6">
+                {renderFormByType()}
               </div>
 
               <div className="flex gap-3 justify-end border-t border-gray-200 pt-6">
                 <button
+                  type="button"
                   onClick={() => setShowModal(false)}
                   className="px-6 py-2.5 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-colors"
                 >
                   Batal
                 </button>
                 <button
-                  onClick={handleSave}
+                  type="submit"
                   className="px-6 py-2.5 bg-[#1E3A5F] hover:bg-[#2E5C8A] text-white rounded-lg font-medium transition-colors"
                 >
                   {editingId ? 'Simpan Perubahan' : 'Tambah Infografis'}
                 </button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       )}
 
-      {/* Delete Modal */}
       {deleteId && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-xl max-w-sm w-full p-6">
@@ -420,5 +416,143 @@ const InfografisPage = () => {
     </div>
   );
 };
+
+// FORM COMPONENTS
+const InputField = ({ label, value, onChange, type = 'number', placeholder = '0' }) => (
+  <div className="flex items-center gap-3">
+    <label className="w-32 text-sm font-medium text-gray-700">{label}</label>
+    <input 
+      type={type}
+      value={value || ''} 
+      onChange={onChange}
+      placeholder={placeholder}
+      className="flex-1 px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]" 
+    />
+  </div>
+);
+
+const FormPenduduk = ({ formData, setFormData }) => {
+  const updateField = (key, value) => {
+    setFormData(prev => ({ ...prev, [key]: parseInt(value) || 0 }));
+  };
+
+  return (
+    <div className="space-y-6 max-h-96 overflow-y-auto pr-2">
+      <section>
+        <h4 className="font-semibold text-gray-900 mb-3 text-sm">1. Jumlah Penduduk & Kepala Keluarga</h4>
+        <div className="grid grid-cols-2 gap-3">
+          <InputField label="Total Penduduk" value={formData.totalPenduduk} onChange={(e) => updateField('totalPenduduk', e.target.value)} />
+          <InputField label="Kepala Keluarga" value={formData.kepalaKeluarga} onChange={(e) => updateField('kepalaKeluarga', e.target.value)} />
+          <InputField label="Laki-Laki" value={formData.lakiLaki} onChange={(e) => updateField('lakiLaki', e.target.value)} />
+          <InputField label="Perempuan" value={formData.perempuan} onChange={(e) => updateField('perempuan', e.target.value)} />
+        </div>
+      </section>
+
+      <section>
+        <h4 className="font-semibold text-gray-900 mb-3 text-sm">2. Kelompok Umur</h4>
+        <div className="space-y-2">
+          {['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49', '50-54', '55-59', '60-64', '65+'].map(range => (
+            <div key={range} className="grid grid-cols-3 gap-2 items-center text-xs">
+              <span className="font-medium text-gray-700">{range} tahun</span>
+              <input type="number" placeholder="L" value={formData[`umur_${range}_l`] || ''} onChange={(e) => updateField(`umur_${range}_l`, e.target.value)} className="px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]" />
+              <input type="number" placeholder="P" value={formData[`umur_${range}_p`] || ''} onChange={(e) => updateField(`umur_${range}_p`, e.target.value)} className="px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]" />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h4 className="font-semibold text-gray-900 mb-3 text-sm">3. Berdasarkan Dusun</h4>
+        <div className="space-y-2">
+          {[1, 2, 3, 4, 5, 6, 7].map(dusun => (
+            <InputField key={dusun} label={`Dusun ${dusun}`} value={formData[`dusun_${dusun}`]} onChange={(e) => updateField(`dusun_${dusun}`, e.target.value)} />
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h4 className="font-semibold text-gray-900 mb-3 text-sm">4. Berdasarkan Pekerjaan</h4>
+        <div className="space-y-2">
+          {['Petani', 'Buruh Tani', 'PNS', 'Buruh Pabrik', 'Pedagang', 'Pegawai Swasta', 'Tukang', 'Lainnya'].map(job => (
+            <InputField key={job} label={job} value={formData[`pekerjaan_${job}`]} onChange={(e) => updateField(`pekerjaan_${job}`, e.target.value)} />
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h4 className="font-semibold text-gray-900 mb-3 text-sm">5. Berdasarkan Pendidikan</h4>
+        <div className="space-y-2">
+          {['Tidak Sekolah', 'SD', 'SLTP', 'SLTA', 'Diploma', 'S1', 'S2', 'S3'].map(edu => (
+            <InputField key={edu} label={edu} value={formData[`pendidikan_${edu}`]} onChange={(e) => updateField(`pendidikan_${edu}`, e.target.value)} />
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h4 className="font-semibold text-gray-900 mb-3 text-sm">6. Berdasarkan Perkawinan</h4>
+        <div className="space-y-2">
+          {['Belum Kawin', 'Kawin', 'Cerai Hidup', 'Cerai Mati'].map(status => (
+            <InputField key={status} label={status} value={formData[`perkawinan_${status}`]} onChange={(e) => updateField(`perkawinan_${status}`, e.target.value)} />
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h4 className="font-semibold text-gray-900 mb-3 text-sm">7. Berdasarkan Agama</h4>
+        <div className="space-y-2">
+          {['Islam', 'Kristen', 'Katolik', 'Hindu', 'Budha'].map(agama => (
+            <InputField key={agama} label={agama} value={formData[`agama_${agama}`]} onChange={(e) => updateField(`agama_${agama}`, e.target.value)} />
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+};
+
+const FormAPBDes = ({ formData, setFormData }) => (
+  <div className="space-y-4">
+    <InputField label="Pendapatan" value={formData.pendapatan} onChange={(e) => setFormData(prev => ({ ...prev, pendapatan: e.target.value }))} type="text" placeholder="Rp" />
+    <InputField label="Belanja" value={formData.belanja} onChange={(e) => setFormData(prev => ({ ...prev, belanja: e.target.value }))} type="text" placeholder="Rp" />
+    <InputField label="Pembiayaan" value={formData.pembiayaan} onChange={(e) => setFormData(prev => ({ ...prev, pembiayaan: e.target.value }))} type="text" placeholder="Rp" />
+  </div>
+);
+
+const FormStunting = ({ formData, setFormData }) => (
+  <div className="space-y-2">
+    {[1, 2, 3, 4, 5, 6, 7].map(dusun => (
+      <InputField 
+        key={dusun}
+        label={`Dusun ${dusun}`} 
+        value={formData[`dusun_${dusun}`]} 
+        onChange={(e) => setFormData(prev => ({ ...prev, [`dusun_${dusun}`]: parseInt(e.target.value) || 0 }))} 
+      />
+    ))}
+  </div>
+);
+
+const FormBansos = ({ formData, setFormData }) => (
+  <div className="space-y-2">
+    {['PKH', 'BPNT', 'PIP', 'KIS'].map(program => (
+      <InputField 
+        key={program}
+        label={program} 
+        value={formData[`program_${program}`]} 
+        onChange={(e) => setFormData(prev => ({ ...prev, [`program_${program}`]: parseInt(e.target.value) || 0 }))} 
+      />
+    ))}
+  </div>
+);
+
+const FormIDM = ({ formData, setFormData }) => (
+  <div className="text-center text-gray-500 py-8">
+    <p>Form IDM akan dikonfigurasi sesuai kebutuhan</p>
+  </div>
+);
+
+const FormSDGs = ({ formData, setFormData }) => (
+  <div className="text-center text-gray-500 py-8">
+    <p>Form SDGs akan dikonfigurasi sesuai kebutuhan</p>
+  </div>
+);
 
 export default InfografisPage;
