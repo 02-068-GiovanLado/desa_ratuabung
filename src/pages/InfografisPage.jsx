@@ -680,7 +680,7 @@ const InfografisPage = () => {
               </div>
             </div>
 
-            {/* Grid SDGs Penilaian */}
+            {/* Grid SDGs Penilaian - DIPERBAIKI */}
             <div className="mt-12">
               <h4 className="text-2xl font-bold text-[#1E3A5F] mb-8">Penilaian SDGs Desa</h4>
               {loadingSDGs ? (

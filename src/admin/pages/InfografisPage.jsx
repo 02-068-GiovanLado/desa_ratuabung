@@ -640,10 +640,117 @@ const FormIDM = ({ formData, setFormData }) => (
   </div>
 );
 
-const FormSDGs = ({ formData, setFormData }) => (
-  <div className="text-center text-gray-500 py-8">
-    <p>Form SDGs akan dikonfigurasi sesuai kebutuhan</p>
-  </div>
-);
+const FormSDGs = ({ formData, setFormData }) => {
+  const sdgsCategories = [
+    { id: 1, title: 'Desa Tanpa Kemiskinan' },
+    { id: 2, title: 'Desa Tanpa Kelaparan' },
+    { id: 3, title: 'Desa Sehat dan Sejahtera' },
+    { id: 4, title: 'Pendidikan Desa Berkualitas' },
+    { id: 5, title: 'Keterlibatan Perempuan Desa' },
+    { id: 6, title: 'Desa Layak Air Bersih dan Sanitasi' },
+    { id: 7, title: 'Desa Berenergi Bersih dan Terbarukan' },
+    { id: 8, title: 'Pertumbuhan Ekonomi Desa Merata' },
+    { id: 9, title: 'Infrastruktur dan Inovasi Desa Sesuai Kebutuhan' },
+    { id: 10, title: 'Desa Tanpa Kesenjangan' },
+    { id: 11, title: 'Kawasan Pemukiman Desa Aman dan Nyaman' },
+    { id: 12, title: 'Konsumsi dan Produksi Desa Sadar Lingkungan' },
+    { id: 13, title: 'Desa Tanggap Perubahan Iklim' },
+    { id: 14, title: 'Desa Peduli Lingkungan Laut' },
+    { id: 15, title: 'Desa Peduli Lingkungan Darat' },
+    { id: 16, title: 'Desa Damai Berkeadilan' },
+    { id: 17, title: 'Kemitraan Untuk Pembangunan Desa' },
+    { id: 18, title: 'Kelembagaan Desa Dinamis dan Budaya Desa Adaptif' },
+  ];
+
+  const updateField = (id, value) => {
+    const numValue = parseFloat(value) || 0;
+    const newData = { ...formData };
+    newData[`sdg_${id}`] = numValue;
+    
+    // Hitung skor rata-rata otomatis
+    let totalSkor = 0;
+    let count = 0;
+    for (let i = 1; i <= sdgsCategories.length; i++) {
+      const skor = newData[`sdg_${i}`] || 0;
+      if (skor > 0) {
+        totalSkor += skor;
+        count++;
+      }
+    }
+    
+    newData.skor_rata_rata = count > 0 ? (totalSkor / count).toFixed(2) : 0;
+    setFormData(newData);
+  };
+
+  // Hitung skor rata-rata untuk display
+  let totalSkor = 0;
+  let count = 0;
+  for (let i = 1; i <= sdgsCategories.length; i++) {
+    const skor = formData[`sdg_${i}`] || 0;
+    if (skor > 0) {
+      totalSkor += skor;
+      count++;
+    }
+  }
+  const skorRataRata = count > 0 ? (totalSkor / count).toFixed(2) : 0;
+
+  return (
+    <div className="space-y-6 max-h-96 overflow-y-auto pr-2">
+      {/* Header dengan Skor Rata-rata */}
+      <div className="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-4 sticky top-0">
+        <div className="flex justify-between items-center">
+          <div>
+            <p className="text-sm font-medium text-gray-700">Skor Rata-rata SDGs Desa</p>
+            <p className="text-xs text-gray-600 mt-1">Total skor dibagi jumlah kategori yang memiliki skor</p>
+          </div>
+          <div className="text-right">
+            <p className="text-3xl font-bold text-[#1E3A5F]">{skorRataRata}</p>
+            <p className="text-xs text-gray-600">dari {count} kategori</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Input Skor untuk setiap kategori */}
+      <section>
+        <h4 className="font-semibold text-gray-900 mb-4 text-sm">Masukkan Skor Setiap Kategori SDGs</h4>
+        <div className="grid grid-cols-1 gap-3">
+          {sdgsCategories.map((category) => (
+            <div key={category.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+              <div className="flex-shrink-0 w-10 h-10 bg-[#1E3A5F] rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-sm">{category.id}</span>
+              </div>
+              <div className="flex-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1">{category.title}</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  max="100"
+                  value={formData[`sdg_${category.id}`] || ''}
+                  onChange={(e) => updateField(category.id, e.target.value)}
+                  placeholder="0.00"
+                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]"
+                />
+              </div>
+              <div className="flex-shrink-0 text-sm font-semibold text-gray-600 w-12 text-right">
+                {formData[`sdg_${category.id}`] || '0.00'}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Info Perhitungan */}
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+        <p className="text-xs font-medium text-gray-700 mb-2">Catatan:</p>
+        <ul className="text-xs text-gray-600 space-y-1">
+          <li>• Masukkan skor untuk setiap kategori SDGs (rentang 0-100)</li>
+          <li>• Skor rata-rata dihitung otomatis dari semua kategori yang memiliki nilai</li>
+          <li>• Rumus: Total Skor ÷ Jumlah Kategori dengan Skor</li>
+        </ul>
+      </div>
+    </div>
+  );
+};
 
 export default InfografisPage;
