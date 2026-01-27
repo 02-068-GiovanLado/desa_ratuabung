@@ -652,44 +652,68 @@ const InfografisPage = () => {
       {activeTab === 'SDGs' && (
         <section id="sdgs" className="bg-gray-50 py-12 md:py-16">
           <div className="max-w-7xl mx-auto px-6 md:px-8">
-            <div className="mb-10 text-center">
-              <h3 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-3">Sustainable Development Goals</h3>
-              <p className="text-gray-600 text-base md:text-lg max-w-3xl mx-auto">Capaian Desa Ratu Abung dalam mendukung Tujuan Pembangunan Berkelanjutan</p>
-            </div>
+            {/* Header Section */}
+            <div className="mb-12 grid md:grid-cols-2 gap-8 items-start">
+              {/* Left - Judul dan Deskripsi */}
+              <div>
+                <h3 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-4">SDGs Desa</h3>
+                <p className="text-gray-600 text-base leading-relaxed">
+                  SDGs Desa mengacu pada upaya yang dilakukan di tingkat Desa untuk mencapai Tujuan Pembangunan Berkelanjutan (Sustainable Development Goals/SDGs). SDGs merupakan agenda global yang ditetapkan oleh Perserikatan Bangsa-Bangsa (PBB) untuk mengatasi berbagai tantangan sosial, ekonomi, dan lingkungan di seluruh dunia.
+                </p>
+              </div>
 
-            {loadingSDGs ? (
-              <div className="flex justify-center items-center py-20">
-                <div className="text-center">
-                  <div className="w-16 h-16 border-4 border-[#1E3A5F] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                  <p className="text-gray-600">Memuat data SDGs...</p>
+              {/* Right - Tabel Skor */}
+              <div className="bg-white rounded-xl border border-gray-200 p-6">
+                <h4 className="text-lg font-bold text-[#1E3A5F] mb-4">Skor SDGs Desa Ratu Abung</h4>
+                <div className="space-y-3">
+                  {sdgsData.length > 0 ? (
+                    sdgsData.map((goal) => (
+                      <div key={goal.id} className="flex justify-between items-center pb-3 border-b border-gray-100 last:border-b-0">
+                        <span className="text-sm font-medium text-gray-700">{goal.title}</span>
+                        <span className="text-lg font-bold text-[#1E3A5F]">{goal.progress}</span>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-gray-500 text-sm text-center py-4">Belum ada data</p>
+                  )}
                 </div>
               </div>
-            ) : sdgsData.length === 0 ? (
-              <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
-                <p className="text-gray-500">Belum ada data SDGs. Silakan input di admin dashboard terlebih dahulu.</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {sdgsData.map((goal) => (
-                  <div key={goal.id} className="bg-white rounded-lg border border-gray-300 p-6 hover:shadow-md transition-shadow">
-                    <div className="flex justify-between items-start mb-4">
-                      <div className="w-20 h-20">
-                        <img 
-                          src={`https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-${String(goal.id).padStart(2, '0')}.jpg`} 
-                          alt={`SDG ${goal.id}`} 
-                          className="w-full h-full object-cover rounded-lg shadow-sm" 
-                          onError={(e) => { e.target.style.display = 'none'; }} 
-                        />
-                      </div>
-                    </div>
-                    <h4 className="font-bold text-gray-900 text-base mb-2 leading-tight min-h-10">{goal.title}</h4>
-                    <div className="text-right">
-                      <div className="text-4xl font-bold text-gray-900">{goal.progress}</div>
-                    </div>
+            </div>
+
+            {/* Grid SDGs Penilaian */}
+            <div className="mt-12">
+              <h4 className="text-2xl font-bold text-[#1E3A5F] mb-8">Penilaian SDGs Desa</h4>
+              {loadingSDGs ? (
+                <div className="flex justify-center items-center py-20">
+                  <div className="text-center">
+                    <div className="w-16 h-16 border-4 border-[#1E3A5F] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-gray-600">Memuat data SDGs...</p>
                   </div>
-                ))}
-              </div>
-            )}
+                </div>
+              ) : sdgsData.length === 0 ? (
+                <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
+                  <p className="text-gray-500">Belum ada data SDGs. Silakan input di admin dashboard terlebih dahulu.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {sdgsData.map((goal) => (
+                    <div key={goal.id} className="bg-white rounded-lg border border-gray-300 p-6 hover:shadow-md transition-shadow">
+                      <div className="mb-4">
+                        <div className="w-full h-32">
+                          <img 
+                            src={`https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-${String(goal.id).padStart(2, '0')}.jpg`} 
+                            alt={`SDG ${goal.id}`} 
+                            className="w-full h-full object-cover rounded-lg shadow-sm" 
+                            onError={(e) => { e.target.style.display = 'none'; }} 
+                          />
+                        </div>
+                      </div>
+                      <h5 className="font-bold text-gray-900 text-sm mb-3 leading-tight min-h-12">{goal.title}</h5>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </section>
       )}
