@@ -9,9 +9,20 @@ const InfografisPage = () => {
   const [sdgsData, setSdgsData] = useState([]);
   const [loadingSDGs, setLoadingSDGs] = useState(false);
   
-  // Data dari API
   const [pendudukData, setPendudukData] = useState(null);
   const [loadingPenduduk, setLoadingPenduduk] = useState(true);
+  
+  const [apbdesData, setApbdesData] = useState(null);
+  const [loadingAPBDes, setLoadingAPBDes] = useState(false);
+  
+  const [stuntingData, setStuntingData] = useState(null);
+  const [loadingStunting, setLoadingStunting] = useState(false);
+  
+  const [bansosData, setBansosData] = useState(null);
+  const [loadingBansos, setLoadingBansos] = useState(false);
+  
+  const [idmData, setIdmData] = useState(null);
+  const [loadingIDM, setLoadingIDM] = useState(false);
 
   const API_URL = 'http://localhost:3000/api';
 
@@ -24,7 +35,6 @@ const InfografisPage = () => {
     { name: 'SDGs' },
   ];
 
-  // Handle hash navigation
   useEffect(() => {
     const hash = location.hash.replace('#', '');
     if (hash === 'idm') {
@@ -34,23 +44,19 @@ const InfografisPage = () => {
     }
   }, [location]);
 
-  // Fetch Penduduk Data dari API
   useEffect(() => {
     const fetchPendudukData = async () => {
       try {
         setLoadingPenduduk(true);
-        
         const response = await fetch(`${API_URL}/infografis/type/Penduduk`);
         if (!response.ok) throw new Error('Gagal memuat data penduduk');
         
         const result = await response.json();
-        
         if (result.data && result.data.length > 0) {
           const latestData = result.data[0];
           const parsedData = typeof latestData.data === 'string' 
             ? JSON.parse(latestData.data) 
             : latestData.data;
-          
           setPendudukData(parsedData);
         }
       } catch (err) {
@@ -66,10 +72,123 @@ const InfografisPage = () => {
     }
   }, [activeTab]);
 
-  // Fetch SDGs Data
+  const fetchAPBDesData = async () => {
+    try {
+      setLoadingAPBDes(true);
+      const response = await fetch(`${API_URL}/infografis/type/APBDes`);
+      if (!response.ok) {
+        setApbdesData(null);
+        return;
+      }
+      const result = await response.json();
+      if (result.data && result.data.length > 0) {
+        const latestData = result.data[0];
+        const data = typeof latestData.data === 'string' 
+          ? JSON.parse(latestData.data) 
+          : latestData.data;
+        setApbdesData(data);
+      }
+    } catch (error) {
+      console.error('Error fetching APBDes:', error);
+      setApbdesData(null);
+    } finally {
+      setLoadingAPBDes(false);
+    }
+  };
+
   useEffect(() => {
-    if (activeTab === 'SDGs') {
-      fetchSDGsData();
+    if (activeTab === 'APBDes') {
+      fetchAPBDesData();
+    }
+  }, [activeTab]);
+
+  const fetchStuntingData = async () => {
+    try {
+      setLoadingStunting(true);
+      const response = await fetch(`${API_URL}/infografis/type/Stunting`);
+      if (!response.ok) {
+        setStuntingData(null);
+        return;
+      }
+      const result = await response.json();
+      if (result.data && result.data.length > 0) {
+        const latestData = result.data[0];
+        const data = typeof latestData.data === 'string' 
+          ? JSON.parse(latestData.data) 
+          : latestData.data;
+        setStuntingData(data);
+      }
+    } catch (error) {
+      console.error('Error fetching Stunting:', error);
+      setStuntingData(null);
+    } finally {
+      setLoadingStunting(false);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === 'Stunting') {
+      fetchStuntingData();
+    }
+  }, [activeTab]);
+
+  const fetchBansosData = async () => {
+    try {
+      setLoadingBansos(true);
+      const response = await fetch(`${API_URL}/infografis/type/Bansos`);
+      if (!response.ok) {
+        setBansosData(null);
+        return;
+      }
+      const result = await response.json();
+      if (result.data && result.data.length > 0) {
+        const latestData = result.data[0];
+        const data = typeof latestData.data === 'string' 
+          ? JSON.parse(latestData.data) 
+          : latestData.data;
+        setBansosData(data);
+      }
+    } catch (error) {
+      console.error('Error fetching Bansos:', error);
+      setBansosData(null);
+    } finally {
+      setLoadingBansos(false);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === 'Bansos') {
+      fetchBansosData();
+    }
+  }, [activeTab]);
+
+  const fetchIDMData = async () => {
+    try {
+      setLoadingIDM(true);
+      const response = await fetch(`${API_URL}/infografis/type/IDM`);
+      if (!response.ok) {
+        setIdmData(null);
+        return;
+      }
+      const result = await response.json();
+      if (result.data && result.data.length > 0) {
+        const latestData = result.data[0];
+        const data = typeof latestData.data === 'string' 
+          ? JSON.parse(latestData.data) 
+          : latestData.data;
+        setIdmData(data);
+      }
+    } catch (error) {
+      console.error('Error fetching IDM:', error);
+      setIdmData(null);
+    } finally {
+      setLoadingIDM(false);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === 'IDM') {
+      fetchIDMData();
     }
   }, [activeTab]);
 
@@ -77,12 +196,10 @@ const InfografisPage = () => {
     try {
       setLoadingSDGs(true);
       const response = await fetch(`${API_URL}/infografis/type/SDGs`);
-      
       if (!response.ok) {
         setSdgsData([]);
         return;
       }
-
       const result = await response.json();
       if (result.data && result.data.length > 0) {
         const latestData = result.data[0];
@@ -100,6 +217,12 @@ const InfografisPage = () => {
   };
 
   useEffect(() => {
+    if (activeTab === 'SDGs') {
+      fetchSDGsData();
+    }
+  }, [activeTab]);
+
+  useEffect(() => {
     if (!pendudukData) return;
 
     const destroyChart = (chartId) => {
@@ -109,11 +232,9 @@ const InfografisPage = () => {
       }
     };
 
-    // Age Group Chart
     const ageCtx = document.getElementById('ageGroupChart');
     if (ageCtx && pendudukData) {
       destroyChart('ageGroupChart');
-      
       const ageRanges = ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49', '50-54', '55-59', '60-64', '65+'];
       const lakiData = ageRanges.map(range => pendudukData[`umur_${range}_l`] || 0);
       const perempuanData = ageRanges.map(range => pendudukData[`umur_${range}_p`] || 0);
@@ -146,11 +267,9 @@ const InfografisPage = () => {
       chartInstances.current.ageGroupChart = ageChart;
     }
 
-    // Dusun Chart
     const dusunCtx = document.getElementById('dusunChart');
     if (dusunCtx && pendudukData) {
       destroyChart('dusunChart');
-      
       const dusunData = [1, 2, 3, 4, 5, 6, 7].map(i => pendudukData[`dusun_${i}`] || 0);
       
       const dusunChart = new Chart(dusunCtx, {
@@ -191,6 +310,23 @@ const InfografisPage = () => {
     };
   }, [pendudukData, activeTab]);
 
+  const renderLoadingSpinner = (text) => (
+    <section className="bg-white py-8">
+      <div className="max-w-7xl mx-auto px-6 text-center">
+        <div className="w-12 h-12 border-4 border-[#1E3A5F] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <p className="text-gray-600">{text}</p>
+      </div>
+    </section>
+  );
+
+  const renderNoData = (text) => (
+    <section className="bg-white py-8">
+      <div className="max-w-7xl mx-auto px-6 text-center">
+        <p className="text-gray-500">{text}</p>
+      </div>
+    </section>
+  );
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white border-b border-gray-200">
@@ -202,7 +338,6 @@ const InfografisPage = () => {
             </svg>
             <span className="text-[#1E3A5F] font-medium">Infografis</span>
           </div>
-          
           <h1 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-2">Infografis Desa Ratu Abung</h1>
           <p className="text-gray-600 text-base md:text-lg">Visualisasi data dan informasi desa dalam bentuk infografis interaktif</p>
         </div>
@@ -231,18 +366,9 @@ const InfografisPage = () => {
       {activeTab === 'Penduduk' && (
         <>
           {loadingPenduduk ? (
-            <section className="bg-white py-8">
-              <div className="max-w-7xl mx-auto px-6 text-center">
-                <div className="w-12 h-12 border-4 border-[#1E3A5F] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                <p className="text-gray-600">Memuat data penduduk...</p>
-              </div>
-            </section>
+            renderLoadingSpinner('Memuat data penduduk...')
           ) : !pendudukData ? (
-            <section className="bg-white py-8">
-              <div className="max-w-7xl mx-auto px-6 text-center">
-                <p className="text-gray-500">Belum ada data penduduk. Silakan input di admin dashboard terlebih dahulu.</p>
-              </div>
-            </section>
+            renderNoData('Belum ada data penduduk. Silakan input di admin dashboard terlebih dahulu.')
           ) : (
             <>
               <section className="py-16 md:py-20">
@@ -288,7 +414,7 @@ const InfografisPage = () => {
                 <div className="max-w-7xl mx-auto px-6 md:px-8">
                   <h4 className="text-2xl md:text-3xl font-bold text-[#1E3A5F] mb-6">Berdasarkan Kelompok Umur</h4>
                   <div className="bg-white rounded-xl p-6 border border-gray-200">
-                    <div className="h-105">
+                    <div style={{ height: '420px' }}>
                       <canvas id="ageGroupChart"></canvas>
                     </div>
                   </div>
@@ -376,6 +502,153 @@ const InfografisPage = () => {
         </>
       )}
 
+      {activeTab === 'APBDes' && (
+        <>
+          {loadingAPBDes ? (
+            renderLoadingSpinner('Memuat data APBDes...')
+          ) : !apbdesData ? (
+            renderNoData('Belum ada data APBDes. Silakan input di admin dashboard terlebih dahulu.')
+          ) : (
+            <section className="py-16 md:py-20">
+              <div className="max-w-7xl mx-auto px-6 md:px-8">
+                <h4 className="text-2xl md:text-3xl font-bold text-[#1E3A5F] mb-8">APBDes</h4>
+                
+                {/* Pendapatan & Belanja Section */}
+                <div className="grid md:grid-cols-2 gap-6 mb-8">
+                  {/* Pendapatan */}
+                  <div className="bg-white rounded-xl p-8 border border-gray-200 hover:shadow-lg transition-shadow">
+                    <h5 className="text-xl font-bold text-[#1E3A5F] mb-4">Pendapatan</h5>
+                    <p className="text-3xl font-bold text-[#1E3A5F]">
+                      Rp {apbdesData.pendapatan ? parseInt(apbdesData.pendapatan).toLocaleString('id-ID') : '0'}
+                    </p>
+                  </div>
+
+                  {/* Belanja */}
+                  <div className="bg-white rounded-xl p-8 border border-gray-200 hover:shadow-lg transition-shadow">
+                    <h5 className="text-xl font-bold text-[#1E3A5F] mb-4">Belanja</h5>
+                    <p className="text-3xl font-bold text-[#1E3A5F]">
+                      Rp {apbdesData.belanja ? parseInt(apbdesData.belanja).toLocaleString('id-ID') : '0'}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Pembiayaan Section */}
+                <div className="mb-8">
+                  <h5 className="text-xl font-bold text-[#1E3A5F] mb-4">Pembiayaan</h5>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {/* Penerimaan */}
+                    <div className="bg-white rounded-xl p-8 border border-gray-200 hover:shadow-lg transition-shadow">
+                      <p className="text-sm font-medium text-gray-600 mb-2">Penerimaan</p>
+                      <p className="text-3xl font-bold text-[#1E3A5F]">
+                        Rp {apbdesData.penerimaan ? parseInt(apbdesData.penerimaan).toLocaleString('id-ID') : '0'}
+                      </p>
+                    </div>
+
+                    {/* Pengeluaran */}
+                    <div className="bg-white rounded-xl p-8 border border-gray-200 hover:shadow-lg transition-shadow">
+                      <p className="text-sm font-medium text-gray-600 mb-2">Pengeluaran</p>
+                      <p className="text-3xl font-bold text-[#1E3A5F]">
+                        Rp {apbdesData.pengeluaran ? parseInt(apbdesData.pengeluaran).toLocaleString('id-ID') : '0'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Surplus/Defisit Section */}
+                <div>
+                  <div className="bg-white rounded-xl p-8 border border-gray-200 hover:shadow-lg transition-shadow">
+                    <p className="text-sm font-medium text-gray-600 mb-2">Surplus/Defisit</p>
+                    <p className={`text-3xl font-bold ${
+                      apbdesData.surplus_defisit >= 0 ? 'text-green-600' : 'text-red-600'
+                    }`}>
+                      Rp {apbdesData.surplus_defisit ? parseInt(apbdesData.surplus_defisit).toLocaleString('id-ID') : '0'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
+        </>
+      )}
+
+      {activeTab === 'Stunting' && (
+        <>
+          {loadingStunting ? (
+            renderLoadingSpinner('Memuat data Stunting...')
+          ) : !stuntingData ? (
+            renderNoData('Belum ada data Stunting. Silakan input di admin dashboard terlebih dahulu.')
+          ) : (
+            <section className="py-16 md:py-20">
+              <div className="max-w-7xl mx-auto px-6 md:px-8">
+                <h4 className="text-2xl md:text-3xl font-bold text-[#1E3A5F] mb-6">Data Stunting</h4>
+                <div className="bg-white rounded-xl p-8 border border-gray-200">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {Object.entries(stuntingData).map(([key, value]) => (
+                      <div key={key} className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow">
+                        <p className="text-sm font-medium text-gray-600 mb-2 capitalize">{key.replace(/_/g, ' ')}</p>
+                        <p className="text-3xl font-bold text-[#1E3A5F]">{value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
+        </>
+      )}
+
+      {activeTab === 'Bansos' && (
+        <>
+          {loadingBansos ? (
+            renderLoadingSpinner('Memuat data Bansos...')
+          ) : !bansosData ? (
+            renderNoData('Belum ada data Bansos. Silakan input di admin dashboard terlebih dahulu.')
+          ) : (
+            <section className="py-16 md:py-20">
+              <div className="max-w-7xl mx-auto px-6 md:px-8">
+                <h4 className="text-2xl md:text-3xl font-bold text-[#1E3A5F] mb-6">Data Bansos</h4>
+                <div className="bg-white rounded-xl p-8 border border-gray-200">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {Object.entries(bansosData).map(([key, value]) => (
+                      <div key={key} className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow">
+                        <p className="text-sm font-medium text-gray-600 mb-2 capitalize">{key.replace(/_/g, ' ')}</p>
+                        <p className="text-3xl font-bold text-[#1E3A5F]">{value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
+        </>
+      )}
+
+      {activeTab === 'IDM' && (
+        <>
+          {loadingIDM ? (
+            renderLoadingSpinner('Memuat data IDM...')
+          ) : !idmData ? (
+            renderNoData('Belum ada data IDM. Silakan input di admin dashboard terlebih dahulu.')
+          ) : (
+            <section className="py-16 md:py-20">
+              <div className="max-w-7xl mx-auto px-6 md:px-8">
+                <h4 className="text-2xl md:text-3xl font-bold text-[#1E3A5F] mb-6">Indeks Desa Membangun (IDM)</h4>
+                <div className="bg-white rounded-xl p-8 border border-gray-200">
+                  <div className="grid md:grid-cols-3 gap-6">
+                    {Object.entries(idmData).map(([key, value]) => (
+                      <div key={key} className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow text-center">
+                        <p className="text-sm font-medium text-gray-600 mb-2 capitalize">{key.replace(/_/g, ' ')}</p>
+                        <p className="text-4xl font-bold text-[#1E3A5F]">{value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
+        </>
+      )}
+
       {activeTab === 'SDGs' && (
         <section id="sdgs" className="bg-gray-50 py-12 md:py-16">
           <div className="max-w-7xl mx-auto px-6 md:px-8">
@@ -401,7 +674,12 @@ const InfografisPage = () => {
                   <div key={goal.id} className="bg-white rounded-lg border border-gray-300 p-6 hover:shadow-md transition-shadow">
                     <div className="flex justify-between items-start mb-4">
                       <div className="w-20 h-20">
-                        <img src={`https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-${String(goal.id).padStart(2, '0')}.jpg`} alt={`SDG ${goal.id}`} className="w-full h-full object-cover rounded-lg shadow-sm" onError={(e) => { e.target.style.display = 'none'; }} />
+                        <img 
+                          src={`https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-${String(goal.id).padStart(2, '0')}.jpg`} 
+                          alt={`SDG ${goal.id}`} 
+                          className="w-full h-full object-cover rounded-lg shadow-sm" 
+                          onError={(e) => { e.target.style.display = 'none'; }} 
+                        />
                       </div>
                     </div>
                     <h4 className="font-bold text-gray-900 text-base mb-2 leading-tight min-h-10">{goal.title}</h4>
@@ -412,17 +690,6 @@ const InfografisPage = () => {
                 ))}
               </div>
             )}
-          </div>
-        </section>
-      )}
-
-      {['APBDes', 'Stunting', 'Bansos', 'IDM'].includes(activeTab) && (
-        <section className="bg-gray-50 py-16 md:py-20">
-          <div className="max-w-7xl mx-auto px-6 md:px-8 text-center">
-            <div className="bg-white rounded-xl border border-gray-200 p-12">
-              <h3 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-4">Data {activeTab}</h3>
-              <p className="text-gray-500 text-base">Belum ada data {activeTab}. Silakan input di admin dashboard terlebih dahulu.</p>
-            </div>
           </div>
         </section>
       )}

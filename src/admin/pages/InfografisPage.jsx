@@ -509,13 +509,104 @@ const FormPenduduk = ({ formData, setFormData }) => {
   );
 };
 
-const FormAPBDes = ({ formData, setFormData }) => (
-  <div className="space-y-4">
-    <InputField label="Pendapatan" value={formData.pendapatan} onChange={(e) => setFormData(prev => ({ ...prev, pendapatan: e.target.value }))} type="text" placeholder="Rp" />
-    <InputField label="Belanja" value={formData.belanja} onChange={(e) => setFormData(prev => ({ ...prev, belanja: e.target.value }))} type="text" placeholder="Rp" />
-    <InputField label="Pembiayaan" value={formData.pembiayaan} onChange={(e) => setFormData(prev => ({ ...prev, pembiayaan: e.target.value }))} type="text" placeholder="Rp" />
-  </div>
-);
+const FormAPBDes = ({ formData, setFormData }) => {
+  const updateField = (key, value) => {
+    const numValue = parseInt(value) || 0;
+    const newData = { ...formData, [key]: numValue };
+    
+    // Hitung surplus/defisit otomatis
+    // Surplus/Defisit = (Pendapatan + Penerimaan) - (Belanja + Pengeluaran)
+    const pendapatan = newData.pendapatan || 0;
+    const belanja = newData.belanja || 0;
+    const penerimaan = newData.penerimaan || 0;
+    const pengeluaran = newData.pengeluaran || 0;
+    
+    newData.surplus_defisit = (pendapatan + penerimaan) - (belanja + pengeluaran);
+    
+    setFormData(newData);
+  };
+
+  const pendapatan = formData.pendapatan || 0;
+  const belanja = formData.belanja || 0;
+  const penerimaan = formData.penerimaan || 0;
+  const pengeluaran = formData.pengeluaran || 0;
+  const surplus_defisit = (pendapatan + penerimaan) - (belanja + pengeluaran);
+
+  return (
+    <div className="space-y-6">
+      {/* Pendapatan & Belanja */}
+      <section>
+        <h4 className="font-semibold text-gray-900 mb-4 text-sm">Pendapatan & Belanja</h4>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Pendapatan</label>
+            <input 
+              type="number"
+              value={pendapatan || ''} 
+              onChange={(e) => updateField('pendapatan', e.target.value)}
+              placeholder="Masukkan jumlah pendapatan"
+              className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]" 
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Belanja</label>
+            <input 
+              type="number"
+              value={belanja || ''} 
+              onChange={(e) => updateField('belanja', e.target.value)}
+              placeholder="Masukkan jumlah belanja"
+              className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]" 
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Pembiayaan */}
+      <section>
+        <h4 className="font-semibold text-gray-900 mb-4 text-sm">Pembiayaan</h4>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Penerimaan</label>
+            <input 
+              type="number"
+              value={penerimaan || ''} 
+              onChange={(e) => updateField('penerimaan', e.target.value)}
+              placeholder="Masukkan jumlah penerimaan"
+              className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]" 
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Pengeluaran</label>
+            <input 
+              type="number"
+              value={pengeluaran || ''} 
+              onChange={(e) => updateField('pengeluaran', e.target.value)}
+              placeholder="Masukkan jumlah pengeluaran"
+              className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]" 
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Surplus/Defisit - Otomatis */}
+      <section className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <h4 className="font-semibold text-gray-900 mb-3 text-sm">Surplus/Defisit (Otomatis)</h4>
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-gray-700">
+            Perhitungan: (Pendapatan + Penerimaan) - (Belanja + Pengeluaran)
+          </span>
+          <div className={`text-2xl font-bold ${surplus_defisit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+            Rp {surplus_defisit.toLocaleString('id-ID')}
+          </div>
+        </div>
+        <div className="mt-2 text-xs text-gray-600 bg-white p-2 rounded">
+          <p>= ({pendapatan.toLocaleString('id-ID')} + {penerimaan.toLocaleString('id-ID')}) - ({belanja.toLocaleString('id-ID')} + {pengeluaran.toLocaleString('id-ID')})</p>
+          <p>= {(pendapatan + penerimaan).toLocaleString('id-ID')} - {(belanja + pengeluaran).toLocaleString('id-ID')}</p>
+        </div>
+      </section>
+    </div>
+  );
+};
 
 const FormStunting = ({ formData, setFormData }) => (
   <div className="space-y-2">
