@@ -327,6 +327,14 @@ const InfografisPage = () => {
     </section>
   );
 
+  // Helper untuk menghitung skor rata-rata SDGs
+  const calculateAverageScore = () => {
+    const validGoals = sdgsData.filter(goal => goal.progress > 0);
+    if (validGoals.length === 0) return '0.00';
+    const total = validGoals.reduce((sum, goal) => sum + goal.progress, 0);
+    return (total / validGoals.length).toFixed(2);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white border-b border-gray-200">
@@ -511,7 +519,12 @@ const InfografisPage = () => {
           ) : (
             <section className="py-16 md:py-20">
               <div className="max-w-7xl mx-auto px-6 md:px-8">
-                <h4 className="text-2xl md:text-3xl font-bold text-[#1E3A5F] mb-8">APBDes</h4>
+                <div className="mb-12 text-center">
+                  <h3 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-3">APB Desa Banjar Rejo</h3>
+                  <p className="text-gray-600 text-base md:text-lg">
+                    Desa Ratu Abung, Kecamatan Abung Selatan, Kabupaten Lampung Utara, Provinsi Lampung
+                  </p>
+                </div>
                 
                 {/* Pendapatan & Belanja Section */}
                 <div className="grid md:grid-cols-2 gap-6 mb-8">
@@ -632,7 +645,13 @@ const InfografisPage = () => {
           ) : (
             <section className="py-16 md:py-20">
               <div className="max-w-7xl mx-auto px-6 md:px-8">
-                <h4 className="text-2xl md:text-3xl font-bold text-[#1E3A5F] mb-6">Indeks Desa Membangun (IDM)</h4>
+                <div className="mb-12 text-center">
+                  <h3 className="text-4xl md:text-5xl font-bold text-[#1E3A5F] mb-4">IDM</h3>
+                  <p className="text-gray-600 text-base md:text-lg max-w-3xl mx-auto leading-relaxed">
+                    Indeks Desa Membangun (IDM) merupakan indeks komposit yang dibentuk dari tiga indeks, yaitu Indeks Ketahanan Sosial, Indeks Ketahanan Ekonomi, dan Indeks Ketahanan Ekologi/Lingkungan.
+                  </p>
+                </div>
+
                 <div className="bg-white rounded-xl p-8 border border-gray-200">
                   <div className="grid md:grid-cols-3 gap-6">
                     {Object.entries(idmData).map(([key, value]) => (
@@ -665,14 +684,17 @@ const InfografisPage = () => {
               {/* Right - Tabel Skor */}
               <div className="bg-white rounded-xl border border-gray-200 p-6">
                 <h4 className="text-lg font-bold text-[#1E3A5F] mb-4">Skor SDGs Desa Ratu Abung</h4>
-                <div className="space-y-3">
+                <div className="text-center">
                   {sdgsData.length > 0 ? (
-                    sdgsData.map((goal) => (
-                      <div key={goal.id} className="flex justify-between items-center pb-3 border-b border-gray-100 last:border-b-0">
-                        <span className="text-sm font-medium text-gray-700">{goal.title}</span>
-                        <span className="text-lg font-bold text-[#1E3A5F]">{goal.progress}</span>
-                      </div>
-                    ))
+                    <>
+                      <p className="text-sm text-gray-600 mb-2">Skor Rata-rata</p>
+                      <p className="text-5xl font-bold text-[#1E3A5F]">
+                        {calculateAverageScore()}
+                      </p>
+                      <p className="text-xs text-gray-600 mt-2">
+                        dari {sdgsData.filter(g => g.progress > 0).length} kategori
+                      </p>
+                    </>
                   ) : (
                     <p className="text-gray-500 text-sm text-center py-4">Belum ada data</p>
                   )}
@@ -680,7 +702,7 @@ const InfografisPage = () => {
               </div>
             </div>
 
-            {/* Grid SDGs Penilaian - DIPERBAIKI */}
+            {/* Grid SDGs Penilaian - DIPERBAIKI TOTAL */}
             <div className="mt-12">
               <h4 className="text-2xl font-bold text-[#1E3A5F] mb-8">Penilaian SDGs Desa</h4>
               {loadingSDGs ? (
