@@ -56,7 +56,7 @@ const HomePage = () => {
     const targetValues = {
       penduduk: 2175,
       lakiLaki: 1068,
-      kepalaKeluarga: 744,
+      kepalaKeluarga: 694,
       perempuan: 1107
     };
 
