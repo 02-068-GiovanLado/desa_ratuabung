@@ -26,6 +26,28 @@ const InfografisPage = () => {
 
   const API_URL = 'http://localhost:3000/api';
 
+  // Daftar semua kategori SDGs (18 kategori)
+  const allSDGs = [
+    { id: 1, title: 'Desa Tanpa Kemiskinan' },
+    { id: 2, title: 'Desa Tanpa Kelaparan' },
+    { id: 3, title: 'Desa Sehat dan Sejahtera' },
+    { id: 4, title: 'Pendidikan Desa Berkualitas' },
+    { id: 5, title: 'Keterlibatan Perempuan Desa' },
+    { id: 6, title: 'Desa Layak Air Bersih dan Sanitasi' },
+    { id: 7, title: 'Desa Berenergi Bersih dan Terbarukan' },
+    { id: 8, title: 'Pertumbuhan Ekonomi Desa Merata' },
+    { id: 9, title: 'Infrastruktur dan Inovasi Desa Sesuai Kebutuhan' },
+    { id: 10, title: 'Desa Tanpa Kesenjangan' },
+    { id: 11, title: 'Kawasan Pemukiman Desa Aman dan Nyaman' },
+    { id: 12, title: 'Konsumsi dan Produksi Desa Sadar Lingkungan' },
+    { id: 13, title: 'Desa Tanggap Perubahan Iklim' },
+    { id: 14, title: 'Desa Peduli Lingkungan Laut' },
+    { id: 15, title: 'Desa Peduli Lingkungan Darat' },
+    { id: 16, title: 'Desa Damai Berkeadilan' },
+    { id: 17, title: 'Kemitraan Untuk Pembangunan Desa' },
+    { id: 18, title: 'Kelembagaan Desa Dinamis dan Budaya Desa Adaptif' },
+  ];
+
   const tabs = [
     { name: 'Penduduk' },
     { name: 'APBDes' },
@@ -48,7 +70,7 @@ const InfografisPage = () => {
     const fetchPendudukData = async () => {
       try {
         setLoadingPenduduk(true);
-        const response = await fetch(`${API_URL}/infografis/type/Penduduk`);
+        const response = await fetch(`${API_URL}/infografis/type/penduduk`);
         if (!response.ok) throw new Error('Gagal memuat data penduduk');
         
         const result = await response.json();
@@ -75,7 +97,7 @@ const InfografisPage = () => {
   const fetchAPBDesData = async () => {
     try {
       setLoadingAPBDes(true);
-      const response = await fetch(`${API_URL}/infografis/type/APBDes`);
+      const response = await fetch(`${API_URL}/infografis/type/apbdes`);
       if (!response.ok) {
         setApbdesData(null);
         return;
@@ -105,7 +127,7 @@ const InfografisPage = () => {
   const fetchStuntingData = async () => {
     try {
       setLoadingStunting(true);
-      const response = await fetch(`${API_URL}/infografis/type/Stunting`);
+      const response = await fetch(`${API_URL}/infografis/type/stunting`);
       if (!response.ok) {
         setStuntingData(null);
         return;
@@ -135,7 +157,7 @@ const InfografisPage = () => {
   const fetchBansosData = async () => {
     try {
       setLoadingBansos(true);
-      const response = await fetch(`${API_URL}/infografis/type/Bansos`);
+      const response = await fetch(`${API_URL}/infografis/type/bansos`);
       if (!response.ok) {
         setBansosData(null);
         return;
@@ -165,7 +187,7 @@ const InfografisPage = () => {
   const fetchIDMData = async () => {
     try {
       setLoadingIDM(true);
-      const response = await fetch(`${API_URL}/infografis/type/IDM`);
+      const response = await fetch(`${API_URL}/infografis/type/idm`);
       if (!response.ok) {
         setIdmData(null);
         return;
@@ -195,7 +217,7 @@ const InfografisPage = () => {
   const fetchSDGsData = async () => {
     try {
       setLoadingSDGs(true);
-      const response = await fetch(`${API_URL}/infografis/type/SDGs`);
+      const response = await fetch(`${API_URL}/infografis/type/sdgs`);
       if (!response.ok) {
         setSdgsData([]);
         return;
@@ -327,12 +349,17 @@ const InfografisPage = () => {
     </section>
   );
 
-  // Helper untuk menghitung skor rata-rata SDGs
+  // Helper untuk menghitung skor rata-rata SDGs (dari semua 18 kategori)
   const calculateAverageScore = () => {
-    const validGoals = sdgsData.filter(goal => goal.progress > 0);
-    if (validGoals.length === 0) return '0.00';
-    const total = validGoals.reduce((sum, goal) => sum + goal.progress, 0);
-    return (total / validGoals.length).toFixed(2);
+    if (allSDGs.length === 0) return '0.00';
+    
+    const total = allSDGs.reduce((sum, goal) => {
+      const currentGoal = sdgsData.find(g => g.id === goal.id) || { progress: 0 };
+      return sum + currentGoal.progress;
+    }, 0);
+    
+    // Konversi ke skala 0-1
+    return ((total / allSDGs.length) / 100).toFixed(2);
   };
 
   return (
@@ -692,7 +719,7 @@ const InfografisPage = () => {
                         {calculateAverageScore()}
                       </p>
                       <p className="text-xs text-gray-600 mt-2">
-                        dari {sdgsData.filter(g => g.progress > 0).length} kategori
+                        dari {allSDGs.length} kategori
                       </p>
                     </>
                   ) : (
@@ -702,7 +729,7 @@ const InfografisPage = () => {
               </div>
             </div>
 
-            {/* Grid SDGs Penilaian - DIPERBAIKI TOTAL */}
+            {/* Grid SDGs Penilaian */}
             <div className="mt-12">
               <h4 className="text-2xl font-bold text-[#1E3A5F] mb-8">Penilaian SDGs Desa</h4>
               {loadingSDGs ? (
@@ -712,27 +739,32 @@ const InfografisPage = () => {
                     <p className="text-gray-600">Memuat data SDGs...</p>
                   </div>
                 </div>
-              ) : sdgsData.length === 0 ? (
-                <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
-                  <p className="text-gray-500">Belum ada data SDGs. Silakan input di admin dashboard terlebih dahulu.</p>
-                </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {sdgsData.map((goal) => (
-                    <div key={goal.id} className="bg-white rounded-lg border border-gray-300 p-6 hover:shadow-md transition-shadow">
-                      <div className="mb-4">
-                        <div className="w-full h-32">
-                          <img 
-                            src={`https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-${String(goal.id).padStart(2, '0')}.jpg`} 
-                            alt={`SDG ${goal.id}`} 
-                            className="w-full h-full object-cover rounded-lg shadow-sm" 
-                            onError={(e) => { e.target.style.display = 'none'; }} 
-                          />
+                  {allSDGs.map((goal) => {
+                    const currentGoal = sdgsData.find(g => g.id === goal.id) || { progress: 0 };
+                    return (
+                      <div key={goal.id} className="bg-white rounded-lg border border-gray-300 p-6 hover:shadow-md transition-shadow">
+                        <h5 className="font-bold text-gray-900 text-lg mb-4">{goal.title}</h5>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center">
+                            <img 
+                              src={`https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-${String(goal.id).padStart(2, '0')}.jpg`} 
+                              alt={`SDG ${goal.id}`} 
+                              className="w-10 h-10 object-contain" 
+                              onError={(e) => { e.target.style.display = 'none'; }} 
+                            />
+                          </div>
+                          <div className="text-right">
+                            <p className="text-sm text-gray-600">Nilai</p>
+                            <p className="text-3xl font-bold text-[#1E3A5F]">
+                              {(currentGoal.progress / 100).toFixed(2)} {/* ✅ KONVERSI KE SKALA 0-1 */}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                      <h5 className="font-bold text-gray-900 text-sm mb-3 leading-tight min-h-12">{goal.title}</h5>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </div>

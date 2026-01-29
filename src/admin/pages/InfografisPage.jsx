@@ -6,41 +6,75 @@ const InfografisPage = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
+  const [activeTab, setActiveTab] = useState('Penduduk');
   const [infografis, setInfografis] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [showModal, setShowModal] = useState(false);
-  const [editingId, setEditingId] = useState(null);
-  const [deleteId, setDeleteId] = useState(null);
-  const [selectedType, setSelectedType] = useState('Penduduk');
   const [formData, setFormData] = useState({});
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingId, setEditingId] = useState(null);
 
   const API_URL = 'http://localhost:3000/api';
-  const itemsPerPage = 10;
 
-  const infografisTypes = [
-    { value: 'Penduduk', label: 'Data Penduduk' },
-    { value: 'APBDes', label: 'APB Desa' },
-    { value: 'Stunting', label: 'Data Stunting' },
-    { value: 'Bansos', label: 'Data Bansos' },
-    { value: 'IDM', label: 'IDM' },
-    { value: 'SDGs', label: 'SDGs' },
-  ];
+  // Mapping tab ke label dan deskripsi
+  const tabConfig = {
+    'Penduduk': {
+      label: 'Infografis Penduduk',
+      description: 'Kelola data statistik penduduk desa',
+      color: 'bg-blue-100 text-blue-700'
+    },
+    'APBDes': {
+      label: 'Infografis APBDes',
+      description: 'Kelola data Anggaran Pendapatan dan Belanja Desa',
+      color: 'bg-green-100 text-green-700'
+    },
+    'Stunting': {
+      label: 'Infografis Stunting',
+      description: 'Kelola data stunting berdasarkan dusun',
+      color: 'bg-red-100 text-red-700'
+    },
+    'Bansos': {
+      label: 'Infografis Bansos',
+      description: 'Kelola data program bantuan sosial',
+      color: 'bg-purple-100 text-purple-700'
+    },
+    'IDM': {
+      label: 'Infografis IDM',
+      description: 'Kelola data Indeks Desa Membangun',
+      color: 'bg-orange-100 text-orange-700'
+    },
+    'SDGs': {
+      label: 'Infografis SDGs',
+      description: 'Kelola data Sustainable Development Goals',
+      color: 'bg-yellow-100 text-yellow-700'
+    }
+  };
 
   useEffect(() => {
     fetchInfografis();
-  }, []);
+  }, [activeTab]);
 
   const fetchInfografis = async () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch(`${API_URL}/infografis`);
+      
+      // Ambil data berdasarkan kategori aktif
+      const response = await fetch(`${API_URL}/infografis/type/${activeTab.toLowerCase()}`);
       if (!response.ok) throw new Error('Gagal memuat infografis');
       const data = await response.json();
       setInfografis(data.data || []);
+      
+      // Jika ada data, ambil data terbaru untuk edit
+      if (data.data && data.data.length > 0) {
+        const latestData = data.data[0];
+        setFormData(typeof latestData.data === 'string' ? JSON.parse(latestData.data) : latestData.data);
+        setEditingId(latestData.id);
+        setIsEditing(true);
+      } else {
+        setFormData({});
+        setIsEditing(false);
+      }
     } catch (err) {
       setError(err.message);
     } finally {
@@ -49,7 +83,7 @@ const InfografisPage = () => {
   };
 
   const renderFormByType = () => {
-    switch (selectedType) {
+    switch (activeTab) {
       case 'Penduduk':
         return <FormPenduduk formData={formData} setFormData={setFormData} />;
       case 'APBDes':
@@ -67,57 +101,19 @@ const InfografisPage = () => {
     }
   };
 
-  const filteredInfografis = infografis.filter(i =>
-    i.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const totalPages = Math.ceil(filteredInfografis.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedInfografis = filteredInfografis.slice(startIndex, startIndex + itemsPerPage);
-
-  const openModal = (item = null) => {
-    if (item) {
-      setEditingId(item.id);
-      setSelectedType(item.type);
-      const data = typeof item.data === 'string' ? JSON.parse(item.data) : item.data;
-      setFormData(data);
-    } else {
-      setEditingId(null);
-      setSelectedType('Penduduk');
-      setFormData({});
-    }
-    setShowModal(true);
-  };
-
-  const generateTitle = (type) => {
-    const now = new Date().toLocaleDateString('id-ID');
-    return `Data ${type} - ${now}`;
-  };
-
-  const generateDescription = (type) => {
-    const descriptions = {
-      'Penduduk': 'Data kependudukan desa',
-      'APBDes': 'Anggaran Pendapatan dan Belanja Desa',
-      'Stunting': 'Data stunting berdasarkan dusun',
-      'Bansos': 'Data program bantuan sosial',
-      'IDM': 'Indeks Desa Membangun',
-      'SDGs': 'Sustainable Development Goals'
-    };
-    return descriptions[type] || '';
-  };
-
   const handleSave = async (e) => {
     e.preventDefault();
     try {
       const payload = {
-        title: generateTitle(selectedType),
-        type: selectedType,
+        title: `Data ${activeTab} - ${new Date().toLocaleDateString('id-ID')}`,
+        type: activeTab,
         data: JSON.stringify(formData),
-        description: generateDescription(selectedType)
+        description: `${tabConfig[activeTab]?.description || ''}`,
+        year: new Date().getFullYear()
       };
 
-      const method = editingId ? 'PUT' : 'POST';
-      const endpoint = editingId 
+      const method = isEditing ? 'PUT' : 'POST';
+      const endpoint = isEditing 
         ? `${API_URL}/infografis/${editingId}`
         : `${API_URL}/infografis`;
 
@@ -127,27 +123,13 @@ const InfografisPage = () => {
         body: JSON.stringify(payload)
       });
 
-      if (!response.ok) throw new Error('Gagal menyimpan infografis');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Gagal menyimpan infografis');
+      }
       
       await fetchInfografis();
-      setShowModal(false);
-      alert(editingId ? 'Infografis berhasil diupdate!' : 'Infografis berhasil ditambah!');
-    } catch (err) {
-      alert('Error: ' + err.message);
-    }
-  };
-
-  const handleDelete = async (id) => {
-    try {
-      const response = await fetch(`${API_URL}/infografis/${id}`, {
-        method: 'DELETE'
-      });
-
-      if (!response.ok) throw new Error('Gagal menghapus infografis');
-      
-      await fetchInfografis();
-      setDeleteId(null);
-      alert('Infografis berhasil dihapus!');
+      alert(isEditing ? 'Data berhasil diupdate!' : 'Data berhasil ditambah!');
     } catch (err) {
       alert('Error: ' + err.message);
     }
@@ -159,6 +141,8 @@ const InfografisPage = () => {
   };
 
   if (!user) return null;
+
+  const currentConfig = tabConfig[activeTab];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -184,240 +168,90 @@ const InfografisPage = () => {
       </nav>
 
       <div className="max-w-7xl mx-auto px-6 py-8">
+        {/* Navigasi Tab */}
+        <div className="mb-6 flex gap-2 overflow-x-auto pb-2">
+          {Object.keys(tabConfig).map(tab => {
+            const config = tabConfig[tab];
+            return (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-6 py-3 rounded-lg font-medium whitespace-nowrap text-sm transition-all ${
+                  activeTab === tab
+                    ? 'bg-[#1E3A5F] text-white shadow-md'
+                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 hover:border-[#2E5C8A]'
+                }`}
+              >
+                {tab}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Header Section */}
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Data Infografis</h2>
-          <p className="text-gray-600">Kelola data statistik dan infografis desa</p>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">
+            {currentConfig.label}
+          </h2>
+          <p className="text-gray-600">{currentConfig.description}</p>
         </div>
 
+        {/* Form Section */}
         <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            <input
-              type="text"
-              placeholder="Cari infografis..."
-              value={searchTerm}
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-                setCurrentPage(1);
-              }}
-              className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]"
-            />
-            <button
-              onClick={() => openModal()}
-              className="px-6 py-2.5 bg-[#1E3A5F] hover:bg-[#2E5C8A] text-white rounded-lg font-medium transition-colors flex items-center gap-2 whitespace-nowrap"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-              </svg>
-              Tambah Infografis
-            </button>
+          <div className="mb-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-4">
+              {isEditing ? 'Edit Data' : 'Tambah Data Baru'}
+            </h3>
+            <p className="text-gray-600 mb-4">
+              Masukkan data statistik {activeTab.toLowerCase()} desa
+            </p>
           </div>
-          <div className="mt-4 text-sm">
-            <span className="text-gray-600">Total: </span>
-            <span className="font-bold text-[#1E3A5F]">{infografis.length}</span>
-          </div>
-        </div>
 
-        {loading && (
-          <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
-            <div className="w-12 h-12 border-4 border-[#1E3A5F] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-600">Memuat infografis...</p>
-          </div>
-        )}
-
-        {error && !loading && (
-          <div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center">
-            <p className="text-red-700 mb-4">{error}</p>
-            <button
-              onClick={fetchInfografis}
-              className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-            >
-              Coba Lagi
-            </button>
-          </div>
-        )}
-
-        {!loading && !error && (
-          <>
-            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-gray-50 border-b border-gray-200">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700">Judul</th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700">Tipe</th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700">Deskripsi</th>
-                      <th className="px-6 py-3 text-center text-xs font-semibold text-gray-700">Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {paginatedInfografis.length === 0 ? (
-                      <tr>
-                        <td colSpan="4" className="px-6 py-8 text-center text-gray-500">
-                          Tidak ada infografis
-                        </td>
-                      </tr>
-                    ) : (
-                      paginatedInfografis.map(item => (
-                        <tr key={item.id} className="border-b border-gray-200 hover:bg-gray-50">
-                          <td className="px-6 py-4">
-                            <div className="font-medium text-gray-900 max-w-xs truncate">{item.title}</div>
-                          </td>
-                          <td className="px-6 py-4">
-                            <span className="inline-block px-3 py-1 bg-[#EFF6FF] text-[#1E3A5F] rounded-full text-xs font-medium">
-                              {item.type}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 text-sm text-gray-600 max-w-xs truncate">{item.description}</td>
-                          <td className="px-6 py-4">
-                            <div className="flex gap-2 justify-center">
-                              <button
-                                onClick={() => openModal(item)}
-                                className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                              >
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                </svg>
-                              </button>
-                              <button
-                                onClick={() => setDeleteId(item.id)}
-                                className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                              >
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                </svg>
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
+          {/* Form Content */}
+          <form onSubmit={handleSave} className="space-y-8">
+            {/* Kategori Label */}
+            <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Kategori</label>
+              <div className="px-4 py-2.5 bg-white border border-gray-300 rounded-lg font-medium text-gray-800">
+                {activeTab}
               </div>
             </div>
 
-            {totalPages > 1 && (
-              <div className="mt-6 flex justify-center items-center gap-2">
-                <button
-                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                  disabled={currentPage === 1}
-                  className="px-4 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
-                >
-                  ← Sebelumnya
-                </button>
-                {[...Array(totalPages)].map((_, i) => (
-                  <button
-                    key={i + 1}
-                    onClick={() => setCurrentPage(i + 1)}
-                    className={`px-4 py-2 rounded-lg transition-colors ${
-                      currentPage === i + 1
-                        ? 'bg-[#1E3A5F] text-white'
-                        : 'border border-gray-300 hover:bg-gray-50'
-                    }`}
-                  >
-                    {i + 1}
-                  </button>
-                ))}
-                <button
-                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-                  disabled={currentPage === totalPages}
-                  className="px-4 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
-                >
-                  Selanjutnya →
-                </button>
-              </div>
-            )}
-          </>
-        )}
+            {/* Form Fields */}
+            <div className="border-t border-gray-200 pt-6">
+              {renderFormByType()}
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex gap-3 justify-end border-t border-gray-200 pt-6">
+              <button
+                type="button"
+                onClick={() => {
+                  setFormData({});
+                  setIsEditing(false);
+                }}
+                className="px-6 py-2.5 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                Reset
+              </button>
+              <button
+                type="submit"
+                className="px-6 py-2.5 bg-[#1E3A5F] hover:bg-[#2E5C8A] text-white rounded-lg font-medium transition-colors"
+              >
+                {isEditing ? 'Simpan Perubahan' : 'Simpan Data'}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-
-      {showModal && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-              <h3 className="text-xl font-bold text-[#1E3A5F]">
-                {editingId ? 'Edit Infografis' : 'Tambah Infografis Baru'}
-              </h3>
-              <button onClick={() => setShowModal(false)} className="text-gray-500 hover:text-gray-700">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            <form onSubmit={handleSave} className="p-6 space-y-6">
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Jenis Infografis *</label>
-                <select
-                  value={selectedType}
-                  onChange={(e) => {
-                    setSelectedType(e.target.value);
-                    setFormData({});
-                  }}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]"
-                >
-                  {infografisTypes.map(type => (
-                    <option key={type.value} value={type.value}>{type.label}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="border-t border-gray-200 pt-6">
-                {renderFormByType()}
-              </div>
-
-              <div className="flex gap-3 justify-end border-t border-gray-200 pt-6">
-                <button
-                  type="button"
-                  onClick={() => setShowModal(false)}
-                  className="px-6 py-2.5 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-                >
-                  Batal
-                </button>
-                <button
-                  type="submit"
-                  className="px-6 py-2.5 bg-[#1E3A5F] hover:bg-[#2E5C8A] text-white rounded-lg font-medium transition-colors"
-                >
-                  {editingId ? 'Simpan Perubahan' : 'Tambah Infografis'}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {deleteId && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl max-w-sm w-full p-6">
-            <div className="flex items-center justify-center w-12 h-12 bg-red-100 rounded-full mx-auto mb-4">
-              <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4v.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-bold text-gray-900 text-center mb-2">Hapus Infografis?</h3>
-            <p className="text-gray-600 text-center mb-6">Tindakan ini tidak dapat dibatalkan.</p>
-            <div className="flex gap-3">
-              <button
-                onClick={() => setDeleteId(null)}
-                className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50"
-              >
-                Batal
-              </button>
-              <button
-                onClick={() => handleDelete(deleteId)}
-                className="flex-1 px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium"
-              >
-                Hapus
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
 
+// ============================================
 // FORM COMPONENTS
+// ============================================
+
 const InputField = ({ label, value, onChange, type = 'number', placeholder = '0' }) => (
   <div className="flex items-center gap-3">
     <label className="w-32 text-sm font-medium text-gray-700">{label}</label>
@@ -437,7 +271,8 @@ const FormPenduduk = ({ formData, setFormData }) => {
   };
 
   return (
-    <div className="space-y-6 max-h-96 overflow-y-auto pr-2">
+    <div className="space-y-6">
+      {/* 1. Jumlah Penduduk & Kepala Keluarga */}
       <section>
         <h4 className="font-semibold text-gray-900 mb-3 text-sm">1. Jumlah Penduduk & Kepala Keluarga</h4>
         <div className="grid grid-cols-2 gap-3">
@@ -448,6 +283,7 @@ const FormPenduduk = ({ formData, setFormData }) => {
         </div>
       </section>
 
+      {/* 2. Kelompok Umur */}
       <section>
         <h4 className="font-semibold text-gray-900 mb-3 text-sm">2. Kelompok Umur</h4>
         <div className="space-y-2">
@@ -461,6 +297,7 @@ const FormPenduduk = ({ formData, setFormData }) => {
         </div>
       </section>
 
+      {/* 3. Berdasarkan Dusun */}
       <section>
         <h4 className="font-semibold text-gray-900 mb-3 text-sm">3. Berdasarkan Dusun</h4>
         <div className="space-y-2">
@@ -470,6 +307,7 @@ const FormPenduduk = ({ formData, setFormData }) => {
         </div>
       </section>
 
+      {/* 4. Berdasarkan Pekerjaan */}
       <section>
         <h4 className="font-semibold text-gray-900 mb-3 text-sm">4. Berdasarkan Pekerjaan</h4>
         <div className="space-y-2">
@@ -479,6 +317,7 @@ const FormPenduduk = ({ formData, setFormData }) => {
         </div>
       </section>
 
+      {/* 5. Berdasarkan Pendidikan */}
       <section>
         <h4 className="font-semibold text-gray-900 mb-3 text-sm">5. Berdasarkan Pendidikan</h4>
         <div className="space-y-2">
@@ -488,6 +327,7 @@ const FormPenduduk = ({ formData, setFormData }) => {
         </div>
       </section>
 
+      {/* 6. Berdasarkan Perkawinan */}
       <section>
         <h4 className="font-semibold text-gray-900 mb-3 text-sm">6. Berdasarkan Perkawinan</h4>
         <div className="space-y-2">
@@ -497,6 +337,7 @@ const FormPenduduk = ({ formData, setFormData }) => {
         </div>
       </section>
 
+      {/* 7. Berdasarkan Agama */}
       <section>
         <h4 className="font-semibold text-gray-900 mb-3 text-sm">7. Berdasarkan Agama</h4>
         <div className="space-y-2">
@@ -512,18 +353,18 @@ const FormPenduduk = ({ formData, setFormData }) => {
 const FormAPBDes = ({ formData, setFormData }) => {
   const updateField = (key, value) => {
     const numValue = parseInt(value) || 0;
-    const newData = { ...formData, [key]: numValue };
-    
-    // Hitung surplus/defisit otomatis
-    // Surplus/Defisit = (Pendapatan + Penerimaan) - (Belanja + Pengeluaran)
-    const pendapatan = newData.pendapatan || 0;
-    const belanja = newData.belanja || 0;
-    const penerimaan = newData.penerimaan || 0;
-    const pengeluaran = newData.pengeluaran || 0;
-    
-    newData.surplus_defisit = (pendapatan + penerimaan) - (belanja + pengeluaran);
-    
-    setFormData(newData);
+    setFormData(prev => {
+      const newData = { ...prev, [key]: numValue };
+      
+      // Hitung ulang surplus/defisit
+      const pendapatan = newData.pendapatan || 0;
+      const belanja = newData.belanja || 0;
+      const penerimaan = newData.penerimaan || 0;
+      const pengeluaran = newData.pengeluaran || 0;
+      
+      newData.surplus_defisit = (pendapatan + penerimaan) - (belanja + pengeluaran);
+      return newData;
+    });
   };
 
   const pendapatan = formData.pendapatan || 0;
@@ -534,7 +375,6 @@ const FormAPBDes = ({ formData, setFormData }) => {
 
   return (
     <div className="space-y-6">
-      {/* Pendapatan & Belanja */}
       <section>
         <h4 className="font-semibold text-gray-900 mb-4 text-sm">Pendapatan & Belanja</h4>
         <div className="grid grid-cols-2 gap-4">
@@ -561,7 +401,6 @@ const FormAPBDes = ({ formData, setFormData }) => {
         </div>
       </section>
 
-      {/* Pembiayaan */}
       <section>
         <h4 className="font-semibold text-gray-900 mb-4 text-sm">Pembiayaan</h4>
         <div className="grid grid-cols-2 gap-4">
@@ -588,7 +427,6 @@ const FormAPBDes = ({ formData, setFormData }) => {
         </div>
       </section>
 
-      {/* Surplus/Defisit - Otomatis */}
       <section className="bg-blue-50 border border-blue-200 rounded-lg p-4">
         <h4 className="font-semibold text-gray-900 mb-3 text-sm">Surplus/Defisit (Otomatis)</h4>
         <div className="flex items-center justify-between">
@@ -596,7 +434,7 @@ const FormAPBDes = ({ formData, setFormData }) => {
             Perhitungan: (Pendapatan + Penerimaan) - (Belanja + Pengeluaran)
           </span>
           <div className={`text-2xl font-bold ${surplus_defisit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-            Rp {surplus_defisit.toLocaleString('id-ID')}
+            Rp {Math.abs(surplus_defisit).toLocaleString('id-ID')}
           </div>
         </div>
         <div className="mt-2 text-xs text-gray-600 bg-white p-2 rounded">
@@ -662,41 +500,56 @@ const FormSDGs = ({ formData, setFormData }) => {
     { id: 18, title: 'Kelembagaan Desa Dinamis dan Budaya Desa Adaptif' },
   ];
 
+  // Inisialisasi goals jika belum ada
+  const goals = formData.goals || [];
+
   const updateField = (id, value) => {
     const numValue = parseFloat(value) || 0;
-    const newData = { ...formData };
-    newData[`sdg_${id}`] = numValue;
     
-    // Hitung skor rata-rata otomatis
-    let totalSkor = 0;
-    let count = 0;
-    for (let i = 1; i <= sdgsCategories.length; i++) {
-      const skor = newData[`sdg_${i}`] || 0;
-      if (skor > 0) {
-        totalSkor += skor;
-        count++;
-      }
+    // Validasi rentang nilai
+    if (numValue < 0 || numValue > 100) {
+      alert('Skor harus antara 0 - 100');
+      return;
     }
     
-    newData.skor_rata_rata = count > 0 ? (totalSkor / count).toFixed(2) : 0;
-    setFormData(newData);
+    // Cari atau buat goal baru
+    let newGoals = [...goals];
+    const existingIndex = newGoals.findIndex(g => g.id === id);
+    const category = sdgsCategories.find(c => c.id === id);
+    
+    if (existingIndex >= 0) {
+      newGoals[existingIndex] = {
+        ...newGoals[existingIndex],
+        progress: numValue
+      };
+    } else {
+      newGoals.push({
+        id: id,
+        title: category.title,
+        progress: numValue
+      });
+    }
+    
+    // Hitung skor rata-rata
+    const validGoals = newGoals.filter(g => g.progress > 0);
+    const skorRataRata = validGoals.length > 0 
+      ? parseFloat((validGoals.reduce((sum, g) => sum + g.progress, 0) / validGoals.length).toFixed(2))
+      : 0;
+    
+    setFormData({
+      goals: newGoals,
+      skor_rata_rata: skorRataRata
+    });
   };
 
   // Hitung skor rata-rata untuk display
-  let totalSkor = 0;
-  let count = 0;
-  for (let i = 1; i <= sdgsCategories.length; i++) {
-    const skor = formData[`sdg_${i}`] || 0;
-    if (skor > 0) {
-      totalSkor += skor;
-      count++;
-    }
-  }
-  const skorRataRata = count > 0 ? (totalSkor / count).toFixed(2) : 0;
+  const validGoals = goals.filter(g => g.progress > 0);
+  const skorRataRata = validGoals.length > 0
+    ? (validGoals.reduce((sum, g) => sum + g.progress, 0) / validGoals.length).toFixed(2)
+    : '0.00';
 
   return (
     <div className="space-y-6 max-h-96 overflow-y-auto pr-2">
-      {/* Header dengan Skor Rata-rata */}
       <div className="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-4 sticky top-0">
         <div className="flex justify-between items-center">
           <div>
@@ -705,48 +558,52 @@ const FormSDGs = ({ formData, setFormData }) => {
           </div>
           <div className="text-right">
             <p className="text-3xl font-bold text-[#1E3A5F]">{skorRataRata}</p>
-            <p className="text-xs text-gray-600">dari {count} kategori</p>
+            <p className="text-xs text-gray-600">dari {validGoals.length} kategori</p>
           </div>
         </div>
       </div>
 
-      {/* Input Skor untuk setiap kategori */}
       <section>
         <h4 className="font-semibold text-gray-900 mb-4 text-sm">Masukkan Skor Setiap Kategori SDGs</h4>
         <div className="grid grid-cols-1 gap-3">
-          {sdgsCategories.map((category) => (
-            <div key={category.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-              <div className="flex-shrink-0 w-10 h-10 bg-[#1E3A5F] rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm">{category.id}</span>
+          {sdgsCategories.map((category) => {
+            const goalData = goals.find(g => g.id === category.id);
+            const currentValue = goalData ? goalData.progress : '';
+            
+            return (
+              <div key={category.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#1E3A5F] rounded-full flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">{category.id}</span>
+                </div>
+                <div className="flex-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">{category.title}</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    max="100"
+                    value={currentValue}
+                    onChange={(e) => updateField(category.id, e.target.value)}
+                    placeholder="0.00"
+                    className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]"
+                  />
+                </div>
+                <div className="flex-shrink-0 text-sm font-semibold text-gray-600 w-12 text-right">
+                  {currentValue !== '' ? parseFloat(currentValue).toFixed(2) : '0.00'}
+                </div>
               </div>
-              <div className="flex-1">
-                <label className="block text-sm font-medium text-gray-700 mb-1">{category.title}</label>
-                <input
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  max="100"
-                  value={formData[`sdg_${category.id}`] || ''}
-                  onChange={(e) => updateField(category.id, e.target.value)}
-                  placeholder="0.00"
-                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]"
-                />
-              </div>
-              <div className="flex-shrink-0 text-sm font-semibold text-gray-600 w-12 text-right">
-                {formData[`sdg_${category.id}`] || '0.00'}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
-      {/* Info Perhitungan */}
       <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-        <p className="text-xs font-medium text-gray-700 mb-2">Catatan:</p>
+        <p className="text-xs font-medium text-gray-700 mb-2">Catatan Penting:</p>
         <ul className="text-xs text-gray-600 space-y-1">
           <li>• Masukkan skor untuk setiap kategori SDGs (rentang 0-100)</li>
           <li>• Skor rata-rata dihitung otomatis dari semua kategori yang memiliki nilai</li>
-          <li>• Rumus: Total Skor ÷ Jumlah Kategori dengan Skor</li>
+          <li>• Data disimpan dalam format: <code className="bg-gray-100 px-1 rounded">{'{ goals: [...], skor_rata_rata: X }'}</code></li>
+          <li>• Format ini kompatibel dengan halaman publik website</li>
         </ul>
       </div>
     </div>

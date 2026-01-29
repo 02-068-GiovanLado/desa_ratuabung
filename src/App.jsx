@@ -132,7 +132,14 @@ function App() {
             </ProtectedRoute>
           } />
 
-          <Route path="/admin/dashboard/infografis" element={
+          {/* ✅ REDIRECT DEFAULT - Tanpa kategori */}
+          <Route 
+            path="/admin/dashboard/infografis" 
+            element={<Navigate to="/admin/dashboard/infografis/penduduk" replace />} 
+          />
+
+          {/* ✅ ROUTE DENGAN KATEGORI */}
+          <Route path="/admin/dashboard/infografis/:category" element={
             <ProtectedRoute>
               <AdminInfografisPage />
             </ProtectedRoute>
