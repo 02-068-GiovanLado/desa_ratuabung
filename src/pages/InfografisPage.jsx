@@ -361,7 +361,7 @@ const InfografisPage = () => {
     </section>
   );
 
-  // ✅ PERBAIKAN: Helper untuk menghitung skor rata-rata SDGs
+  // ✅ SUDAH DIPERBAIKI: Helper untuk menghitung skor rata-rata SDGs
   const calculateAverageScore = () => {
     // Hitung hanya dari data yang memiliki nilai (bukan semua 18 kategori)
     const validGoals = sdgsData.filter(g => g.progress > 0);
@@ -369,7 +369,7 @@ const InfografisPage = () => {
     if (validGoals.length === 0) return '0.00';
     
     const total = validGoals.reduce((sum, goal) => sum + (goal.progress || 0), 0);
-    const average = (total / validGoals.length) / 100; // Konversi dari skala 0-100 ke 0-1
+    const average = total / validGoals.length; // ✅ Sudah diperbaiki - Hapus pembagian /100
     
     console.log('📈 Average Calculation:', {
       validGoals: validGoals.length,
@@ -764,7 +764,7 @@ const InfografisPage = () => {
                   {allSDGs.map((goal) => {
                     const currentGoal = sdgsData.find(g => g.id === goal.id) || { progress: 0 };
                     const displayValue = currentGoal.progress > 0 
-                      ? (currentGoal.progress / 100).toFixed(2) 
+                      ? currentGoal.progress.toFixed(2) 
                       : '0.00';
                     
                     return (
