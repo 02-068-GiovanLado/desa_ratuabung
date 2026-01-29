@@ -218,20 +218,32 @@ const InfografisPage = () => {
     try {
       setLoadingSDGs(true);
       const response = await fetch(`${API_URL}/infografis/type/sdgs`);
+      
       if (!response.ok) {
+        console.warn('❌ SDGs API Response Not OK:', response.status);
         setSdgsData([]);
         return;
       }
+      
       const result = await response.json();
+      console.log('📊 RAW API Response:', result);
+      
       if (result.data && result.data.length > 0) {
         const latestData = result.data[0];
         const data = typeof latestData.data === 'string' 
           ? JSON.parse(latestData.data) 
           : latestData.data;
+        
+        console.log('✅ Parsed SDGs Data:', data);
+        console.log('📋 Goals Array:', data.goals);
+        
         setSdgsData(data.goals || []);
+      } else {
+        console.warn('⚠️ No SDGs data found');
+        setSdgsData([]);
       }
     } catch (error) {
-      console.error('Error fetching SDGs:', error);
+      console.error('❌ Error fetching SDGs:', error);
       setSdgsData([]);
     } finally {
       setLoadingSDGs(false);
@@ -349,17 +361,23 @@ const InfografisPage = () => {
     </section>
   );
 
-  // Helper untuk menghitung skor rata-rata SDGs (dari semua 18 kategori)
+  // ✅ PERBAIKAN: Helper untuk menghitung skor rata-rata SDGs
   const calculateAverageScore = () => {
-    if (allSDGs.length === 0) return '0.00';
+    // Hitung hanya dari data yang memiliki nilai (bukan semua 18 kategori)
+    const validGoals = sdgsData.filter(g => g.progress > 0);
     
-    const total = allSDGs.reduce((sum, goal) => {
-      const currentGoal = sdgsData.find(g => g.id === goal.id) || { progress: 0 };
-      return sum + currentGoal.progress;
-    }, 0);
+    if (validGoals.length === 0) return '0.00';
     
-    // Konversi ke skala 0-1
-    return ((total / allSDGs.length) / 100).toFixed(2);
+    const total = validGoals.reduce((sum, goal) => sum + (goal.progress || 0), 0);
+    const average = (total / validGoals.length) / 100; // Konversi dari skala 0-100 ke 0-1
+    
+    console.log('📈 Average Calculation:', {
+      validGoals: validGoals.length,
+      total,
+      average: average.toFixed(2)
+    });
+    
+    return average.toFixed(2);
   };
 
   return (
@@ -719,11 +737,13 @@ const InfografisPage = () => {
                         {calculateAverageScore()}
                       </p>
                       <p className="text-xs text-gray-600 mt-2">
-                        dari {allSDGs.length} kategori
+                        dari {sdgsData.filter(g => g.progress > 0).length} kategori dengan data
                       </p>
                     </>
                   ) : (
-                    <p className="text-gray-500 text-sm text-center py-4">Belum ada data</p>
+                    <p className="text-gray-500 text-sm text-center py-4">
+                      {loadingSDGs ? 'Memuat data...' : 'Belum ada data'}
+                    </p>
                   )}
                 </div>
               </div>
@@ -743,8 +763,15 @@ const InfografisPage = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {allSDGs.map((goal) => {
                     const currentGoal = sdgsData.find(g => g.id === goal.id) || { progress: 0 };
+                    const displayValue = currentGoal.progress > 0 
+                      ? (currentGoal.progress / 100).toFixed(2) 
+                      : '0.00';
+                    
                     return (
-                      <div key={goal.id} className="bg-white rounded-lg border border-gray-300 p-6 hover:shadow-md transition-shadow">
+                      <div 
+                        key={goal.id} 
+                        className="bg-white rounded-lg border border-gray-300 p-6 hover:shadow-md transition-shadow"
+                      >
                         <h5 className="font-bold text-gray-900 text-lg mb-4">{goal.title}</h5>
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
@@ -758,7 +785,7 @@ const InfografisPage = () => {
                           <div className="text-right">
                             <p className="text-sm text-gray-600">Nilai</p>
                             <p className="text-3xl font-bold text-[#1E3A5F]">
-                              {(currentGoal.progress / 100).toFixed(2)} {/* ✅ KONVERSI KE SKALA 0-1 */}
+                              {displayValue}
                             </p>
                           </div>
                         </div>

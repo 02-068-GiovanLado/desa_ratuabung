@@ -478,6 +478,7 @@ const FormIDM = ({ formData, setFormData }) => (
   </div>
 );
 
+// ✅ FORM SDGs DENGAN PERBAIKAN LENGKAP
 const FormSDGs = ({ formData, setFormData }) => {
   const sdgsCategories = [
     { id: 1, title: 'Desa Tanpa Kemiskinan' },
@@ -503,16 +504,8 @@ const FormSDGs = ({ formData, setFormData }) => {
   // Inisialisasi goals jika belum ada
   const goals = formData.goals || [];
 
-  const updateField = (id, value) => {
-    const numValue = parseFloat(value) || 0;
-    
-    // Validasi rentang nilai
-    if (numValue < 0 || numValue > 100) {
-      alert('Skor harus antara 0 - 100');
-      return;
-    }
-    
-    // Cari atau buat goal baru
+  // ✅ PERBAIKAN: Helper function untuk update progress
+  const updateGoalProgress = (id, progress) => {
     let newGoals = [...goals];
     const existingIndex = newGoals.findIndex(g => g.id === id);
     const category = sdgsCategories.find(c => c.id === id);
@@ -520,13 +513,13 @@ const FormSDGs = ({ formData, setFormData }) => {
     if (existingIndex >= 0) {
       newGoals[existingIndex] = {
         ...newGoals[existingIndex],
-        progress: numValue
+        progress: progress
       };
     } else {
       newGoals.push({
         id: id,
         title: category.title,
-        progress: numValue
+        progress: progress
       });
     }
     
@@ -540,6 +533,30 @@ const FormSDGs = ({ formData, setFormData }) => {
       goals: newGoals,
       skor_rata_rata: skorRataRata
     });
+  };
+
+  // ✅ PERBAIKAN: Update field dengan handling input kosong yang benar
+  const updateField = (id, value) => {
+    // Handle input kosong
+    if (value === '' || value === null || value === undefined) {
+      updateGoalProgress(id, 0);
+      return;
+    }
+    
+    const numValue = parseFloat(value);
+    
+    // Validasi: harus berupa angka valid
+    if (isNaN(numValue)) {
+      return; // Tidak update jika bukan angka
+    }
+    
+    // Validasi rentang nilai
+    if (numValue < 0 || numValue > 100) {
+      alert('Skor harus antara 0 - 100');
+      return;
+    }
+    
+    updateGoalProgress(id, numValue);
   };
 
   // Hitung skor rata-rata untuk display
@@ -568,7 +585,8 @@ const FormSDGs = ({ formData, setFormData }) => {
         <div className="grid grid-cols-1 gap-3">
           {sdgsCategories.map((category) => {
             const goalData = goals.find(g => g.id === category.id);
-            const currentValue = goalData ? goalData.progress : '';
+            // ✅ PERBAIKAN: Tampilkan dengan format yang benar
+            const currentValue = goalData && goalData.progress > 0 ? goalData.progress : '';
             
             return (
               <div key={category.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
@@ -584,11 +602,18 @@ const FormSDGs = ({ formData, setFormData }) => {
                     max="100"
                     value={currentValue}
                     onChange={(e) => updateField(category.id, e.target.value)}
+                    onBlur={(e) => {
+                      // ✅ PERBAIKAN: Format saat blur (kehilangan fokus)
+                      if (e.target.value === '') {
+                        updateField(category.id, 0);
+                      }
+                    }}
                     placeholder="0.00"
                     className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-[#2E5C8A]"
                   />
                 </div>
                 <div className="flex-shrink-0 text-sm font-semibold text-gray-600 w-12 text-right">
+                  {/* ✅ PERBAIKAN: Display dengan format 2 desimal */}
                   {currentValue !== '' ? parseFloat(currentValue).toFixed(2) : '0.00'}
                 </div>
               </div>
