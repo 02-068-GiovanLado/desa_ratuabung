@@ -34,7 +34,7 @@ const ProfilDesaPage = () => {
                   <h2 className="text-2xl font-bold text-[#1E3A5F]">Visi</h2>
                 </div>
                 <p className="text-gray-700 leading-relaxed">
-                  Terwujudnya Desa Data Adil, Makmur, Aman, dan Sehat, melalui Peningkatan Sumber Daya Manusia Pertanian yang Maju serta Berkualitas.
+                  Melayani Masyarakat Khususnya Desa Ratu Abung dengan Sebaik-baiknya.
                 </p>
               </div>
 
@@ -50,19 +50,11 @@ const ProfilDesaPage = () => {
                 <ul className="text-gray-700 space-y-3">
                   <li className="flex items-start gap-3">
                     <span className="w-1.5 h-1.5 bg-[#2E5C8A] rounded-full mt-2 shrink-0"></span>
-                    <span>Menyelenggarakan pemerintahan yang transparan, akuntabel, dan responsif.</span>
+                    <span>Memajukan desa dalam misi pembangunan.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="w-1.5 h-1.5 bg-[#2E5C8A] rounded-full mt-2 shrink-0"></span>
-                    <span>Meningkatkan sarana dan prasarana berbasis ekonomi produktif.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 bg-[#2E5C8A] rounded-full mt-2 shrink-0"></span>
-                    <span>Meningkatkan pembangunan infrastruktur yang mendukung perekonomian desa.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 bg-[#2E5C8A] rounded-full mt-2 shrink-0"></span>
-                    <span>Meningkatkan pelayanan kesehatan desa.</span>
+                    <span>Memakmurkan masyarakat desa Ratu Abung.</span>
                   </li>
                 </ul>
               </div>
