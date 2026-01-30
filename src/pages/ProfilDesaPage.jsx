@@ -124,7 +124,7 @@ const ProfilDesaPage = () => {
                       Desa Ratu Abung terletak diwilayah Kecamatan Abung Selatan, luas desa sekitar 346 Ha dengan wilayah terbagi dalam 7 dusun dan 19 rt. Terlihat dalam peta desa, sebelah utara desa berbatasan dengan Desa Kembang Tanjung, sebelah selatan berbatasan dengan Desa Kemalo Abung, adapun sebelah barat berbatasan dengan Desa Candimas sedangkan sebelah timur berbatasan dengan Desa Kalibalangan dan Desa Trimodadi.
                     </p>
                     <p className="text-gray-700 leading-relaxed mt-4">
-                    Jumlah penduduk tahun 2025 sebanyak 2175 jiwa, dengan penduduk laki-laki sebanyak 1107 jiwa dan perempuan sebanyak 1070 jiwa. Mayoritas penduduk bekerja sebagai lainnya yaitu sebanyak 256 orang.
+                    Jumlah penduduk tahun 2025 sebanyak 2175 jiwa, dengan penduduk laki-laki sebanyak 1107 jiwa dan perempuan sebanyak 1070 jiwa.
                     </p>
                   </div>
                 </div>
