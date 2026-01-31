@@ -177,7 +177,7 @@ const BelanjaPage = () => {
             <span className="text-[#1E3A5F] font-medium">Belanja</span>
           </div>
           
-          <h1 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-2">Belanja Produk Desa</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-[#1E3A5F] mb-2">Produk UMKM Desa</h1>
           <p className="text-gray-600 text-base md:text-lg">Produk unggulan dari UMKM dan hasil pertanian Desa Ratu Abung</p>
         </div>
       </div>
@@ -398,6 +398,7 @@ const BelanjaPage = () => {
           </button>
         </div>
       </section>
+
     </div>
   );
 };

@@ -40,7 +40,7 @@ const Navbar = () => {
     { path: '/infografis', label: 'Infografis' },
     { path: '/listing', label: 'Listing' },
     { path: '/galeri', label: 'Galeri' },
-    { path: '/belanja', label: 'Belanja' },
+    { path: '/belanja', label: 'UMKM' },
     { path: '/ppid', label: 'PPID' },
   ];
 
