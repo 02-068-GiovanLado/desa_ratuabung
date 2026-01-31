@@ -26,8 +26,8 @@ const GaleriPage = () => {
 
   const API_URL = 'http://localhost:3000/api';
   const itemsPerPage = 10;
-  const MIN_FILE_SIZE = 200 * 1024; // 200 KB
-  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
+  const MIN_FILE_SIZE = 200 * 1024;
+  const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
   useEffect(() => {
     fetchGaleries();
@@ -72,7 +72,6 @@ const GaleriPage = () => {
       return;
     }
 
-    // Validasi ukuran file
     if (file.size < MIN_FILE_SIZE) {
       setImageError(`Ukuran file minimal 200 KB (file Anda: ${(file.size / 1024).toFixed(2)} KB)`);
       setImagePreview(null);
@@ -87,7 +86,6 @@ const GaleriPage = () => {
       return;
     }
 
-    // Validasi tipe file
     if (!file.type.startsWith('image/')) {
       setImageError('File harus berupa gambar (JPG, PNG, GIF, WebP)');
       setImagePreview(null);
@@ -95,10 +93,8 @@ const GaleriPage = () => {
       return;
     }
 
-    // Set file dan preview
     setFormData(prev => ({ ...prev, image: file }));
 
-    // Create preview
     const reader = new FileReader();
     reader.onloadend = () => {
       setImagePreview(reader.result);
@@ -132,13 +128,11 @@ const GaleriPage = () => {
   const handleSave = async (e) => {
     e.preventDefault();
 
-    // Validasi wajib diisi
     if (!formData.title || !formData.author) {
       alert('Mohon isi semua field yang wajib');
       return;
     }
 
-    // Jika tambah galeri baru, gambar wajib
     if (!editingId && !imagePreview) {
       alert('Gambar galeri wajib diisi untuk galeri baru');
       return;
@@ -148,7 +142,7 @@ const GaleriPage = () => {
       const dataToSend = {
         title: formData.title,
         author: formData.author,
-        image: imagePreview || null // Send base64 string
+        image: imagePreview || null
       };
 
       const method = editingId ? 'PUT' : 'POST';
@@ -203,13 +197,18 @@ const GaleriPage = () => {
       {/* Navigation */}
       <nav className="bg-white border-b border-gray-200 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          {/* ✅ Logo + Judul dibuat clickable → kembali ke dashboard */}
+          <button
+            onClick={() => navigate('/admin/dashboard')}
+            className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+          >
             <img src="/images/Logo.png" alt="Logo" className="w-10 h-10" />
-            <div>
+            <div className="text-left">
               <h1 className="text-lg font-bold text-[#1E3A5F]">Kelola Galeri</h1>
               <p className="text-xs text-gray-500">Desa Ratu Abung</p>
             </div>
-          </div>
+          </button>
+
           <div className="flex items-center gap-4">
             <span className="text-sm text-gray-600">{user.name}</span>
             <button
@@ -425,7 +424,6 @@ const GaleriPage = () => {
                   {editingId ? 'Ubah Gambar (Opsional)' : 'Gambar Galeri *'}
                 </label>
                 
-                {/* File Input */}
                 <div className="mb-4">
                   <label className="flex items-center justify-center w-full px-4 py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-[#2E5C8A] hover:bg-[#EFF6FF] transition-all">
                     <div className="text-center">
@@ -444,14 +442,12 @@ const GaleriPage = () => {
                   </label>
                 </div>
 
-                {/* Error Message */}
                 {imageError && (
                   <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
                     {imageError}
                   </div>
                 )}
 
-                {/* Image Preview */}
                 {imagePreview && (
                   <div className="mb-4">
                     <p className="text-sm font-medium text-gray-700 mb-2">Preview Gambar:</p>
@@ -478,7 +474,6 @@ const GaleriPage = () => {
                 )}
               </div>
 
-              {/* Buttons */}
               <div className="flex gap-3 justify-end border-t border-gray-200 pt-6">
                 <button
                   onClick={() => setShowModal(false)}

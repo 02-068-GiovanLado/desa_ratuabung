@@ -41,12 +41,17 @@ const DashboardAdmin = () => {
       const galeriData = await galeriRes.json();
       const infografisData = await infografisRes.json();
 
+      const uniqueInfografisTypes = new Set(
+        (infografisData.data || []).map(item => item.type)
+      );
+
       setStats({
         totalProducts: productsData.pagination?.total || 0,
         totalGaleri: galeriData.data?.length || 0,
-        totalInfografis: infografisData.data?.length || 0,
-        totalVisitors: 0 // Jika ada tracking visitors, tambahkan di sini
+        totalInfografis: uniqueInfografisTypes.size,
+        totalVisitors: 0
       });
+
     } catch (error) {
       console.error('Error fetching stats:', error);
       setStats({

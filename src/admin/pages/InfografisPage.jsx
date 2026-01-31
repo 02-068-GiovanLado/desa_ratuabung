@@ -16,7 +16,6 @@ const InfografisPage = () => {
 
   const API_URL = 'http://localhost:3000/api';
 
-  // Mapping tab ke label dan deskripsi
   const tabConfig = {
     'Penduduk': {
       label: 'Infografis Penduduk',
@@ -59,13 +58,11 @@ const InfografisPage = () => {
       setLoading(true);
       setError(null);
       
-      // Ambil data berdasarkan kategori aktif
       const response = await fetch(`${API_URL}/infografis/type/${activeTab.toLowerCase()}`);
       if (!response.ok) throw new Error('Gagal memuat infografis');
       const data = await response.json();
       setInfografis(data.data || []);
       
-      // Jika ada data, ambil data terbaru untuk edit
       if (data.data && data.data.length > 0) {
         const latestData = data.data[0];
         setFormData(typeof latestData.data === 'string' ? JSON.parse(latestData.data) : latestData.data);
@@ -148,13 +145,18 @@ const InfografisPage = () => {
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white border-b border-gray-200 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          {/* ✅ Logo + Judul dibuat clickable → kembali ke dashboard */}
+          <button
+            onClick={() => navigate('/admin/dashboard')}
+            className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+          >
             <img src="/images/Logo.png" alt="Logo" className="w-10 h-10" />
-            <div>
+            <div className="text-left">
               <h1 className="text-lg font-bold text-[#1E3A5F]">Kelola Infografis</h1>
               <p className="text-xs text-gray-500">Desa Ratu Abung</p>
             </div>
-          </div>
+          </button>
+
           <div className="flex items-center gap-4">
             <span className="text-sm text-gray-600">{user.name}</span>
             <button
@@ -171,7 +173,6 @@ const InfografisPage = () => {
         {/* Navigasi Tab */}
         <div className="mb-6 flex gap-2 overflow-x-auto pb-2">
           {Object.keys(tabConfig).map(tab => {
-            const config = tabConfig[tab];
             return (
               <button
                 key={tab}
@@ -207,9 +208,7 @@ const InfografisPage = () => {
             </p>
           </div>
 
-          {/* Form Content */}
           <form onSubmit={handleSave} className="space-y-8">
-            {/* Kategori Label */}
             <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
               <label className="block text-sm font-semibold text-gray-700 mb-2">Kategori</label>
               <div className="px-4 py-2.5 bg-white border border-gray-300 rounded-lg font-medium text-gray-800">
@@ -217,12 +216,10 @@ const InfografisPage = () => {
               </div>
             </div>
 
-            {/* Form Fields */}
             <div className="border-t border-gray-200 pt-6">
               {renderFormByType()}
             </div>
 
-            {/* Action Buttons */}
             <div className="flex gap-3 justify-end border-t border-gray-200 pt-6">
               <button
                 type="button"
@@ -249,7 +246,7 @@ const InfografisPage = () => {
 };
 
 // ============================================
-// FORM COMPONENTS
+// FORM COMPONENTS (unchanged)
 // ============================================
 
 const InputField = ({ label, value, onChange, type = 'number', placeholder = '0' }) => (
@@ -272,7 +269,6 @@ const FormPenduduk = ({ formData, setFormData }) => {
 
   return (
     <div className="space-y-6">
-      {/* 1. Jumlah Penduduk & Kepala Keluarga */}
       <section>
         <h4 className="font-semibold text-gray-900 mb-3 text-sm">1. Jumlah Penduduk & Kepala Keluarga</h4>
         <div className="grid grid-cols-2 gap-3">
@@ -283,7 +279,6 @@ const FormPenduduk = ({ formData, setFormData }) => {
         </div>
       </section>
 
-      {/* 2. Kelompok Umur */}
       <section>
         <h4 className="font-semibold text-gray-900 mb-3 text-sm">2. Kelompok Umur</h4>
         <div className="space-y-2">
@@ -297,7 +292,6 @@ const FormPenduduk = ({ formData, setFormData }) => {
         </div>
       </section>
 
-      {/* 3. Berdasarkan Dusun */}
       <section>
         <h4 className="font-semibold text-gray-900 mb-3 text-sm">3. Berdasarkan Dusun</h4>
         <div className="space-y-2">
@@ -307,7 +301,6 @@ const FormPenduduk = ({ formData, setFormData }) => {
         </div>
       </section>
 
-      {/* 4. Berdasarkan Pekerjaan */}
       <section>
         <h4 className="font-semibold text-gray-900 mb-3 text-sm">4. Berdasarkan Pekerjaan</h4>
         <div className="space-y-2">
@@ -317,7 +310,6 @@ const FormPenduduk = ({ formData, setFormData }) => {
         </div>
       </section>
 
-      {/* 5. Berdasarkan Pendidikan */}
       <section>
         <h4 className="font-semibold text-gray-900 mb-3 text-sm">5. Berdasarkan Pendidikan</h4>
         <div className="space-y-2">
@@ -327,7 +319,6 @@ const FormPenduduk = ({ formData, setFormData }) => {
         </div>
       </section>
 
-      {/* 6. Berdasarkan Perkawinan */}
       <section>
         <h4 className="font-semibold text-gray-900 mb-3 text-sm">6. Berdasarkan Perkawinan</h4>
         <div className="space-y-2">
@@ -337,7 +328,6 @@ const FormPenduduk = ({ formData, setFormData }) => {
         </div>
       </section>
 
-      {/* 7. Berdasarkan Agama */}
       <section>
         <h4 className="font-semibold text-gray-900 mb-3 text-sm">7. Berdasarkan Agama</h4>
         <div className="space-y-2">
@@ -356,7 +346,6 @@ const FormAPBDes = ({ formData, setFormData }) => {
     setFormData(prev => {
       const newData = { ...prev, [key]: numValue };
       
-      // Hitung ulang surplus/defisit
       const pendapatan = newData.pendapatan || 0;
       const belanja = newData.belanja || 0;
       const penerimaan = newData.penerimaan || 0;
@@ -478,7 +467,6 @@ const FormIDM = ({ formData, setFormData }) => (
   </div>
 );
 
-// ✅ FORM SDGs DENGAN PERBAIKAN LENGKAP
 const FormSDGs = ({ formData, setFormData }) => {
   const sdgsCategories = [
     { id: 1, title: 'Desa Tanpa Kemiskinan' },
@@ -501,10 +489,8 @@ const FormSDGs = ({ formData, setFormData }) => {
     { id: 18, title: 'Kelembagaan Desa Dinamis dan Budaya Desa Adaptif' },
   ];
 
-  // Inisialisasi goals jika belum ada
   const goals = formData.goals || [];
 
-  // ✅ PERBAIKAN: Helper function untuk update progress
   const updateGoalProgress = (id, progress) => {
     let newGoals = [...goals];
     const existingIndex = newGoals.findIndex(g => g.id === id);
@@ -523,7 +509,6 @@ const FormSDGs = ({ formData, setFormData }) => {
       });
     }
     
-    // Hitung skor rata-rata
     const validGoals = newGoals.filter(g => g.progress > 0);
     const skorRataRata = validGoals.length > 0 
       ? parseFloat((validGoals.reduce((sum, g) => sum + g.progress, 0) / validGoals.length).toFixed(2))
@@ -535,9 +520,7 @@ const FormSDGs = ({ formData, setFormData }) => {
     });
   };
 
-  // ✅ PERBAIKAN: Update field dengan handling input kosong yang benar
   const updateField = (id, value) => {
-    // Handle input kosong
     if (value === '' || value === null || value === undefined) {
       updateGoalProgress(id, 0);
       return;
@@ -545,12 +528,10 @@ const FormSDGs = ({ formData, setFormData }) => {
     
     const numValue = parseFloat(value);
     
-    // Validasi: harus berupa angka valid
     if (isNaN(numValue)) {
-      return; // Tidak update jika bukan angka
+      return;
     }
     
-    // Validasi rentang nilai
     if (numValue < 0 || numValue > 100) {
       alert('Skor harus antara 0 - 100');
       return;
@@ -559,7 +540,6 @@ const FormSDGs = ({ formData, setFormData }) => {
     updateGoalProgress(id, numValue);
   };
 
-  // Hitung skor rata-rata untuk display
   const validGoals = goals.filter(g => g.progress > 0);
   const skorRataRata = validGoals.length > 0
     ? (validGoals.reduce((sum, g) => sum + g.progress, 0) / validGoals.length).toFixed(2)
@@ -585,7 +565,6 @@ const FormSDGs = ({ formData, setFormData }) => {
         <div className="grid grid-cols-1 gap-3">
           {sdgsCategories.map((category) => {
             const goalData = goals.find(g => g.id === category.id);
-            // ✅ PERBAIKAN: Tampilkan dengan format yang benar
             const currentValue = goalData && goalData.progress > 0 ? goalData.progress : '';
             
             return (
@@ -603,7 +582,6 @@ const FormSDGs = ({ formData, setFormData }) => {
                     value={currentValue}
                     onChange={(e) => updateField(category.id, e.target.value)}
                     onBlur={(e) => {
-                      // ✅ PERBAIKAN: Format saat blur (kehilangan fokus)
                       if (e.target.value === '') {
                         updateField(category.id, 0);
                       }
@@ -613,7 +591,6 @@ const FormSDGs = ({ formData, setFormData }) => {
                   />
                 </div>
                 <div className="flex-shrink-0 text-sm font-semibold text-gray-600 w-12 text-right">
-                  {/* ✅ PERBAIKAN: Display dengan format 2 desimal */}
                   {currentValue !== '' ? parseFloat(currentValue).toFixed(2) : '0.00'}
                 </div>
               </div>

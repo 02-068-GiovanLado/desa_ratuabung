@@ -14,6 +14,7 @@ import DashboardAdmin from './admin/pages/DashboardAdmin';
 import ProductsPage from './admin/pages/ProductsPage';
 import AdminGaleriPage from './admin/pages/GaleriPage';
 import AdminInfografisPage from './admin/pages/InfografisPage';
+import SettingsPage from './admin/pages/Settingspage';
 import { AuthProvider, useAuth } from './admin/context/AuthContext';
 
 // Protected Route Component
@@ -129,6 +130,18 @@ function App() {
           <Route path="/admin/dashboard/galeri" element={
             <ProtectedRoute>
               <AdminGaleriPage />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/admin/dashboard/settings" element={
+            <ProtectedRoute>
+              <SettingsPage />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/admin/settings" element={
+            <ProtectedRoute>
+              <SettingsPage />
             </ProtectedRoute>
           } />
 

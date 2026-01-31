@@ -55,13 +55,6 @@ const LoginPage = () => {
                 </div>
               )}
 
-              {/* Demo Info */}
-              <div className="bg-blue-50 border border-blue-200 text-blue-700 px-4 py-3 rounded-lg text-sm">
-                <p className="font-semibold mb-1">Demo Login (Backend):</p>
-                <p>Email: <span className="font-mono">admin@webdesa.com</span></p>
-                <p>Password: <span className="font-mono">admin123</span></p>
-              </div>
-
               {/* Email Input */}
               <div>
                 <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
