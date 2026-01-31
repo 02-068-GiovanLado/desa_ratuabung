@@ -34,7 +34,7 @@ const ProfilDesaPage = () => {
                   <h2 className="text-2xl font-bold text-[#1E3A5F]">Visi</h2>
                 </div>
                 <p className="text-gray-700 leading-relaxed">
-                  Terwujudnya Desa Data Adil, Makmur, Aman, dan Sehat, melalui Peningkatan Sumber Daya Manusia Pertanian yang Maju serta Berkualitas.
+                  Melayani Masyarakat Khususnya Desa Ratu Abung dengan Sebaik-baiknya.
                 </p>
               </div>
 
@@ -50,19 +50,11 @@ const ProfilDesaPage = () => {
                 <ul className="text-gray-700 space-y-3">
                   <li className="flex items-start gap-3">
                     <span className="w-1.5 h-1.5 bg-[#2E5C8A] rounded-full mt-2 shrink-0"></span>
-                    <span>Menyelenggarakan pemerintahan yang transparan, akuntabel, dan responsif.</span>
+                    <span>Memajukan desa dalam misi pembangunan.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="w-1.5 h-1.5 bg-[#2E5C8A] rounded-full mt-2 shrink-0"></span>
-                    <span>Meningkatkan sarana dan prasarana berbasis ekonomi produktif.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 bg-[#2E5C8A] rounded-full mt-2 shrink-0"></span>
-                    <span>Meningkatkan pembangunan infrastruktur yang mendukung perekonomian desa.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 bg-[#2E5C8A] rounded-full mt-2 shrink-0"></span>
-                    <span>Meningkatkan pelayanan kesehatan desa.</span>
+                    <span>Memakmurkan masyarakat desa Ratu Abung.</span>
                   </li>
                 </ul>
               </div>
@@ -124,7 +116,7 @@ const ProfilDesaPage = () => {
                       Desa Ratu Abung terletak diwilayah Kecamatan Abung Selatan, luas desa sekitar 346 Ha dengan wilayah terbagi dalam 7 dusun dan 19 rt. Terlihat dalam peta desa, sebelah utara desa berbatasan dengan Desa Kembang Tanjung, sebelah selatan berbatasan dengan Desa Kemalo Abung, adapun sebelah barat berbatasan dengan Desa Candimas sedangkan sebelah timur berbatasan dengan Desa Kalibalangan dan Desa Trimodadi.
                     </p>
                     <p className="text-gray-700 leading-relaxed mt-4">
-                    Jumlah penduduk tahun 2025 sebanyak 2175 jiwa, dengan penduduk laki-laki sebanyak 1068 jiwa dan perempuan sebanyak 1107 jiwa. Mayoritas penduduk bekerja sebagai lainnya yaitu sebanyak 256 orang.
+                    Jumlah penduduk tahun 2025 sebanyak 2175 jiwa, dengan penduduk laki-laki sebanyak 1107 jiwa dan perempuan sebanyak 1070 jiwa.
                     </p>
                   </div>
                 </div>
