@@ -14,7 +14,7 @@ const InfografisPage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState(null);
 
-  const API_URL = 'http://localhost:3000/api';
+  const API_URL = import.meta.env.VITE_API_BASE_URL;
 
   const tabConfig = {
     'Penduduk': {

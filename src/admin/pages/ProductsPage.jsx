@@ -30,7 +30,7 @@ const ProductsPage = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [imageError, setImageError] = useState('');
 
-  const API_URL = 'http://localhost:3000/api';
+  const API_URL = import.meta.env.VITE_API_BASE_URL + '/api';
   const itemsPerPage = 10;
   const categories = ['Semua', 'Hasil Pertanian', 'UMKM', 'Kerajinan', 'Makanan & Minuman'];
   const MIN_FILE_SIZE = 200 * 1024;
