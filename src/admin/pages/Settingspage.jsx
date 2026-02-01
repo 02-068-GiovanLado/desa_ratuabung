@@ -6,7 +6,7 @@ const SettingsPage = () => {
   const { user, logout, token: authToken } = useAuth();
   const navigate = useNavigate();
 
-  const API_URL = import.meta.env.VITE_API_BASE_URL;
+  const API_URL = import.meta.env.VITE_API_BASE_URL + '/api';
 
   // ambil token dari context atau localStorage (fallback)
   const token = authToken || localStorage.getItem('adminToken');

@@ -24,7 +24,7 @@ const InfografisPage = () => {
   const [idmData, setIdmData] = useState(null);
   const [loadingIDM, setLoadingIDM] = useState(false);
 
-  const API_URL = 'http://localhost:3000/api';
+  const API_URL = import.meta.env.VITE_API_BASE_URL + '/api';
 
   // Daftar semua kategori SDGs (18 kategori)
   const allSDGs = [

@@ -24,7 +24,7 @@ const GaleriPage = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [imageError, setImageError] = useState('');
 
-  const API_URL = import.meta.env.VITE_API_BASE_URL;
+  const API_URL = import.meta.env.VITE_API_BASE_URL + '/api';
   const itemsPerPage = 10;
   const MIN_FILE_SIZE = 200 * 1024;
   const MAX_FILE_SIZE = 5 * 1024 * 1024;
