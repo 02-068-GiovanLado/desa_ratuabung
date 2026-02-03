@@ -54,10 +54,10 @@ const HomePage = () => {
   // Animated counter effect
   useEffect(() => {
     const targetValues = {
-      penduduk: 2175,
-      lakiLaki: 1068,
-      kepalaKeluarga: 694,
-      perempuan: 1107
+      penduduk: 2231,
+      lakiLaki: 1216,
+      kepalaKeluarga: 663,
+      perempuan: 1015
     };
 
     const duration = 2000;
