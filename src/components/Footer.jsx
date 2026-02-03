@@ -1,8 +1,8 @@
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const alamat = "Ratu Abung, Kec. Abung Selatan, Kabupaten Lampung Utara, Lampung 35362, Indonesia";
-  const telp = "000000000000";
-  const email = "ratuabung@lampungutara.go.id";
+  const telp = "085758620067";
+  const email = "desaratuabungratuabung@gmail.com";
 
   return (
     <footer className="w-full bg-[#1E3A5F] text-white font-poppins">
